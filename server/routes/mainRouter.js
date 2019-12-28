@@ -3,7 +3,7 @@ const Authentication = require("../controllers/authentication");
 const { isUserAuthenticated, localLogin } = require("../passport/passport");
 
 router.post("/signup", Authentication.signup);
-router.post("/login", localLogin, Authentication.login);
+router.post("/signin", localLogin, Authentication.signin);
 
 // protected Resources
 router.post("/", isUserAuthenticated, (req, res) => {

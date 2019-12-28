@@ -30,20 +30,19 @@ passport.use(
 );
 
 // https://github.com/jaredhanson/passport-local/#parameters
-const localOps = { usernameField: "email" };
+const localOps = { usernameField: "username" };
 
 passport.use(
-  new LocalStrategy(localOps, function(email, password, done) {
-    UserModel.findOne({ email }, function(error, user) {
+  new LocalStrategy(localOps, function(username, password, done) {
+    UserModel.findOne({ username }, function(error, user) {
       if (error) return done(error, false);
       if (!user)
-        return done(null, false, { message: "Invalid Email or Password" });
+        return done(null, false, { message: "Invalid Username or Password" });
 
       user.verifyPassword(password, function(error, isEqual) {
         if (error) return done(error, false);
         if (isEqual) return done(null, user);
-        console.log("i was herre", isEqual);
-        return done(null, false, { message: "Invalid Email or Password" });
+        return done(null, false, { message: "Invalid Username or Password" });
       });
     });
   })

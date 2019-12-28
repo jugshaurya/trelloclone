@@ -3,7 +3,6 @@ const createToken = require("../utils/createToken");
 
 exports.signup = async (req, res, next) => {
   // TODO: Client Side Verification of req.body
-  console.log("Hello", req.body);
   const { username, email, password, confirmPassword, avatarUrl } = req.body;
 
   if (password !== confirmPassword) {
@@ -35,12 +34,12 @@ exports.signup = async (req, res, next) => {
   }
 };
 
-exports.login = async (req, res, next) => {
+exports.signin = async (req, res, next) => {
   try {
     const token = await createToken(req.user);
     return res
       .status(200)
-      .json({ token, message: `Welcome Back ${req.user.name}` });
+      .json({ token, message: `Welcome Back ${req.user.username}` });
   } catch (error) {
     return next(error);
   }
