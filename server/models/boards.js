@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 const attachBoardsHooks = require("../hooks/boards.hooks");
 const boardSchema = new Schema(
   {
-    boardName: {
+    name: {
       type: String,
       required: true
     },
-    boardBackground: {
+    background: {
       type: String,
       required: true
     },

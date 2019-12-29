@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const userServices = require("../services/user.services");
+const userServices = require("../services/users.services");
 const { localLogin } = require("../passport/passport");
 
 router.post("/signup", userServices.signup);

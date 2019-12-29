@@ -13,7 +13,7 @@
 
 - [x] Generate Server
 
-  - [x] node+express
+  - [x] node + express
   - [x] mongodb connection + mongoose
     - [x] trello-clone db
       - [x] users collection
@@ -21,7 +21,7 @@
   - [x] jwt
   - [x] bcrypt to hash pass
 
-- [] Generate Client
+- [x] Generate Client
 
   - [x] Create a react app
   - [x] use react-bootstrap/ant design or write from scratch
@@ -29,18 +29,26 @@
   - [x] Add redux-thunk
   - [] Add redux and create basic store files
 
-* [] Add local auth to server
-* [] Add vuetify to client
-* [] Add feathers-vuex to client
-* [] Add login to client
-* [] Add boards service to server
-* [] User can create/list/view boards on client
-* [] Create
-* [] Add ownerId
-* [] List
-* [] Restrict to owner
-* [] View
-* [] Restrict to owner
+- [x] Add local auth to server
+- [] TODO: Add client data validation on server
+- [] Add signin and signup to client
+
+  - [x] Create Form for Both
+  - [] Add Client Side Validation of data, checking and showing errors
+  - [x] save token after signin inside localstorage
+
+- [x] Add boards service to server
+- [x] User can create/view boards on client
+
+  - [x] Create new Board
+    - [x] Add ownerId
+  - [x] View all the boards
+    - [x] show user's boards not of others
+
+- [] view single board using id param to route
+
+  - [] @server : add GET /boards/id=3027593 route and route handler
+
 * [] Add lists service to server
 * [] User can create/list/view lists for boards on client
 * [] Create
@@ -48,7 +56,24 @@
 * [] List
 * [] Restrict to board owner
 * [] Add cards service to server
-*
+* [] User can create/list/view cards for lists on client
+* [] Create
+* [] Restrict to board owner
+* [] List
+* [] Restrict to board owner
+* [] View
+* [] Restrict to board owner
+* [] User can move cards from one list to another
+* [] User can add other members to a board
+* [] Update restrict to board owner to include members
+* [] User can re-arrange lists
+* [] restrict to board members
+* [] Create activities service on server
+* [] All activities are logged
+* [] User can assign a member to a card
+* [] restrict to board members
+* [] User can add comments to a card
+* [] restrict to board members
 
 ### Stretch
 
