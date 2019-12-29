@@ -1,13 +1,15 @@
 const router = require("express").Router();
-const Authentication = require("../controllers/authentication");
-const { isUserAuthenticated, localLogin } = require("../passport/passport");
+const userRouter = require("./userRouter");
+const boardsRouter = require("./boardsRouter");
 
-router.post("/signup", Authentication.signup);
-router.post("/signin", localLogin, Authentication.signin);
+const { isUserAuthenticated } = require("../passport/passport");
+router.use("/user", userRouter);
 
 // protected Resources
-router.post("/", isUserAuthenticated, (req, res) => {
-  res.status(200).json({ message: `Hello ${req.user.name}` });
-});
+router.use("/boards", isUserAuthenticated, boardsRouter);
+
+// router.use("/", (req, res, next) => {
+//   res.json(`Hello Hello from server`);
+// });
 
 module.exports = router;

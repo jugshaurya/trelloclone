@@ -49,7 +49,7 @@ const SignUp = props => {
       isSignUpPending: true
     });
 
-    const response = await fetch("http://localhost:5000/signup", {
+    const response = await fetch("http://localhost:5000/user/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -89,7 +89,7 @@ const SignUp = props => {
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                     required
-                    type="username"
+                    type="text"
                     name="username"
                     placeholder="Enter Username"
                     onChange={handleChange}

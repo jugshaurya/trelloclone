@@ -6,7 +6,7 @@ const withAuth = WrappedComponent => {
       this.shouldNavigateAway();
     }
 
-    componentWillUpdate() {
+    componentDidUpdate() {
       this.shouldNavigateAway();
     }
 

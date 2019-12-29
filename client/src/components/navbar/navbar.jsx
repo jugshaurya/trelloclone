@@ -12,6 +12,10 @@ class Appbar extends Component {
         </Navbar.Text>
         <Nav className="ml-auto">
           <Navbar.Text className="mr-3">
+            <Link to="/boards">Boards</Link>
+          </Navbar.Text>
+
+          <Navbar.Text className="mr-3">
             <Link to="/signup">Sign Up</Link>
           </Navbar.Text>
           <Navbar.Text>

@@ -29,7 +29,7 @@ const SignIn = props => {
       isSignInPending: true
     });
 
-    const response = await fetch("http://localhost:5000/signin", {
+    const response = await fetch("http://localhost:5000/user/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -77,15 +77,12 @@ const SignIn = props => {
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                     required
-                    type="username"
+                    type="text"
                     name="username"
                     placeholder="Enter Username"
                     onChange={handleChange}
                     value={username}
                   />
-                  <Form.Control.Feedback type="invalid">
-                    Cannot be Empty
-                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
@@ -98,9 +95,6 @@ const SignIn = props => {
                     onChange={handleChange}
                     value={password}
                   />
-                  <Form.Control.Feedback type="invalid">
-                    Cannot be Empty
-                  </Form.Control.Feedback>
                 </Form.Group>
                 {signInError && <Alert variant="danger">{signInError}</Alert>}
                 {signInSuccessMessage && (
