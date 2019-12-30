@@ -7,7 +7,6 @@ const app = express();
 
 const mongoose = require("mongoose");
 const passport = require("passport");
-
 const mainRouter = require("./routes/mainRouter");
 
 // basic Configuration Middlewares
@@ -17,8 +16,8 @@ app.use(compress());
 app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("combined"));
+if (require("./config").NODE_ENV === "development") {
+  app.use(morgan("tiny"));
 }
 
 // db connection
@@ -39,6 +38,7 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });

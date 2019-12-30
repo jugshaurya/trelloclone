@@ -10,8 +10,8 @@ import Board from "./components/board/board";
 import withAuth from "./components/withAuth/withAuth";
 import Homepage from "./components/hompage/homepage";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const ProtectedBoards = withAuth(Boards);
 const ProtectedBoard = withAuth(Board);
