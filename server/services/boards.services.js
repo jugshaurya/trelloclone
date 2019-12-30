@@ -4,7 +4,7 @@ const Board = require("../models/boards");
 const getAllBoards = async (req, res) => {
   try {
     const boards = await Board.find({ ownerId: req.user._id });
-    res.json({ boards });
+    res.json(boards);
   } catch (e) {
     next(e);
   }
@@ -14,10 +14,8 @@ const getAllBoards = async (req, res) => {
 
 const getBoard = async (req, res, next) => {
   // validate client side Params ID if required!
-  console.log(req.params);
   try {
     const result = await Board.findOne({ _id: req.params.id });
-    console.log(result);
     if (!result) return res.status(400).json("Invalid ID");
     res.json(result);
   } catch (e) {

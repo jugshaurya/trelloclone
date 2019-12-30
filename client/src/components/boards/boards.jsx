@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import Spinner from "react-bootstrap/Spinner";
 import Form from "react-bootstrap/Form";
@@ -20,6 +19,7 @@ class Boards extends React.Component {
   };
 
   getAllBoards = async () => {
+    console.log("ast");
     this.setState({ isFetchingBoards: true });
     const response = await fetch("http://localhost:5000/boards", {
       method: "GET",
@@ -28,6 +28,7 @@ class Boards extends React.Component {
       }
     });
     const boards = await response.json();
+
     this.setState({ boards, isFetchingBoards: false });
   };
 
@@ -93,7 +94,14 @@ class Boards extends React.Component {
                 />
                 <Card.Body>
                   <Card.Title>{board.name}</Card.Title>
-                  <Link to={`/boards/${board._id}`}>Go</Link>
+                  <Button
+                    type="button"
+                    onClick={e =>
+                      this.props.history.push(`/boards/${board._id}`)
+                    }
+                  >
+                    Go
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>

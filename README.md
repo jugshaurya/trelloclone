@@ -45,17 +45,24 @@
   - [x] View all the boards
     - [x] show user's boards not of others
 
-- [] view single board using id param to route
+- [x] view single board using id param to route
 
-  - [] @server : add GET /boards/id=3027593 route and route handler
+  - [x] @server : add GET /boards/id=3027593 route and route handler
 
-* [] Add lists service to server
-* [] User can create/list/view lists for boards on client
-* [] Create
-* [] Restrict to board owner
-* [] List
-* [] Restrict to board owner
-* [] Add cards service to server
+- [] User can create/view lists for boards
+
+  - [x] @server
+    - [x] create new list in board, POST : /lists/:boardId
+    - [x] get all , GET: /lists/:boardId
+  - [x] @client : create board Component
+    - [x] get all lists in a board
+    - [x] create new list
+  - [] Restrict only the owner to create a new list
+
+---
+
+- [] Add cards service to server
+
 * [] User can create/list/view cards for lists on client
 * [] Create
 * [] Restrict to board owner

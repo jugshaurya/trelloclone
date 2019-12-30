@@ -2,26 +2,36 @@ import React from "react";
 
 const withAuth = WrappedComponent => {
   class decoratedClass extends React.Component {
+    state = {
+      permissionGranted: false
+    };
+
     componentDidMount() {
       this.shouldNavigateAway();
     }
 
     componentDidUpdate() {
-      this.shouldNavigateAway();
+      if (!localStorage.getItem("token")) this.shouldNavigateAway();
     }
 
     shouldNavigateAway = () => {
       if (!localStorage.getItem("token")) {
+        this.setState({ permissionGranted: false });
+
         this.props.history.push("/signin");
       } else {
+        this.setState({ permissionGranted: true });
         console.log("Hello Hello Hello");
       }
     };
 
     render() {
-      return <WrappedComponent {...this.props} />;
+      return this.state.permissionGranted ? (
+        <WrappedComponent {...this.props} />
+      ) : null;
     }
   }
+
   return decoratedClass;
 };
 
