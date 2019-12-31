@@ -1,11 +1,10 @@
 import React from "react";
 
-import List from "../list/list";
-
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -34,7 +33,7 @@ class Board extends React.Component {
     this.setState({ board, isFetchingBoard: false });
   };
 
-  getAllListsInBoard = async () => {
+  getAllListInBoard = async () => {
     this.setState({ isFetchingList: true });
     const boardId = this.props.match.params.id;
     const response = await fetch(`http://localhost:5000/lists/${boardId}`, {
@@ -74,7 +73,7 @@ class Board extends React.Component {
 
   componentDidMount() {
     this.getBoard();
-    this.getAllListsInBoard();
+    this.getAllListInBoard();
   }
 
   handleChange = e => {
@@ -118,24 +117,28 @@ class Board extends React.Component {
         <Row>
           {isFetchingList ? (
             <Col className="mt-5">
+              'ewf'
               <Spinner animation="border" variant="info" />
             </Col>
           ) : (
             <>
               {lists.map(list => (
                 <Col className="col-4 p-3" key={list._id}>
-                  <List name={list.name} listId={list._id} />
+                  <Card>
+                    <Card.Title>{list.name}</Card.Title>
+                  </Card>
                 </Col>
               ))}
               {isCreatingList ? (
                 <div className="mt-5">
+                  'wef'
                   <Spinner animation="border" variant="info" />
                 </div>
               ) : (
                 <Col className="col-4 p-3">
                   <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="formBasicListname">
-                      <Form.Label>Create List</Form.Label>
+                    <Form.Group controlId="formBasicBoardname">
+                      <Form.Label>List Name</Form.Label>
                       <Form.Control
                         required
                         type="text"

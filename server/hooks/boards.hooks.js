@@ -1,4 +1,4 @@
-module.exports = function attachBoardsHooks(boardsSchema) {
+module.exports = function attachUsersHooks(boardsSchema) {
   // only the owner can see his/her boards not of others
   //
   // TODO : add hook before (create): restrictToOwner,
