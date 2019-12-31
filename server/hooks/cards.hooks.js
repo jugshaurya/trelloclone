@@ -1,4 +1,4 @@
-module.exports = function attachListsHooks(boardsSchema) {
+module.exports = function attachCardsHooks(boardsSchema) {
   // TODO : add hook before (create): restrictToOwner,
   //  ADD only the owner have permission to create a new list
   //

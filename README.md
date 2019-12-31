@@ -30,11 +30,11 @@
   - [] Add redux and create basic store files
 
 - [x] Add local auth to server
-- [] TODO: Add client data validation on server
-- [] Add signin and signup to client
+- [ ] TODO: Add client data validation on server
+- [ ] Add signin and signup to client
 
   - [x] Create Form for Both
-  - [] Add Client Side Validation of data, checking and showing errors
+  - [ ] Add Client Side Validation of data, checking and showing errors
   - [x] save token after signin inside localstorage
 
 - [x] Add boards service to server
@@ -49,7 +49,7 @@
 
   - [x] @server : add GET /boards/id=3027593 route and route handler
 
-- [] User can create/view lists for boards
+- [ ] User can create/view lists for boards
 
   - [x] @server
     - [x] create new list in board, POST : /lists/:boardId
@@ -57,30 +57,39 @@
   - [x] @client : create board Component
     - [x] get all lists in a board
     - [x] create new list
-  - [] Restrict only the owner to create a new list
+  - [ ] Restrict only the owner to create a new list
 
 ---
 
-- [] Add cards service to server
+- [x] create/view cards in list
 
-* [] User can create/list/view cards for lists on client
-* [] Create
-* [] Restrict to board owner
-* [] List
-* [] Restrict to board owner
-* [] View
-* [] Restrict to board owner
-* [] User can move cards from one list to another
-* [] User can add other members to a board
-* [] Update restrict to board owner to include members
-* [] User can re-arrange lists
-* [] restrict to board members
-* [] Create activities service on server
-* [] All activities are logged
-* [] User can assign a member to a card
-* [] restrict to board members
-* [] User can add comments to a card
-* [] restrict to board members
+  - [x] @client
+  - [x] @server : service to server
+
+- [ ] Drag Cards from one list to another
+  - [ ] User can move cards from one list to another
+- [ ] make logged in user visible on navbar
+
+- [ ] Restrict only the board owner to :
+  - [] create a list or create a card
+
+---
+
+- [ ] User can add other members to a board
+- [ ] Update restrict to board owner to include members
+- [ ] User can re-arrange lists
+- [ ] restrict to board members
+- [ ] Create activities service on server
+- [ ] All activities are logged
+- [ ] User can assign a member to a card
+- [ ] restrict to board members
+- [ ] User can add comments to a card
+- [ ] restrict to board members
+- [ ] Add more Functionality
+  - [ ] find a list or create a card
+  - [ ] update a list or create a card
+  - [ ] delete a list or create a card
+  - [ ] patch a list or create a card
 
 ### Stretch
 
