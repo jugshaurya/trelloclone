@@ -14,7 +14,8 @@ const listSchema = new Schema(
     },
     boardId: {
       type: Schema.Types.ObjectId,
-      ref: "boards"
+      ref: "boards",
+      required: true
     },
     archived: {
       type: Boolean,
