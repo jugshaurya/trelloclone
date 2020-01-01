@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import Card from "react-bootstrap/Card";
+import Board from "../board/board";
 
 class Boards extends React.Component {
   state = {
@@ -16,6 +16,20 @@ class Boards extends React.Component {
     boards: [],
     name: "",
     background: ""
+  };
+
+  componentDidMount() {
+    this.getAllBoards();
+  }
+
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.createBoard(e.target);
   };
 
   getAllBoards = async () => {
@@ -55,20 +69,6 @@ class Boards extends React.Component {
     }));
   };
 
-  componentDidMount() {
-    this.getAllBoards();
-  }
-
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.createBoard(e.target);
-  };
-
   render() {
     const {
       isFetchingBoards,
@@ -77,74 +77,63 @@ class Boards extends React.Component {
       name,
       boards
     } = this.state;
-    return isFetchingBoards ? (
-      <div className="mt-5">
-        <Spinner animation="border" variant="info" />
-      </div>
-    ) : (
-      <Container>
-        <Row>
-          {boards.map(board => (
-            <Col className="col-4 p-3" key={board._id}>
-              <Card style={{ width: "18rem" }}>
-                <Card.Img
-                  variant="top"
-                  src={board.background}
-                  alt="background"
-                />
-                <Card.Body>
-                  <Card.Title>{board.name}</Card.Title>
-                  <Button
-                    type="button"
-                    onClick={e =>
-                      this.props.history.push(`/boards/${board._id}`)
-                    }
-                  >
-                    Go
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
 
-          {isCreatingBoard ? (
-            <div className="mt-5">
+    return (
+      <Container className="mt-5 col-12">
+        {isFetchingBoards ? (
+          <Row>
+            <Col>
               <Spinner animation="border" variant="info" />
-            </div>
-          ) : (
-            <Col className="col-4 p-3">
-              <Form onSubmit={this.handleSubmit}>
-                <Form.Group controlId="formBasicBoardname">
-                  <Form.Label>Board Name</Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    name="name"
-                    placeholder="Enter Board name"
-                    onChange={this.handleChange}
-                    value={name}
-                  />
-                </Form.Group>
-
-                <Form.Group controlId="formBasicBackground">
-                  <Form.Label>Board Background</Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    name="background"
-                    placeholder="Enter background"
-                    onChange={this.handleChange}
-                    value={background}
-                  />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                  Create Board
-                </Button>
-              </Form>
-              https://source.unsplash.com/random/800x600
             </Col>
-          )}
-        </Row>
+          </Row>
+        ) : (
+          <Row>
+            {boards.map(board => (
+              <Col className="col-4" key={board._id}>
+                <Board board={board} history={this.props.history} />
+              </Col>
+            ))}
+
+            <Col className="col-4">
+              {isCreatingBoard ? (
+                <Spinner animation="border" variant="info" className="mt-5" />
+              ) : (
+                <Form
+                  onSubmit={this.handleSubmit}
+                  className="col-12"
+                  style={{ background: "lightblue" }}
+                >
+                  <Form.Group controlId="formBasicBoardname">
+                    <Form.Label>Board Name</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      name="name"
+                      placeholder="Enter Board name"
+                      onChange={this.handleChange}
+                      value={name}
+                    />
+                  </Form.Group>
+
+                  <Form.Group controlId="formBasicBackground">
+                    <Form.Label>Board Background</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      name="background"
+                      placeholder="Enter background"
+                      onChange={this.handleChange}
+                      value={background}
+                    />
+                  </Form.Group>
+                  <Button variant="primary" type="submit">
+                    Create Board
+                  </Button>
+                </Form>
+              )}
+            </Col>
+          </Row>
+        )}
       </Container>
     );
   }
