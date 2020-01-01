@@ -12,7 +12,6 @@
 ## Progress
 
 - [x] Generate Server
-
   - [x] node + express
   - [x] mongodb connection + mongoose
     - [x] trello-clone db
@@ -20,37 +19,27 @@
   - [x] auth - local SignIn using Passport
   - [x] jwt
   - [x] bcrypt to hash pass
-
 - [x] Generate Client
-
   - [x] Create a react app
   - [x] use react-bootstrap/ant design or write from scratch
   - [x] Add redux-logger
   - [x] Add redux-thunk
   - [] Add redux and create basic store files
-
 - [x] Add local auth to server
 - [ ] TODO: Add client data validation on server
 - [ ] Add signin and signup to client
-
   - [x] Create Form for Both
   - [ ] Add Client Side Validation of data, checking and showing errors
   - [x] save token after signin inside localstorage
-
 - [x] Add boards service to server
 - [x] User can create/view boards on client
-
   - [x] Create new Board
     - [x] Add ownerId
   - [x] View all the boards
     - [x] show user's boards not of others
-
 - [x] view single board using id param to route
-
   - [x] @server : add GET /boards/id=3027593 route and route handler
-
 - [ ] User can create/view lists for boards
-
   - [x] @server
     - [x] create new list in board, POST : /lists/:boardId
     - [x] get all , GET: /lists/:boardId
@@ -58,20 +47,23 @@
     - [x] get all lists in a board
     - [x] create new list
   - [ ] Restrict only the owner to create a new list
-
----
-
 - [x] create/view cards in list
-
   - [x] @client
   - [x] @server : service to server
 
-- [ ] Drag Cards from one list to another
-  - [ ] User can move cards from one list to another
-- [ ] make logged in user visible on navbar
+---
 
+- [ ] Drag Cards from one list to another
+
+  - [ ] Options:
+    - https://github.com/mzabriskie/react-draggable or
+    - https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API or
+      - http://jsfiddle.net/zfnj5rv4/
+    - https://www.npmjs.com/package/react-draggable-list
+
+- [ ] make logged in user visible on navbar
 - [ ] Restrict only the board owner to :
-  - [] create a list or create a card
+  - [ ] create a list or create a card
 
 ---
 
