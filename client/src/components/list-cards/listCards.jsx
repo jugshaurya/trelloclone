@@ -21,9 +21,9 @@ class ListCards extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e, listId) => {
     e.preventDefault();
-    this.props.createNewCard();
+    this.props.createNewCard(listId, this.state.title, this.state.description);
   };
 
   handleDragStart = (e, card) => {
@@ -33,7 +33,7 @@ class ListCards extends Component {
 
   render() {
     console.log("iohfa", this.state.cards);
-    const { isFetchingCards, isCreatingCard, cards } = this.props;
+    const { isFetchingCards, isCreatingCard, cards, list } = this.props;
     const { title, description } = this.state;
     return isFetchingCards ? (
       <Container className="col-12">
@@ -59,7 +59,7 @@ class ListCards extends Component {
             </Col>
           ) : (
             <Col className="col-12">
-              <Form onSubmit={this.handleSubmit}>
+              <Form onSubmit={e => this.handleSubmit(e, list._id)}>
                 <Form.Group controlId="formBasicCardname">
                   <Form.Label>Create Card</Form.Label>
                   <Form.Control

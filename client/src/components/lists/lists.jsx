@@ -88,13 +88,13 @@ class Lists extends Component {
     this.setState({ cards, isFetchingCards: false });
   };
 
-  createNewCard = async () => {
+  createNewCard = async (listId, title, description) => {
     this.setState({ isCreatingCard: true });
     const boardId = this.props.match.params.id;
     const newCard = {
-      listId: this.props.listId,
-      title: this.state.cardTitle,
-      description: this.state.description || "later" // will change later
+      listId,
+      title,
+      description: description || "later" // will change later
     };
     console.log(newCard);
 
@@ -162,6 +162,7 @@ class Lists extends Component {
                   cards={cards.filter(card => card.listId === list._id)}
                   isFetchingCards={isFetchingCards}
                   isCreatingCard={isCreatingCard}
+                  createNewCard={this.createNewCard}
                 />
               </Col>
             ))}
