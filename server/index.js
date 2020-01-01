@@ -10,15 +10,15 @@ const passport = require("passport");
 const mainRouter = require("./routes/mainRouter");
 
 // basic Configuration Middlewares
+if (require("./config").NODE_ENV === "development") {
+  app.use(morgan("tiny"));
+}
 app.use(cors());
 app.use(helmet());
 app.use(compress());
 app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-if (require("./config").NODE_ENV === "development") {
-  app.use(morgan("tiny"));
-}
 
 // db connection
 mongoose.set("useCreateIndex", true);

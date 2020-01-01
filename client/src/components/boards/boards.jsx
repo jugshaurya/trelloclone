@@ -33,7 +33,6 @@ class Boards extends React.Component {
   };
 
   getAllBoards = async () => {
-    console.log("ast");
     this.setState({ isFetchingBoards: true });
     const response = await fetch("http://localhost:5000/boards", {
       method: "GET",

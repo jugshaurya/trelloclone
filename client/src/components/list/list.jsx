@@ -26,6 +26,7 @@ const List = props => {
       <Row>
         <Card className="list">
           <Card.Title>{list.name}</Card.Title>
+          <Card.Title>{list._id}</Card.Title>
         </Card>
       </Row>
       <Row>

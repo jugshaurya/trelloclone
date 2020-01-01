@@ -96,7 +96,6 @@ class Lists extends Component {
       title,
       description: description || "later" // will change later
     };
-    console.log(newCard);
 
     const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
       method: "POST",
@@ -108,26 +107,38 @@ class Lists extends Component {
     });
 
     const card = await response.json();
-    console.log(card);
     this.setState({
       cards: [...this.state.cards, card],
       isCreatingCard: false
     });
   };
 
-  handleDrop = (e, list) => {
+  handleDrop = async (e, list) => {
     e.preventDefault();
-    const DroppingListId = list._id;
+    const droppingListId = list._id;
     const draggedCard = JSON.parse(e.dataTransfer.getData("text/plain"));
 
-    console.log(this.state.cards);
+    const newCard = {
+      ...draggedCard,
+      listId: droppingListId
+    };
+    const boardId = this.props.match.params.id;
+
+    const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify(newCard)
+    });
+
+    const updatedCard = await response.json();
     const cards = this.state.cards.map(card =>
-      card._id === draggedCard._id
-        ? { ...card, listId: DroppingListId }
-        : { ...card }
+      card._id === draggedCard._id ? updatedCard : card
     );
-    console.log(cards);
-    this.setState({ cards: [...cards] });
+
+    this.setState({ cards });
   };
 
   handleDragOver = e => {

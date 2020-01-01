@@ -7,7 +7,7 @@ import Card from "react-bootstrap/Card";
 class SingleCard extends Component {
   render() {
     const { card, ...otherProps } = this.props;
-    const { _id, title, description } = card;
+    const { _id, title } = card;
 
     return (
       <Container className="col-12" {...otherProps}>

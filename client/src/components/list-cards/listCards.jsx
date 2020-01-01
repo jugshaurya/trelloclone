@@ -28,13 +28,11 @@ class ListCards extends Component {
 
   handleDragStart = (e, card) => {
     e.dataTransfer.setData("text/plain", JSON.stringify(card));
-    console.log("Dragging Started");
   };
 
   render() {
-    console.log("iohfa", this.state.cards);
     const { isFetchingCards, isCreatingCard, cards, list } = this.props;
-    const { title, description } = this.state;
+    const { title } = this.state;
     return isFetchingCards ? (
       <Container className="col-12">
         <Row>

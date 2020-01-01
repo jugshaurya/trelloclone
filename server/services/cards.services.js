@@ -33,7 +33,25 @@ const createNewCard = async (req, res, next) => {
   }
 };
 
+// update the cards listId: updating the list , a card belongs to
+const updateCard = async (req, res, next) => {
+  try {
+    // TODO client side data validation
+    const { _id, listId } = req.body;
+    // SOme problem Solved using
+    // Finds a matching document, updates it according to the update arg, passing any options, and returns the found document (if any) to the callback.
+    // The query executes if callback is passed else a Query object is returned.
+    await Card.findByIdAndUpdate(_id, { listId });
+    const card = await Card.findOne({ _id });
+    res.json(card);
+  } catch (e) {
+    // will change later
+    next(e);
+  }
+};
+
 module.exports = {
   getAllCardsInBoard,
-  createNewCard
+  createNewCard,
+  updateCard
 };
