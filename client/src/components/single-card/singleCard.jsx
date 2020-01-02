@@ -13,7 +13,7 @@ class SingleCard extends Component {
       <Container className="col-12" {...otherProps}>
         <Row>
           <Col className="col-12" data-id={_id} key={_id}>
-            <Card>
+            <Card bg="info" text="white" style={{ padding: "5px" }}>
               <Card.Title>{title}</Card.Title>
               {/* <Card.Text>{description}</Card.Text> */}
             </Card>

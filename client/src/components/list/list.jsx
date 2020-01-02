@@ -17,26 +17,25 @@ const List = props => {
   } = props;
 
   return (
-    <Container
-      className="col-12"
-      style={{ background: "#ffc" }}
-      onDrop={onDrop}
-      onDragOver={onDragOver}
-    >
+    <Container className="col-12" onDrop={onDrop} onDragOver={onDragOver}>
       <Row>
-        <Card className="list">
+        <Card
+          bg="dark"
+          text="white"
+          style={{ padding: "10px" }}
+          className="list"
+        >
           <Card.Title>{list.name}</Card.Title>
-          <Card.Title>{list._id}</Card.Title>
+          <Card.Text>
+            <ListCards
+              list={list}
+              isFetchingCards={isFetchingCards}
+              isCreatingCard={isCreatingCard}
+              createNewCard={createNewCard}
+              cards={cards}
+            />
+          </Card.Text>
         </Card>
-      </Row>
-      <Row>
-        <ListCards
-          list={list}
-          isFetchingCards={isFetchingCards}
-          isCreatingCard={isCreatingCard}
-          createNewCard={createNewCard}
-          cards={cards}
-        />
       </Row>
     </Container>
   );

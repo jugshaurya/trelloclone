@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 
 import Board from "../board/board";
 
@@ -97,38 +98,45 @@ class Boards extends React.Component {
               {isCreatingBoard ? (
                 <Spinner animation="border" variant="info" className="mt-5" />
               ) : (
-                <Form
-                  onSubmit={this.handleSubmit}
-                  className="col-12"
-                  style={{ background: "lightblue" }}
+                <Card
+                  bg="dark"
+                  text="white"
+                  style={{ width: "18rem", padding: "10px" }}
                 >
-                  <Form.Group controlId="formBasicBoardname">
-                    <Form.Label>Board Name</Form.Label>
-                    <Form.Control
-                      required
-                      type="text"
-                      name="name"
-                      placeholder="Enter Board name"
-                      onChange={this.handleChange}
-                      value={name}
-                    />
-                  </Form.Group>
+                  <Form
+                    bg="dark"
+                    variant="dark"
+                    onSubmit={this.handleSubmit}
+                    className="col-12"
+                  >
+                    <Form.Group controlId="formBasicBoardname">
+                      <Form.Label>Board Name</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        name="name"
+                        placeholder="Enter Board name"
+                        onChange={this.handleChange}
+                        value={name}
+                      />
+                    </Form.Group>
 
-                  <Form.Group controlId="formBasicBackground">
-                    <Form.Label>Board Background</Form.Label>
-                    <Form.Control
-                      required
-                      type="text"
-                      name="background"
-                      placeholder="Enter background"
-                      onChange={this.handleChange}
-                      value={background}
-                    />
-                  </Form.Group>
-                  <Button variant="primary" type="submit">
-                    Create Board
-                  </Button>
-                </Form>
+                    <Form.Group controlId="formBasicBackground">
+                      <Form.Label>Board Background</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        name="background"
+                        placeholder="Enter background"
+                        onChange={this.handleChange}
+                        value={background}
+                      />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                      Create Board
+                    </Button>
+                  </Form>
+                </Card>
               )}
             </Col>
           </Row>

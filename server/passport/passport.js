@@ -1,7 +1,7 @@
 const passport = require("passport");
 const UserModel = require("../models/users");
 const config = require("../config");
-
+const mongoose = require("mongoose");
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const LocalStrategy = require("passport-local").Strategy;
@@ -13,10 +13,8 @@ const opts = {
 
 passport.use(
   new JwtStrategy(opts, function(token_stored_payload, done) {
-    UserModel.findOne({ email: token_stored_payload.email }, function(
-      error,
-      user
-    ) {
+    const _id = mongoose.Types.ObjectId(token_stored_payload._id);
+    UserModel.findOne({ _id }, function(error, user) {
       if (error) {
         return done(error, false);
       }
