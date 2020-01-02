@@ -37,9 +37,30 @@ exports.signup = async (req, res, next) => {
 exports.signin = async (req, res, next) => {
   try {
     const token = await createToken(req.user);
-    return res
-      .status(200)
-      .json({ token, message: `Welcome Back ${req.user.username}` });
+    return res.status(200).json({
+      token,
+      message: `Welcome Back ${req.user.username}`
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.getUser = async (req, res, next) => {
+  try {
+    if (req.user) {
+      const user = await User.findOne({ _id: req.user._id }).select(
+        "-password"
+      );
+      //  ====== Not working Approach =====
+      // console.log("current user", req.user);
+      // const sendUser = { ...req.user };
+      // delete sendUser.password;
+
+      return res.status(200).json(user);
+    } else {
+      throw new Error("No Signed in User");
+    }
   } catch (error) {
     return next(error);
   }

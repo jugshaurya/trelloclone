@@ -16,21 +16,45 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const ProtectedBoards = withAuth(Boards);
 const ProtectedSpecificBoard = withAuth(SpecificBoard);
 
-function App() {
-  return (
-    <div className="App">
-      <Appbar />
-      <Switch>
-        <Route path="/signup" component={SignUp} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/boards/:id" component={ProtectedSpecificBoard} />
-        <Route path="/boards" component={ProtectedBoards} />
+class App extends React.Component {
+  state = {
+    user: null
+  };
 
-        <Route exact path="/" component={Homepage} />
-        <Route path="/" component={NotFound} />
-      </Switch>
-    </div>
-  );
+  getUser = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const response = await fetch("http://localhost:5000/user", {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      });
+
+      const user = await response.json();
+      this.setState({ user });
+    }
+  };
+
+  componentDidMount() {
+    this.getUser();
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Appbar user={this.state.user} />
+        <Switch>
+          <Route path="/signup" component={SignUp} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/boards/:id" component={ProtectedSpecificBoard} />
+          <Route path="/boards" component={ProtectedBoards} />
+          <Route exact path="/" component={Homepage} />
+          <Route path="/" component={NotFound} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;

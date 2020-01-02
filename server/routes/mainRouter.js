@@ -1,11 +1,11 @@
 const router = require("express").Router();
-const userRouter = require("./usersRouter");
+const usersRouter = require("./usersRouter");
 const boardsRouter = require("./boardsRouter");
 const listsRouter = require("./listsRouter");
 const cardsRouter = require("./cardsRouter");
 const { isUserAuthenticated } = require("../passport/passport");
 
-router.use("/user", userRouter);
+router.use("/user", usersRouter);
 
 // protected Resources
 router.use("/boards", isUserAuthenticated, boardsRouter);

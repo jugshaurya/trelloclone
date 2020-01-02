@@ -1,8 +1,10 @@
 const router = require("express").Router();
-const userServices = require("../services/users.services");
-const { localLogin } = require("../passport/passport");
+const usersServices = require("../services/users.services");
+const { localLogin, isUserAuthenticated } = require("../passport/passport");
 
-router.post("/signup", userServices.signup);
-router.post("/signin", localLogin, userServices.signin);
+router.post("/signup", usersServices.signup);
+router.post("/signin", localLogin, usersServices.signin);
+
+router.get("/", isUserAuthenticated, usersServices.getUser);
 
 module.exports = router;

@@ -7,6 +7,7 @@ import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -56,24 +57,38 @@ class ListCards extends Component {
               <Spinner animation="border" variant="info" />
             </Col>
           ) : (
-            <Col className="col-12">
-              <Form onSubmit={e => this.handleSubmit(e, list._id)}>
-                <Form.Group controlId="formBasicCardname">
-                  <Form.Label>Create Card</Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    name="title"
-                    placeholder="Enter Card Title"
-                    onChange={this.handleChange}
-                    value={title}
-                  />
-                </Form.Group>
+            <Col
+              className="col-12 mt-3"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <Card
+                bg="info"
+                text="white"
+                className="p-4"
+                style={{ width: "18rem", padding: "10px" }}
+              >
+                <Form onSubmit={e => this.handleSubmit(e, list._id)}>
+                  <Form.Group controlId="formBasicCardname">
+                    <Form.Label>Create Card</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      name="title"
+                      placeholder="Enter Card Title"
+                      onChange={this.handleChange}
+                      value={title}
+                    />
+                  </Form.Group>
 
-                <Button variant="primary" type="submit">
-                  Create Card
-                </Button>
-              </Form>
+                  <Button variant="primary" type="submit">
+                    Create Card
+                  </Button>
+                </Form>
+              </Card>
             </Col>
           )}
         </Row>

@@ -6,6 +6,7 @@ import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 
 import List from "../list/list";
 
@@ -181,26 +182,28 @@ class Lists extends Component {
               {isCreatingList ? (
                 <Spinner animation="border" variant="info" className="mt-5" />
               ) : (
-                <Form
-                  onSubmit={this.handleSubmit}
-                  className="col-12"
-                  style={{ background: "lightblue" }}
+                <Card
+                  bg="dark"
+                  text="white"
+                  style={{ width: "18rem", padding: "10px" }}
                 >
-                  <Form.Group controlId="formBasicListname">
-                    <Form.Label>Create List</Form.Label>
-                    <Form.Control
-                      required
-                      type="text"
-                      name="name"
-                      placeholder="Enter List name"
-                      onChange={this.handleChange}
-                      value={name}
-                    />
-                  </Form.Group>
-                  <Button variant="primary" type="submit">
-                    Create List
-                  </Button>
-                </Form>
+                  <Form onSubmit={this.handleSubmit} className="col-12 pa-5">
+                    <Form.Group controlId="formBasicListname">
+                      <Form.Label>Create List</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        name="name"
+                        placeholder="Enter List name"
+                        onChange={this.handleChange}
+                        value={name}
+                      />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                      Create List
+                    </Button>
+                  </Form>
+                </Card>
               )}
             </Col>
           </Row>

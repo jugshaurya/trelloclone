@@ -53,9 +53,9 @@
 
 ---
 
-- [ ] Drag Cards from one list to another
+- [x] Drag Cards from one list to another
 
-  - [ ] Options:
+  - [x] Options:
     - https://github.com/mzabriskie/react-draggable or
     - https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API or
       - http://jsfiddle.net/zfnj5rv4/
