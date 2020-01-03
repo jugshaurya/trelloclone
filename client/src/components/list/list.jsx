@@ -13,7 +13,8 @@ const List = props => {
     isFetchingCards,
     isCreatingCard,
     cards,
-    createNewCard
+    createNewCard,
+    updateCard
   } = props;
 
   return (
@@ -25,16 +26,17 @@ const List = props => {
           style={{ padding: "10px" }}
           className="list"
         >
-          <Card.Title>{list.name}</Card.Title>
-          <Card.Text>
+          <Card.Body>
+            <Card.Title>{list.name}</Card.Title>
             <ListCards
               list={list}
               isFetchingCards={isFetchingCards}
               isCreatingCard={isCreatingCard}
               createNewCard={createNewCard}
               cards={cards}
+              updateCard={updateCard}
             />
-          </Card.Text>
+          </Card.Body>
         </Card>
       </Row>
     </Container>

@@ -50,31 +50,33 @@
 - [x] create/view cards in list
   - [x] @client
   - [x] @server : service to server
-
----
-
 - [x] Drag Cards from one list to another
-
-  - [x] Options:
-    - https://github.com/mzabriskie/react-draggable or
-    - https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API or
-      - http://jsfiddle.net/zfnj5rv4/
-    - https://www.npmjs.com/package/react-draggable-list
-
-- [ ] make logged in user visible on navbar
-- [ ] Restrict only the board owner to :
-  - [ ] create a list or create a card
+  - [x] Options: - https://github.com/mzabriskie/react-draggable or
+        https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API or
+        http://jsfiddle.net/zfnj5rv4/ or https://www.npmjs.com/package/react-draggable-list
+- [x] make logged in user visible on navbar
 
 ---
+
+- [ ] user can edit the card
+- [ ] User can add image/attachment to a card
+- [ ] user can add description to card
+- [ ] user can add color-labels
+
+* [ ] Create activities service on server
+* [ ] All activities are logged
+
+* [ ] Restrict only the board owner to
+  - [ ] create a list or create a card
 
 - [ ] User can add other members to a board
 - [ ] Update restrict to board owner to include members
+
 - [ ] User can re-arrange lists
 - [ ] restrict to board members
-- [ ] Create activities service on server
-- [ ] All activities are logged
 - [ ] User can assign a member to a card
 - [ ] restrict to board members
+
 - [ ] User can add comments to a card
 - [ ] restrict to board members
 - [ ] Add more Functionality
@@ -86,3 +88,6 @@
 ### Stretch
 
 - [] Add Socketio for real time board sharing
+- [ ] Show all the available boards on a specific board so it is easy to swithv b/w boards
+- [ ] Add funtinality to boards to mark them favaorites
+  - [ ] show all fav boards under fav sections

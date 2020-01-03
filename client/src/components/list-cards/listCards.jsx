@@ -49,6 +49,7 @@ class ListCards extends Component {
                 card={card}
                 draggable
                 onDragStart={e => this.handleDragStart(e, card)}
+                updateCard={this.props.updateCard}
               />
             </Col>
           ))}

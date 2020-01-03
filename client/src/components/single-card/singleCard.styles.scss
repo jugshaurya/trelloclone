@@ -1,0 +1,16 @@
+.card-extra {
+  padding: 10px;
+
+  svg {
+    visibility: hidden;
+    height: 30px;
+    width: auto;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  &:hover svg {
+    visibility: visible;
+  }
+}

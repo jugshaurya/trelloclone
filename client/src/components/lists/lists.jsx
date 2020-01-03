@@ -114,17 +114,10 @@ class Lists extends Component {
     });
   };
 
-  handleDrop = async (e, list) => {
-    e.preventDefault();
-    const droppingListId = list._id;
-    const draggedCard = JSON.parse(e.dataTransfer.getData("text/plain"));
-
-    const newCard = {
-      ...draggedCard,
-      listId: droppingListId
-    };
+  // @ whatTochange is an object with properiteds to change as its key and value
+  updateCard = async (card, whatToChange) => {
+    const newCard = { ...card, ...whatToChange };
     const boardId = this.props.match.params.id;
-
     const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
       method: "PUT",
       headers: {
@@ -136,10 +129,16 @@ class Lists extends Component {
 
     const updatedCard = await response.json();
     const cards = this.state.cards.map(card =>
-      card._id === draggedCard._id ? updatedCard : card
+      card._id === newCard._id ? updatedCard : card
     );
-
     this.setState({ cards });
+  };
+
+  handleDrop = async (e, list) => {
+    e.preventDefault();
+    const originalCard = JSON.parse(e.dataTransfer.getData("text/plain"));
+    const droppingListId = list._id;
+    this.updateCard(originalCard, { listId: droppingListId });
   };
 
   handleDragOver = e => {
@@ -175,6 +174,7 @@ class Lists extends Component {
                   isFetchingCards={isFetchingCards}
                   isCreatingCard={isCreatingCard}
                   createNewCard={this.createNewCard}
+                  updateCard={this.updateCard}
                 />
               </Col>
             ))}

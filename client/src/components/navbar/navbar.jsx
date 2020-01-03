@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 class Appbar extends Component {
   render() {
     const { user } = this.props;
-    console.log("from navbar", user);
     return (
       <Navbar expand="lg" bg="dark" variant="dark">
         <Navbar.Text>
