@@ -14,7 +14,8 @@ const List = props => {
     isCreatingCard,
     cards,
     createNewCard,
-    updateCard
+    updateCard,
+    uploadImage
   } = props;
 
   return (
@@ -35,6 +36,7 @@ const List = props => {
               createNewCard={createNewCard}
               cards={cards}
               updateCard={updateCard}
+              uploadImage={uploadImage}
             />
           </Card.Body>
         </Card>

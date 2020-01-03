@@ -58,9 +58,10 @@
 
 ---
 
-- [ ] user can edit the card
-- [ ] User can add image/attachment to a card
+- [x] user can edit the card
 - [ ] user can add description to card
+- [ ] User can add image/attachment to a card
+  - https://codeburst.io/image-uploading-using-react-and-node-to-get-the-images-up-c46ec11a7129
 - [ ] user can add color-labels
 
 * [ ] Create activities service on server

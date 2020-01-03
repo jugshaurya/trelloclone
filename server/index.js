@@ -4,6 +4,7 @@ const cors = require("cors");
 const compress = require("compression");
 const morgan = require("morgan");
 const app = express();
+const path = require("path");
 
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -13,12 +14,14 @@ const mainRouter = require("./routes/mainRouter");
 if (require("./config").NODE_ENV === "development") {
   app.use(morgan("tiny"));
 }
+
 app.use(cors());
 app.use(helmet());
 app.use(compress());
 app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // db connection
 mongoose.set("useCreateIndex", true);

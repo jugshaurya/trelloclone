@@ -15,15 +15,23 @@ const getAllCardsInBoard = async (req, res, next) => {
 const createNewCard = async (req, res, next) => {
   try {
     // TODO client side data validation
-    const { title, description, listId } = req.body;
+    const {
+      title,
+      // description = "notyet",
+      listId
+      // cardImage = "none"
+    } = req.body;
     const { boardId } = req.params;
     const newCard = new Card({
       title,
-      description,
+      description: "notyet",
       order: 0, // will change later
       boardId,
       listId,
-      archived: false
+      archived: false,
+      cardImage: "none",
+      memberIds: [],
+      labels: "none yet"
     });
 
     res.json(await newCard.save());
@@ -45,15 +53,46 @@ const updateCard = async (req, res, next) => {
     // The query executes if callback is passed else a Query object is returned.
     await Card.findByIdAndUpdate(_id, updatedCard);
     const card = await Card.findOne({ _id });
-    res.json(card);
+    res.status(201).json(card);
   } catch (e) {
     // will change later
     next(e);
   }
 };
 
+const uploadImage = async (req, res, next) => {
+  // console.log(req.body);
+  // console.log(req.body.title);
+  // console.log(req.file);
+  // console.log("**********************88");
+
+  const url = req.protocol + "://" + req.get("host");
+  const _id = req.body._id;
+  // console.log(url, _id);
+  console.log("**********************");
+  console.log("**********************");
+  console.log("**********************");
+  const body = { ...req.body };
+  console.log(body);
+  try {
+    await Card.findByIdAndUpdate(_id, {
+      ...body,
+      memberIds: [],
+      cardImage: url + "/uploads/" + req.file.filename
+    });
+    console.log("why");
+
+    const card = await Card.findOne({ _id });
+    console.log(card);
+    res.status(201).json(card);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllCardsInBoard,
   createNewCard,
-  updateCard
+  updateCard,
+  uploadImage
 };

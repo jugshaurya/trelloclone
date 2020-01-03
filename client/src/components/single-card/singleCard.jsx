@@ -1,19 +1,22 @@
 import React, { Component } from "react";
 
+import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import MyModal from "../my-modal/myModal";
 
-import "./singleCard.styles.scss";
 import { ReactComponent as EditSVG } from "./pencil.svg";
-import Form from "react-bootstrap/Form";
+import "./singleCard.styles.scss";
 
 class SingleCard extends Component {
   state = {
     editing: false,
-    newTitle: this.props.card.title
+    newTitle: this.props.card.title,
+    showModal: false
   };
 
   handleChange = e => {
@@ -33,15 +36,27 @@ class SingleCard extends Component {
     this.setState({ editing: false });
   };
 
+  setModalShow = show => {
+    this.setState({ showModal: show });
+  };
+
   render() {
-    const { card, onDragStart } = this.props;
-    const { _id, title, description } = card;
+    const { card, onDragStart, uploadImage } = this.props;
+    const {
+      _id,
+      title
+      // , description, labels, cardImage
+    } = card;
+    // console.log(card);
 
     return (
       <Container className="col-12" onDragStart={onDragStart}>
         <Row>
           <Col className="col-12" data-id={_id} key={_id}>
             <Card bg="info" text="white" className="card-extra">
+              {card.cardImage ? (
+                <img src={card.cardImage} alt="pl" width="200" height="200" />
+              ) : null}
               {this.state.editing ? (
                 <Card.Title>
                   <Form onSubmit={this.handleSubmit} className="col-12 pa-5">
@@ -60,14 +75,21 @@ class SingleCard extends Component {
                   </Form>
                 </Card.Title>
               ) : (
-                <>
-                  <Card.Title>
+                <ButtonToolbar>
+                  <Card.Title onClick={() => this.setModalShow(true)}>
                     {title}
                     <EditSVG onClick={this.handleCardEdit} />
+                    <Card.Title>
+                      <MyModal
+                        show={this.state.showModal}
+                        onHide={() => this.setModalShow(false)}
+                        card={card}
+                        uploadImage={uploadImage}
+                      />
+                    </Card.Title>
                   </Card.Title>
-                </>
+                </ButtonToolbar>
               )}
-              {/* <Card.Text>{description}</Card.Text> */}
             </Card>
           </Col>
         </Row>

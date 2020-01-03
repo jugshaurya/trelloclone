@@ -11,12 +11,23 @@ const cardSchema = new Schema(
       type: String,
       required: true
     },
-
     order: {
       type: String,
       default: 0,
       required: true
     },
+    cardImage: {
+      type: String
+    },
+    labels: {
+      type: String
+    },
+    memberIds: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "users"
+      }
+    ],
     boardId: {
       type: Schema.Types.ObjectId,
       ref: "boards",
@@ -28,14 +39,6 @@ const cardSchema = new Schema(
       ref: "lists",
       required: true
     },
-
-    memberIds: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "users",
-        default: []
-      }
-    ],
     archived: {
       type: Boolean,
       default: false,

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -95,7 +97,9 @@ class Lists extends Component {
     const newCard = {
       listId,
       title,
-      description: description || "later" // will change later
+      description: description || "later", // will change later
+      cardImage: "",
+      labels: []
     };
 
     const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
@@ -145,6 +149,38 @@ class Lists extends Component {
     e.preventDefault();
   };
 
+  uploadImage = async (image, cardWithImageUpdate) => {
+    if (image) {
+      const data = new FormData();
+      data.append("imageData", image);
+
+      // Looping through arrays created from Object.keys
+      const keys = Object.keys(cardWithImageUpdate);
+      for (const key of keys) {
+        data.set(key, cardWithImageUpdate[key]);
+      }
+
+      try {
+        const response = await axios.post(
+          `http://localhost:5000/cards/uploadmulter`,
+          data,
+          {
+            headers: {
+              authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          }
+        );
+        const updatedCard = await response.data;
+        const cards = this.state.cards.map(card =>
+          card._id === cardWithImageUpdate._id ? updatedCard : card
+        );
+        this.setState({ cards });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   render() {
     const {
       isFetchingLists,
@@ -175,6 +211,7 @@ class Lists extends Component {
                   isCreatingCard={isCreatingCard}
                   createNewCard={this.createNewCard}
                   updateCard={this.updateCard}
+                  uploadImage={this.uploadImage}
                 />
               </Col>
             ))}

@@ -32,7 +32,13 @@ class ListCards extends Component {
   };
 
   render() {
-    const { isFetchingCards, isCreatingCard, cards, list } = this.props;
+    const {
+      isFetchingCards,
+      isCreatingCard,
+      cards,
+      list,
+      uploadImage
+    } = this.props;
     const { title } = this.state;
     return isFetchingCards ? (
       <Container className="col-12">
@@ -50,6 +56,7 @@ class ListCards extends Component {
                 draggable
                 onDragStart={e => this.handleDragStart(e, card)}
                 updateCard={this.props.updateCard}
+                uploadImage={uploadImage}
               />
             </Col>
           ))}
