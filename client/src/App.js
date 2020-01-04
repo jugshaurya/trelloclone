@@ -26,6 +26,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("app called");
     return (
       <div className="App">
         <Appbar user={this.props.user} />

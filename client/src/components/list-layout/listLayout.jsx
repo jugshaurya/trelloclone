@@ -6,10 +6,10 @@ import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 
 const ListLayout = props => {
-  const { list, onDrop, onDragOver, updateCard, uploadImage } = props;
+  const { list } = props;
 
   return (
-    <Container className="col-12" onDrop={onDrop} onDragOver={onDragOver}>
+    <Container className="col-12">
       <Row>
         <Card
           bg="dark"
@@ -19,12 +19,7 @@ const ListLayout = props => {
         >
           <Card.Body>
             <Card.Title>{list.name}</Card.Title>
-            <ListCards
-              list={list}
-              // cards={cards}
-              updateCard={updateCard}
-              uploadImage={uploadImage}
-            />
+            <ListCards list={list} />
           </Card.Body>
         </Card>
       </Row>

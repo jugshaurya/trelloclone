@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 import {
   getAllCardsInBoardASYNC,
-  createCardASYNC
+  createCardASYNC,
+  updateCardWhenDropASYNC
 } from "../../redux/cards/cards.actions";
 
 import SingleCard from "../single-card/singleCard";
@@ -31,21 +32,26 @@ class ListCards extends Component {
 
   handleSubmit = (e, listId) => {
     e.preventDefault();
-    this.props.createNewCard(listId, this.state.title, this.state.description);
+    this.props.createCardASYNC(listId, this.state.title);
   };
 
-  handleDragStart = (e, card) => {
-    e.dataTransfer.setData("text/plain", JSON.stringify(card));
+  handleDrop = async (e, droppingListId) => {
+    e.preventDefault();
+    const originalCard = JSON.parse(e.dataTransfer.getData("text/plain"));
+    // Update card only if card is moved to other list
+    if (droppingListId !== originalCard.listId) {
+      this.props.updateCardWhenDropASYNC(originalCard, {
+        listId: droppingListId
+      });
+    }
+  };
+
+  handleDragOver = e => {
+    e.preventDefault();
   };
 
   render() {
-    const {
-      isFetchingCards,
-      isCreatingCard,
-      cards,
-      list,
-      uploadImage
-    } = this.props;
+    const { isFetchingCards, isCreatingCard, cards, list } = this.props;
 
     const { title } = this.state;
     return isFetchingCards ? (
@@ -55,20 +61,19 @@ class ListCards extends Component {
         </Row>
       </Container>
     ) : (
-      <Container className="col-12">
+      <Container
+        className="col-12"
+        style={{ background: "red" }}
+        onDrop={e => this.handleDrop(e, list._id)}
+        onDragOver={this.handleDragOver}
+      >
         <Row>
           {cards &&
             cards
               .filter(card => card.listId === list._id)
               .map(card => (
                 <Col className="col-12" key={card._id}>
-                  <SingleCard
-                    card={card}
-                    draggable
-                    onDragStart={e => this.handleDragStart(e, card)}
-                    updateCard={this.props.updateCard}
-                    uploadImage={uploadImage}
-                  />
+                  <SingleCard card={card} />
                 </Col>
               ))}
           {isCreatingCard ? (
@@ -124,7 +129,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getAllCardsInBoardASYNC: () => dispatch(getAllCardsInBoardASYNC()),
-  createCardASYNC: (listId, title) => dispatch(createCardASYNC(listId, title))
+  createCardASYNC: (listId, title) => dispatch(createCardASYNC(listId, title)),
+  updateCardWhenDropASYNC: (card, update) =>
+    dispatch(updateCardWhenDropASYNC(card, update))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListCards);

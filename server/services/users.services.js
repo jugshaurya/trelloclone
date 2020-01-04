@@ -39,6 +39,7 @@ exports.signin = async (req, res, next) => {
     const token = await createToken(req.user);
     return res.status(200).json({
       token,
+      user: req.user,
       message: `Welcome Back ${req.user.username}`
     });
   } catch (error) {
