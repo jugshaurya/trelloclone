@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+import {
+  getAllListsInBoardASYNC,
+  createListASYNC
+} from "../../redux/lists/lists.actions";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -10,22 +15,15 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 
-import List from "../list/list";
+import ListLayout from "../list-layout/listLayout";
 
 class Lists extends Component {
   state = {
-    isFetchingLists: false,
-    isCreatingList: false,
-    lists: [],
-    cards: [],
-    isFetchingCards: false,
-    isCreatingCard: false,
     name: ""
   };
 
   componentDidMount() {
-    this.getAllListsInBoard();
-    this.getAllCardsInBoard();
+    this.props.getAllListsInBoardASYNC();
   }
 
   handleChange = e => {
@@ -35,87 +33,7 @@ class Lists extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.createNewList();
-  };
-
-  getAllListsInBoard = async () => {
-    this.setState({ isFetchingList: true });
-    const boardId = this.props.match.params.id;
-    const response = await fetch(`http://localhost:5000/lists/${boardId}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    });
-
-    const lists = await response.json();
-    this.setState({ lists, isFetchingList: false });
-  };
-
-  createNewList = async () => {
-    this.setState({ isCreatingList: true });
-    const boardId = this.props.match.params.id;
-    const newList = {
-      name: this.state.name
-    };
-
-    const response = await fetch(`http://localhost:5000/lists/${boardId}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("token")}`
-      },
-      body: JSON.stringify(newList)
-    });
-
-    const list = await response.json();
-    this.setState({
-      lists: [...this.state.lists, list],
-      isCreatingList: false,
-      name: ""
-    });
-  };
-
-  getAllCardsInBoard = async () => {
-    this.setState({ isFetchingCards: true });
-    const boardId = this.props.match.params.id;
-    const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    });
-
-    const cards = await response.json();
-    await setTimeout(() => {}, 3000);
-    this.setState({ cards, isFetchingCards: false });
-  };
-
-  createNewCard = async (listId, title, description) => {
-    this.setState({ isCreatingCard: true });
-    const boardId = this.props.match.params.id;
-    const newCard = {
-      listId,
-      title,
-      description: description || "later", // will change later
-      cardImage: "",
-      labels: []
-    };
-
-    const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("token")}`
-      },
-      body: JSON.stringify(newCard)
-    });
-
-    const card = await response.json();
-    this.setState({
-      cards: [...this.state.cards, card],
-      isCreatingCard: false
-    });
+    this.props.createListASYNC();
   };
 
   // @ whatTochange is an object with properiteds to change as its key and value
@@ -182,15 +100,8 @@ class Lists extends Component {
   };
 
   render() {
-    const {
-      isFetchingLists,
-      isFetchingCards,
-      cards,
-      isCreatingList,
-      isCreatingCard,
-      lists,
-      name
-    } = this.state;
+    const { isFetchingLists, isCreatingList, lists } = this.props;
+    const { name } = this.state;
 
     return (
       <Container className="mt-5 col-12">
@@ -200,21 +111,18 @@ class Lists extends Component {
           </Row>
         ) : (
           <Row>
-            {lists.map(list => (
-              <Col className="col-4" key={list._id}>
-                <List
-                  list={list}
-                  onDrop={e => this.handleDrop(e, list)}
-                  onDragOver={this.handleDragOver}
-                  cards={cards.filter(card => card.listId === list._id)}
-                  isFetchingCards={isFetchingCards}
-                  isCreatingCard={isCreatingCard}
-                  createNewCard={this.createNewCard}
-                  updateCard={this.updateCard}
-                  uploadImage={this.uploadImage}
-                />
-              </Col>
-            ))}
+            {lists &&
+              lists.map(list => (
+                <Col className="col-4" key={list._id}>
+                  <ListLayout
+                    list={list}
+                    onDrop={e => this.handleDrop(e, list)}
+                    onDragOver={this.handleDragOver}
+                    updateCard={this.updateCard}
+                    uploadImage={this.uploadImage}
+                  />
+                </Col>
+              ))}
             <Col className="col-4">
               {isCreatingList ? (
                 <Spinner animation="border" variant="info" className="mt-5" />
@@ -250,4 +158,15 @@ class Lists extends Component {
   }
 }
 
-export default Lists;
+const mapStateToProps = state => ({
+  lists: state.board.boardLists.lists,
+  isFetchingLists: state.board.boardLists.isFetchingLists,
+  isCreatingList: state.board.boardLists.isCreatingList
+});
+
+const mapDispatchToProps = dispatch => ({
+  getAllListsInBoardASYNC: () => dispatch(getAllListsInBoardASYNC()),
+  createListASYNC: name => dispatch(createListASYNC(name))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Lists);

@@ -12,7 +12,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 
-import Board from "../board/board";
+import BoardLayout from "../board-layout/boardLayout";
 
 class Boards extends React.Component {
   state = {
@@ -35,8 +35,8 @@ class Boards extends React.Component {
   };
 
   render() {
-    const { isFetchingBoards, boards } = this.props;
-    const { isCreatingBoard, background, name } = this.state;
+    const { isFetchingBoards, boards, isCreatingBoard } = this.props;
+    const { background, name } = this.state;
 
     return (
       <Container className="mt-5 col-12">
@@ -51,7 +51,7 @@ class Boards extends React.Component {
             {boards &&
               boards.map(board => (
                 <Col className="col-4" key={board._id}>
-                  <Board board={board} history={this.props.history} />
+                  <BoardLayout board={board} history={this.props.history} />
                 </Col>
               ))}
 
@@ -109,7 +109,8 @@ class Boards extends React.Component {
 
 const mapStateToProps = state => ({
   boards: state.boards.boards,
-  isFetchingBoards: state.boards.isFetchingBoards
+  isFetchingBoards: state.boards.isFetchingBoards,
+  isCreatingBoard: state.boards.isCreatingBoard
 });
 
 const mapDispatchToProps = dispatch => ({

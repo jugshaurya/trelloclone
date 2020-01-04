@@ -5,18 +5,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 
-const List = props => {
-  const {
-    list,
-    onDrop,
-    onDragOver,
-    isFetchingCards,
-    isCreatingCard,
-    cards,
-    createNewCard,
-    updateCard,
-    uploadImage
-  } = props;
+const ListLayout = props => {
+  const { list, onDrop, onDragOver, updateCard, uploadImage } = props;
 
   return (
     <Container className="col-12" onDrop={onDrop} onDragOver={onDragOver}>
@@ -31,10 +21,7 @@ const List = props => {
             <Card.Title>{list.name}</Card.Title>
             <ListCards
               list={list}
-              isFetchingCards={isFetchingCards}
-              isCreatingCard={isCreatingCard}
-              createNewCard={createNewCard}
-              cards={cards}
+              // cards={cards}
               updateCard={updateCard}
               uploadImage={uploadImage}
             />
@@ -45,4 +32,4 @@ const List = props => {
   );
 };
 
-export default List;
+export default ListLayout;

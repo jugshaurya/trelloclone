@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+import {
+  getAllCardsInBoardASYNC,
+  createCardASYNC
+} from "../../redux/cards/cards.actions";
 
 import SingleCard from "../single-card/singleCard";
-
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -13,9 +17,12 @@ import Button from "react-bootstrap/Button";
 
 class ListCards extends Component {
   state = {
-    title: "",
-    description: ""
+    title: ""
   };
+
+  componentDidMount() {
+    this.props.getAllCardsInBoardASYNC();
+  }
 
   handleChange = e => {
     const { name, value } = e.target;
@@ -39,6 +46,7 @@ class ListCards extends Component {
       list,
       uploadImage
     } = this.props;
+
     const { title } = this.state;
     return isFetchingCards ? (
       <Container className="col-12">
@@ -49,17 +57,20 @@ class ListCards extends Component {
     ) : (
       <Container className="col-12">
         <Row>
-          {cards.map(card => (
-            <Col className="col-12" key={card._id}>
-              <SingleCard
-                card={card}
-                draggable
-                onDragStart={e => this.handleDragStart(e, card)}
-                updateCard={this.props.updateCard}
-                uploadImage={uploadImage}
-              />
-            </Col>
-          ))}
+          {cards &&
+            cards
+              .filter(card => card.listId === list._id)
+              .map(card => (
+                <Col className="col-12" key={card._id}>
+                  <SingleCard
+                    card={card}
+                    draggable
+                    onDragStart={e => this.handleDragStart(e, card)}
+                    updateCard={this.props.updateCard}
+                    uploadImage={uploadImage}
+                  />
+                </Col>
+              ))}
           {isCreatingCard ? (
             <Col className="col-12 mt-5">
               <Spinner animation="border" variant="info" />
@@ -105,4 +116,15 @@ class ListCards extends Component {
   }
 }
 
-export default withRouter(ListCards);
+const mapStateToProps = state => ({
+  isCreatingCard: state.board.boardCards.isCreatingCard,
+  isFetchingCards: state.board.boardCards.isFetchingCards,
+  cards: state.board.boardCards.cards
+});
+
+const mapDispatchToProps = dispatch => ({
+  getAllCardsInBoardASYNC: () => dispatch(getAllCardsInBoardASYNC()),
+  createCardASYNC: (listId, title) => dispatch(createCardASYNC(listId, title))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListCards);

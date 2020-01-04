@@ -39,9 +39,9 @@ const createBoardASYNCStart = () => ({
   payload: null
 });
 
-const createBoardASYNCSuccess = boards => ({
+const createBoardASYNCSuccess = board => ({
   type: boardsActionTypes.CREATE_BOARD_SUCCESS,
-  payload: boards
+  payload: board
 });
 
 const createBoardASYNCFailure = () => ({

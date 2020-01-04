@@ -51,8 +51,8 @@ class SpecificBoard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  board: state.board.board,
-  isFetchingBoard: state.board.isFetchingBoard
+  board: state.board.boardData.board,
+  isFetchingBoard: state.board.boardData.isFetchingBoard
 });
 
 const mapDispatchToProps = dispatch => ({

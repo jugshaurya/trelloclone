@@ -19,7 +19,11 @@ const boardsReducer = (state = INITIAL_STATE, action) => {
     case boardsActionTypes.CREATE_BOARD_FAILURE:
       return { ...state, isCreatingBoard: false };
     case boardsActionTypes.CREATE_BOARD_SUCCESS:
-      return { ...state, boards: [...state.boards, action.payload] };
+      return {
+        ...state,
+        isCreatingBoard: true,
+        boards: [...state.boards, action.payload]
+      };
 
     default:
       return { ...state };
@@ -27,8 +31,3 @@ const boardsReducer = (state = INITIAL_STATE, action) => {
 };
 
 export default boardsReducer;
-
-// this.setState(prevState => ({
-//   boards: [...prevState.boards, board],
-//   isCreatingBoard: false
-// }));

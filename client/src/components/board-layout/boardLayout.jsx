@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
-const Board = props => {
+const BoardLayout = props => {
   const { _id, background, name } = props.board;
   return (
     <Container className="col-12">
@@ -30,4 +30,4 @@ const Board = props => {
   );
 };
 
-export default Board;
+export default BoardLayout;
