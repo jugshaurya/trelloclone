@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Image from "react-bootstrap/Image";
 
-import { Link } from "react-router-dom";
 class Appbar extends Component {
   render() {
     const { user } = this.props;
@@ -28,7 +29,6 @@ class Appbar extends Component {
                   />
                   {user.username}
                 </Link>
-                {/* <pre>{user}</pre> */}
               </Navbar.Text>
               <Navbar.Text>
                 <Link to="/signin">Sign Out</Link>
