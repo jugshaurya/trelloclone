@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -8,74 +8,39 @@ import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
 
+import { signUpUserASYNC } from "../../redux/user/user.actions";
+
 const SignUp = props => {
-  const [state, setState] = useState({
+  const [usercredentials, setUserCredentials] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
-    avatarUrl: "",
-    isSignUpPending: false,
-    signupSuccessMessage: null,
-    signupError: null
+    avatarUrl: ""
   });
 
   const {
-    isSignUpPending,
     username,
     email,
     password,
     confirmPassword,
-    avatarUrl,
-    signupError,
-    signupSuccessMessage
-  } = state;
+    avatarUrl
+  } = usercredentials;
 
   const handleChange = e => {
     const { name, value } = e.target;
-    setState({ ...state, [name]: value });
+    setUserCredentials({ ...usercredentials, [name]: value });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-
-    // Checking Passwords matches
-    if (password !== confirmPassword) {
-      return setState({ ...state, signupError: "Passwords don't Match" });
-    }
-
-    setState({
-      ...state,
-      isSignUpPending: true
-    });
-
-    const response = await fetch("http://localhost:5000/user/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username,
-        password,
-        confirmPassword,
-        email,
-        avatarUrl
-      })
-    });
-
-    const { message } = await response.json();
-    setState({ ...state, isSignUpPending: false });
-    if (!response.ok || !response.status === 201) {
-      setState({ ...state, signupError: message, signupSuccessMessage: null });
-    } else {
-      setState({ ...state, signupError: null, signupSuccessMessage: message });
-      props.history.push("/signin");
-    }
+    this.props.signUpUserASYNC(usercredentials, props.history);
   };
 
+  const { isSignUp, signUpError, signUpSuccessMessage } = props;
   return (
     <>
-      {isSignUpPending ? (
+      {isSignUp ? (
         <div className="mt-5">
           <Spinner animation="border" variant="info" />
         </div>
@@ -144,9 +109,9 @@ const SignUp = props => {
                     value={avatarUrl}
                   />
                 </Form.Group>
-                {signupError && <Alert variant="danger">{signupError}</Alert>}
-                {signupSuccessMessage && (
-                  <Alert variant="success">{signupSuccessMessage}</Alert>
+                {signUpError && <Alert variant="danger">{signUpError}</Alert>}
+                {signUpSuccessMessage && (
+                  <Alert variant="success">{signUpSuccessMessage}</Alert>
                 )}
                 <Button variant="primary" type="submit">
                   Submit
@@ -160,4 +125,15 @@ const SignUp = props => {
   );
 };
 
-export default SignUp;
+const mapStateToProps = state => ({
+  isSignUp: state.user.isSignUp,
+  signUpError: state.user.signUpError,
+  signUpSuccessMessage: state.signUpSuccessMessage
+});
+
+const mapDispatchToProps = dispatch => ({
+  signUpUserASYNC: (userCredentials, history) =>
+    dispatch(signUpUserASYNC(userCredentials, history))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

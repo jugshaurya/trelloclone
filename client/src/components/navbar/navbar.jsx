@@ -1,11 +1,21 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Image from "react-bootstrap/Image";
+import Button from "react-bootstrap/Button";
 
-import { Link } from "react-router-dom";
+import { signOutUser } from "../../redux/user/user.actions";
+
 class Appbar extends Component {
+  handleSignOut = () => {
+    this.props.signOutUser(this.props.history);
+  };
+
   render() {
+    console.log("called");
     const { user } = this.props;
     return (
       <Navbar expand="lg" bg="dark" variant="dark">
@@ -28,10 +38,9 @@ class Appbar extends Component {
                   />
                   {user.username}
                 </Link>
-                {/* <pre>{user}</pre> */}
               </Navbar.Text>
               <Navbar.Text>
-                <Link to="/signin">Sign Out</Link>
+                <Button onClick={this.handleSignOut}>Sign Out</Button>
               </Navbar.Text>
             </>
           ) : (
@@ -50,4 +59,8 @@ class Appbar extends Component {
   }
 }
 
-export default Appbar;
+const mapDispatchToProps = dispatch => ({
+  signOutUser: history => dispatch(signOutUser(history))
+});
+
+export default withRouter(connect(null, mapDispatchToProps)(Appbar));

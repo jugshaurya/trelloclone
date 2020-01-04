@@ -1,49 +1,35 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-
+import { connect } from "react-redux";
+// Action Creators
+import { getUserViaTokenASYNC } from "./redux/user/user.actions";
+// Child Component
 import Appbar from "./components/navbar/navbar";
 import SignUp from "./components/signup/signup";
 import SignIn from "./components/signin/signin";
 import NotFound from "./components/not-found/notFound";
 import Boards from "./components/boards/boards";
 import SpecificBoard from "./components/specific-board/SpecificBoard";
-import withAuth from "./components/withAuth/withAuth";
 import Homepage from "./components/hompage/homepage";
-
+// Style
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// HOC
+import withAuth from "./components/withAuth/withAuth";
 const ProtectedBoards = withAuth(Boards);
 const ProtectedSpecificBoard = withAuth(SpecificBoard);
 
 class App extends React.Component {
-  state = {
-    user: null
-  };
-
-  getUser = async () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const response = await fetch("http://localhost:5000/user", {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${token}`
-        }
-      });
-
-      const user = await response.json();
-      this.setState({ user });
-    }
-  };
-
   componentDidMount() {
-    this.getUser();
+    this.props.getUserViaTokenASYNC();
   }
 
   render() {
+    console.log("app called");
     return (
       <div className="App">
-        <Appbar user={this.state.user} />
+        <Appbar user={this.props.user} />
         <Switch>
           <Route path="/signup" component={SignUp} />
           <Route path="/signin" component={SignIn} />
@@ -57,4 +43,12 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  user: state.user.user
+});
+
+const mapDispatchToProps = dispatch => ({
+  getUserViaTokenASYNC: () => dispatch(getUserViaTokenASYNC())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

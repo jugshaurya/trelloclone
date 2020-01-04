@@ -1,38 +1,21 @@
 import React from "react";
+import { connect } from "react-redux";
+import { getBoardASYNC } from "../../redux/board/board.actions";
 
 import Lists from "../lists/lists";
-
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 class SpecificBoard extends React.Component {
-  state = {
-    isFetchingBoard: false,
-    board: null
-  };
-
   componentDidMount() {
-    this.getBoard();
+    const boardId = this.props.match.params.id;
+    this.props.getBoardASYNC(boardId);
   }
 
-  getBoard = async () => {
-    this.setState({ isFetchingBoard: true });
-    const boardId = this.props.match.params.id;
-    const response = await fetch(`http://localhost:5000/boards/${boardId}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    });
-
-    const board = await response.json();
-    this.setState({ board, isFetchingBoard: false });
-  };
-
   render() {
-    const { board, isFetchingBoard } = this.state;
+    const { board, isFetchingBoard } = this.props;
 
     return !board || isFetchingBoard ? (
       <Container className="col-12 mt-5">
@@ -67,4 +50,13 @@ class SpecificBoard extends React.Component {
   }
 }
 
-export default SpecificBoard;
+const mapStateToProps = state => ({
+  board: state.board.boardData.board,
+  isFetchingBoard: state.board.boardData.isFetchingBoard
+});
+
+const mapDispatchToProps = dispatch => ({
+  getBoardASYNC: boardId => dispatch(getBoardASYNC(boardId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SpecificBoard);

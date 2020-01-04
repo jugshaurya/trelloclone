@@ -3,6 +3,8 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Modal from "react-bootstrap/Modal";
+import { connect } from "react-redux";
+import { updateCardWhenUploadImageASYNC } from "../../redux/cards/cards.actions";
 
 class MyModal extends React.Component {
   state = {
@@ -15,11 +17,14 @@ class MyModal extends React.Component {
 
   onSubmit = async e => {
     e.preventDefault();
-    this.props.uploadImage(this.state.multerImage, this.props.card);
+    this.props.updateCardWhenUploadImageASYNC(
+      this.props.card,
+      this.state.multerImage
+    );
   };
 
   render() {
-    const { card, onHide, show } = this.props;
+    const { card, onHide, show, isUpdatingCardWhileUploading } = this.props;
     return (
       <Modal
         onHide={onHide}
@@ -41,10 +46,12 @@ class MyModal extends React.Component {
               Card Labels: {card.labels}
               <br />
               Card Image: {card.cardImage}
-              <form onSubmit={this.onSubmit}>
-                <input type="file" onChange={this.handleChange} />
-                <button type="submit">Upload</button>
-              </form>
+              {isUpdatingCardWhileUploading && (
+                <form onSubmit={this.onSubmit}>
+                  <input type="file" onChange={this.handleChange} />
+                  <button type="submit">Upload</button>
+                </form>
+              )}
               <br />
             </Row>
 
@@ -56,4 +63,14 @@ class MyModal extends React.Component {
   }
 }
 
-export default MyModal;
+const mapStateToProps = state => ({
+  isUpdatingCardWhileUploading:
+    state.board.boardCards.isUpdatingCardWhileUploading
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateCardWhenUploadImageASYNC: (card, image) =>
+    dispatch(updateCardWhenUploadImageASYNC(card, image))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyModal);

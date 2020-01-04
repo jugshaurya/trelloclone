@@ -20,16 +20,17 @@
   - [x] jwt
   - [x] bcrypt to hash pass
 - [x] Generate Client
+
   - [x] Create a react app
   - [x] use react-bootstrap/ant design or write from scratch
   - [x] Add redux-logger
   - [x] Add redux-thunk
-  - [] Add redux and create basic store files
+
 - [x] Add local auth to server
 - [ ] TODO: Add client data validation on server
 - [ ] Add signin and signup to client
   - [x] Create Form for Both
-  - [ ] Add Client Side Validation of data, checking and showing errors
+  - [ ] Add Client Side Validation of data, checking and showing errors: use joi
   - [x] save token after signin inside localstorage
 - [x] Add boards service to server
 - [x] User can create/view boards on client
@@ -59,9 +60,16 @@
 ---
 
 - [x] user can edit the card
-- [ ] user can add description to card
-- [ ] User can add image/attachment to a card
+- [x] User can add image/attachment to a card
+
   - https://codeburst.io/image-uploading-using-react-and-node-to-get-the-images-up-c46ec11a7129
+  - npm multer
+
+- [x] Add redux and create basic store files
+
+---
+
+- [ ] user can add description to card
 - [ ] user can add color-labels
 
 * [ ] Create activities service on server

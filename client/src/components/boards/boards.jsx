@@ -1,4 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
+import {
+  getAllBoardsASYNC,
+  createBoardASYNC
+} from "../../redux/boards/boards.actions";
 
 import Spinner from "react-bootstrap/Spinner";
 import Form from "react-bootstrap/Form";
@@ -8,19 +13,16 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 
-import Board from "../board/board";
+import BoardLayout from "../board-layout/boardLayout";
 
 class Boards extends React.Component {
   state = {
-    isFetchingBoards: false,
-    isCreatingBoard: false,
-    boards: [],
     name: "",
     background: ""
   };
 
   componentDidMount() {
-    this.getAllBoards();
+    this.props.getAllBoardsASYNC();
   }
 
   handleChange = e => {
@@ -30,53 +32,12 @@ class Boards extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.createBoard(e.target);
-  };
-
-  getAllBoards = async () => {
-    this.setState({ isFetchingBoards: true });
-    const response = await fetch("http://localhost:5000/boards", {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    });
-    const boards = await response.json();
-
-    this.setState({ boards, isFetchingBoards: false });
-  };
-
-  createBoard = async ({ name, background }) => {
-    const newBoard = {
-      name: name.value,
-      background: background.value
-    };
-    this.setState({ isCreatingBoard: true });
-    const response = await fetch("http://localhost:5000/boards", {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newBoard)
-    });
-
-    const board = await response.json();
-
-    this.setState(prevState => ({
-      boards: [...prevState.boards, board],
-      isCreatingBoard: false
-    }));
+    this.props.createBoardASYNC(this.state.name, this.state.background);
   };
 
   render() {
-    const {
-      isFetchingBoards,
-      isCreatingBoard,
-      background,
-      name,
-      boards
-    } = this.state;
+    const { isFetchingBoards, boards, isCreatingBoard } = this.props;
+    const { background, name } = this.state;
 
     return (
       <Container className="mt-5 col-12">
@@ -88,11 +49,12 @@ class Boards extends React.Component {
           </Row>
         ) : (
           <Row>
-            {boards.map(board => (
-              <Col className="col-4" key={board._id}>
-                <Board board={board} history={this.props.history} />
-              </Col>
-            ))}
+            {boards &&
+              boards.map(board => (
+                <Col className="col-4" key={board._id}>
+                  <BoardLayout board={board} history={this.props.history} />
+                </Col>
+              ))}
 
             <Col className="col-4">
               {isCreatingBoard ? (
@@ -146,4 +108,16 @@ class Boards extends React.Component {
   }
 }
 
-export default Boards;
+const mapStateToProps = state => ({
+  boards: state.boards.boards,
+  isFetchingBoards: state.boards.isFetchingBoards,
+  isCreatingBoard: state.boards.isCreatingBoard
+});
+
+const mapDispatchToProps = dispatch => ({
+  getAllBoardsASYNC: () => dispatch(getAllBoardsASYNC()),
+  createBoardASYNC: (name, background) =>
+    dispatch(createBoardASYNC(name, background))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Boards);

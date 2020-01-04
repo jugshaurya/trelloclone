@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -12,9 +12,9 @@ import MyModal from "../my-modal/myModal";
 import { ReactComponent as EditSVG } from "./pencil.svg";
 import "./singleCard.styles.scss";
 
+import { updateCardWhenEditASYNC } from "../../redux/cards/cards.actions";
 class SingleCard extends Component {
   state = {
-    editing: false,
     newTitle: this.props.card.title,
     showModal: false
   };
@@ -24,40 +24,43 @@ class SingleCard extends Component {
     this.setState({ [name]: value });
   };
 
-  handleCardEdit = () => {
-    this.setState({ editing: true });
-  };
-
   handleSubmit = async e => {
     e.preventDefault();
-    await this.props.updateCard(this.props.card, {
+    await this.props.updateCardWhenEditASYNC(this.props.card, {
       title: this.state.newTitle
     });
-    this.setState({ editing: false });
   };
 
   setModalShow = show => {
     this.setState({ showModal: show });
   };
 
+  handleDragStart = (e, card) => {
+    e.dataTransfer.setData("text/plain", JSON.stringify(card));
+  };
+
   render() {
-    const { card, onDragStart, uploadImage } = this.props;
-    const {
-      _id,
-      title
-      // , description, labels, cardImage
-    } = card;
-    // console.log(card);
+    const { card, isUpdatingCardWhileEditing } = this.props;
+    const { _id, title } = card;
 
     return (
-      <Container className="col-12" onDragStart={onDragStart}>
+      <Container
+        className="col-12"
+        draggable
+        onDragStart={e => this.handleDragStart(e, card)}
+      >
         <Row>
           <Col className="col-12" data-id={_id} key={_id}>
             <Card bg="info" text="white" className="card-extra">
-              {card.cardImage ? (
-                <img src={card.cardImage} alt="pl" width="200" height="200" />
+              {card.cardImage !== "none" ? (
+                <img
+                  src={card.cardImage}
+                  alt="coverImg"
+                  width="200"
+                  height="200"
+                />
               ) : null}
-              {this.state.editing ? (
+              {isUpdatingCardWhileEditing ? (
                 <Card.Title>
                   <Form onSubmit={this.handleSubmit} className="col-12 pa-5">
                     <Form.Group controlId="formBasicCardEdit" className="col-8">
@@ -84,7 +87,6 @@ class SingleCard extends Component {
                         show={this.state.showModal}
                         onHide={() => this.setModalShow(false)}
                         card={card}
-                        uploadImage={uploadImage}
                       />
                     </Card.Title>
                   </Card.Title>
@@ -98,4 +100,13 @@ class SingleCard extends Component {
   }
 }
 
-export default SingleCard;
+const mapStateToProps = state => ({
+  isUpdatingCardWhileEditing: state.board.boardCards.isUpdatingCardWhileEditing
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateCardWhenEditASYNC: (card, update) =>
+    dispatch(updateCardWhenEditASYNC(card, update))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleCard);

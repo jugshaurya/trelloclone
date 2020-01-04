@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+import {
+  getAllCardsInBoardASYNC,
+  createCardASYNC,
+  updateCardWhenDropASYNC
+} from "../../redux/cards/cards.actions";
 
 import SingleCard from "../single-card/singleCard";
-
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -13,9 +18,12 @@ import Button from "react-bootstrap/Button";
 
 class ListCards extends Component {
   state = {
-    title: "",
-    description: ""
+    title: ""
   };
+
+  componentDidMount() {
+    this.props.getAllCardsInBoardASYNC();
+  }
 
   handleChange = e => {
     const { name, value } = e.target;
@@ -24,21 +32,27 @@ class ListCards extends Component {
 
   handleSubmit = (e, listId) => {
     e.preventDefault();
-    this.props.createNewCard(listId, this.state.title, this.state.description);
+    this.props.createCardASYNC(listId, this.state.title);
   };
 
-  handleDragStart = (e, card) => {
-    e.dataTransfer.setData("text/plain", JSON.stringify(card));
+  handleDrop = async (e, droppingListId) => {
+    e.preventDefault();
+    const originalCard = JSON.parse(e.dataTransfer.getData("text/plain"));
+    // Update card only if card is moved to other list
+    if (droppingListId !== originalCard.listId) {
+      this.props.updateCardWhenDropASYNC(originalCard, {
+        listId: droppingListId
+      });
+    }
+  };
+
+  handleDragOver = e => {
+    e.preventDefault();
   };
 
   render() {
-    const {
-      isFetchingCards,
-      isCreatingCard,
-      cards,
-      list,
-      uploadImage
-    } = this.props;
+    const { isFetchingCards, isCreatingCard, cards, list } = this.props;
+
     const { title } = this.state;
     return isFetchingCards ? (
       <Container className="col-12">
@@ -47,19 +61,21 @@ class ListCards extends Component {
         </Row>
       </Container>
     ) : (
-      <Container className="col-12">
+      <Container
+        className="col-12"
+        style={{ background: "red" }}
+        onDrop={e => this.handleDrop(e, list._id)}
+        onDragOver={this.handleDragOver}
+      >
         <Row>
-          {cards.map(card => (
-            <Col className="col-12" key={card._id}>
-              <SingleCard
-                card={card}
-                draggable
-                onDragStart={e => this.handleDragStart(e, card)}
-                updateCard={this.props.updateCard}
-                uploadImage={uploadImage}
-              />
-            </Col>
-          ))}
+          {cards &&
+            cards
+              .filter(card => card.listId === list._id)
+              .map(card => (
+                <Col className="col-12" key={card._id}>
+                  <SingleCard card={card} />
+                </Col>
+              ))}
           {isCreatingCard ? (
             <Col className="col-12 mt-5">
               <Spinner animation="border" variant="info" />
@@ -105,4 +121,17 @@ class ListCards extends Component {
   }
 }
 
-export default withRouter(ListCards);
+const mapStateToProps = state => ({
+  isCreatingCard: state.board.boardCards.isCreatingCard,
+  isFetchingCards: state.board.boardCards.isFetchingCards,
+  cards: state.board.boardCards.cards
+});
+
+const mapDispatchToProps = dispatch => ({
+  getAllCardsInBoardASYNC: () => dispatch(getAllCardsInBoardASYNC()),
+  createCardASYNC: (listId, title) => dispatch(createCardASYNC(listId, title)),
+  updateCardWhenDropASYNC: (card, update) =>
+    dispatch(updateCardWhenDropASYNC(card, update))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListCards);
