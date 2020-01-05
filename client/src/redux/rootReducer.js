@@ -5,6 +5,7 @@ import boardReducer from "./board/board.reducer";
 import boardsReducer from "./boards/boards.reducer";
 import listsReducer from "./lists/lists.reducer";
 import cardsReducer from "./cards/cards.reducer";
+import activitiesReducer from "./activities/activities.reducer";
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   board: combineReducers({
     boardData: boardReducer,
     boardLists: listsReducer,
-    boardCards: cardsReducer
+    boardCards: cardsReducer,
+    activities: activitiesReducer
   })
 });
 

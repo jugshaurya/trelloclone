@@ -67,28 +67,38 @@
 
 - [x] Add redux and create basic store files
 
----
+* [x] Create activities service on server
+* [x] All activities are logged
+  - [x] dragging card activity
+  - [x] creating card activity
+  - [x] create list activity
+  - [] card Update Activity
+    - [] card title change
+    - [] card photo change
+    - [ ] card descritption change
+    - [ ] card label change
 
 - [ ] user can add description to card
 - [ ] user can add color-labels
+- [ ] Style refactor
+- [] update list name and log it to activities
 
-* [ ] Create activities service on server
-* [ ] All activities are logged
+---
 
-* [ ] Restrict only the board owner to
+- [ ] Restrict only the board owner to
   - [ ] create a list or create a card
 
-- [ ] User can add other members to a board
-- [ ] Update restrict to board owner to include members
+* [ ] User can add other members to a board
+* [ ] Update restrict to board owner to include members
 
-- [ ] User can re-arrange lists
-- [ ] restrict to board members
-- [ ] User can assign a member to a card
-- [ ] restrict to board members
+* [ ] User can re-arrange lists
+* [ ] restrict to board members
+* [ ] User can assign a member to a card
+* [ ] restrict to board members
 
-- [ ] User can add comments to a card
-- [ ] restrict to board members
-- [ ] Add more Functionality
+* [ ] User can add comments to a card
+* [ ] restrict to board members
+* [ ] Add more Functionality
   - [ ] find a list or create a card
   - [ ] update a list or create a card
   - [ ] delete a list or create a card

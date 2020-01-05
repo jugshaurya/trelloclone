@@ -15,9 +15,10 @@ const getBoardASYNCFailure = () => ({
   payload: null
 });
 
-export const getBoardASYNC = boardId => async dispatch => {
+export const getBoardASYNC = () => async (dispatch, getState) => {
   dispatch(getBoardASYNCStart());
   try {
+    const boardId = getState().board.boardData.pageBoardId;
     const response = await fetch(`http://localhost:5000/boards/${boardId}`, {
       method: "GET",
       headers: {
@@ -29,4 +30,11 @@ export const getBoardASYNC = boardId => async dispatch => {
   } catch (err) {
     dispatch(getBoardASYNCFailure());
   }
+};
+
+export const getPageBoardId = boardId => {
+  return {
+    type: boardActionTypes.GET_PAGE_BOARD_ID,
+    payload: boardId
+  };
 };

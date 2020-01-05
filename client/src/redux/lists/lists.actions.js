@@ -1,5 +1,6 @@
 import listsActionTypes from "./lists.types";
 
+import { createNewActivityASYNC } from "../activities/activities.actions";
 // ============= GET ALL LISTS =========================
 const getAllListsInBoardASYNCStart = () => ({
   type: listsActionTypes.GET_ALL_LISTS_IN_BOARD_START,
@@ -18,7 +19,7 @@ const getAllListsInBoardASYNCFailure = () => ({
 
 export const getAllListsInBoardASYNC = () => async (dispatch, getState) => {
   dispatch(getAllListsInBoardASYNCStart());
-  const boardId = getState().board.boardData.board._id;
+  const boardId = getState().board.boardData.pageBoardId;
   try {
     const response = await fetch(`http://localhost:5000/lists/${boardId}`, {
       method: "GET",
@@ -53,8 +54,10 @@ const createListASYNCFailure = () => ({
 
 export const createListASYNC = name => async (dispatch, getState) => {
   dispatch(createListASYNCStart());
-  const boardId = getState().board.boardData.board._id;
+  const boardId = getState().board.boardData.pageBoardId;
+
   const newList = { name };
+  console.log(name);
   try {
     const response = await fetch(`http://localhost:5000/lists/${boardId}`, {
       method: "POST",
@@ -67,6 +70,7 @@ export const createListASYNC = name => async (dispatch, getState) => {
 
     const list = await response.json();
     dispatch(createListASYNCSuccess(list));
+    dispatch(createNewActivityASYNC(`created list **${list.name}**`));
   } catch (err) {
     dispatch(createListASYNCFailure());
   }

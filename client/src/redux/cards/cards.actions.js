@@ -1,5 +1,7 @@
 import cardsActionTypes from "./cards.types";
 import axios from "axios";
+
+import { createNewActivityASYNC } from "../activities/activities.actions";
 // ============= GET ALL CARDS =========================
 const getAllCardsInBoardASYNCStart = () => ({
   type: cardsActionTypes.GET_ALL_CARDS_IN_BOARD_START,
@@ -18,7 +20,8 @@ const getAllCardsInBoardASYNCFailure = () => ({
 
 export const getAllCardsInBoardASYNC = () => async (dispatch, getState) => {
   dispatch(getAllCardsInBoardASYNCStart());
-  const boardId = getState().board.boardData.board._id;
+  const boardId = getState().board.boardData.pageBoardId;
+
   try {
     const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
       method: "GET",
@@ -57,7 +60,7 @@ export const createCardASYNC = (listId, title) => async (
   getState
 ) => {
   dispatch(createCardASYNCStart());
-  const boardId = getState().board.boardData.board._id;
+  const boardId = getState().board.boardData.pageBoardId;
   const newCard = {
     listId,
     title,
@@ -77,6 +80,7 @@ export const createCardASYNC = (listId, title) => async (
 
     const card = await response.json();
     dispatch(createCardASYNCSuccess(card));
+    dispatch(createNewActivityASYNC(`created card **${card.title}**`));
   } catch (err) {
     dispatch(createCardASYNCFailure());
   }
@@ -107,7 +111,8 @@ export const updateCardWhenDropASYNC = (card, update) => async (
 ) => {
   dispatch(updateCardASYNCStart("DROP"));
   const newCard = { ...card, ...update };
-  const boardId = getState().board.boardData.board._id;
+  const boardId = getState().board.boardData.pageBoardId;
+
   try {
     const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
       method: "PUT",
@@ -120,6 +125,15 @@ export const updateCardWhenDropASYNC = (card, update) => async (
 
     const updatedCard = await response.json();
     dispatch(updateCardASYNCSuccess("DROP", updatedCard));
+
+    const lists = getState().board.boardLists.lists;
+    const fromList = lists.filter(list => list._id === card.listId)[0];
+    const toList = lists.filter(list => list._id === updatedCard.listId)[0];
+    dispatch(
+      createNewActivityASYNC(
+        `moved card **${card.title}** from **${fromList.name}** to **${toList.name}**`
+      )
+    );
   } catch (err) {
     dispatch(updateCardASYNCFailure("DROP"));
   }
@@ -133,7 +147,7 @@ export const updateCardWhenEditASYNC = (card, update) => async (
 ) => {
   dispatch(updateCardASYNCStart("EDIT"));
   const newCard = { ...card, ...update };
-  const boardId = getState().board.boardData.board._id;
+  const boardId = getState().board.boardData.pageBoardId;
   try {
     const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
       method: "PUT",
@@ -146,6 +160,11 @@ export const updateCardWhenEditASYNC = (card, update) => async (
 
     const updatedCard = await response.json();
     dispatch(updateCardASYNCSuccess("EDIT", updatedCard));
+    dispatch(
+      createNewActivityASYNC(
+        `changed card title from **${card.title}** to **${updatedCard.title}**`
+      )
+    );
   } catch (err) {
     dispatch(updateCardASYNCFailure("EDIT"));
   }
@@ -179,11 +198,13 @@ export const updateCardWhenUploadImageASYNC = (
       );
       const updatedCard = await response.data;
       dispatch(updateCardASYNCSuccess("UPLOADIMAGE", updatedCard));
-
-      // const cards = this.state.cards.map(card =>
-      //   card._id === cardToUpdate._id ? updatedCard : card
-      // );
-      // this.setState({ cards });
+      dispatch(
+        createNewActivityASYNC(
+          `added **${updatedCard.cardImage.slice("-")[1]}** image to **${
+            card.title
+          }**`
+        )
+      );
     } catch (error) {
       console.log(error);
       dispatch(updateCardASYNCFailure("UPLOADIMAGE"));

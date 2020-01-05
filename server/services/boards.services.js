@@ -1,7 +1,7 @@
 const Board = require("../models/boards");
 
 // Get all Boards
-const getAllBoards = async (req, res) => {
+const getAllBoards = async (req, res, next) => {
   try {
     const boards = await Board.find({ ownerId: req.user._id });
     res.json(boards);
@@ -24,14 +24,14 @@ const getBoard = async (req, res, next) => {
 };
 
 // Create a new Board
-const createNewBoard = async (req, res) => {
+const createNewBoard = async (req, res, next) => {
   try {
     // TODO client side data validation
     const { name, background } = req.body;
     const newBoard = new Board({
       name,
       background,
-      ownerId: req.user.id,
+      ownerId: req.user._id,
       memberIds: []
     });
 
