@@ -32,7 +32,7 @@ class Lists extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.createListASYNC();
+    this.props.createListASYNC(this.state.name);
   };
 
   render() {

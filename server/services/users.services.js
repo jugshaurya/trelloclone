@@ -37,10 +37,12 @@ exports.signup = async (req, res, next) => {
 exports.signin = async (req, res, next) => {
   try {
     const token = await createToken(req.user);
+    if (!req.user) throw new Error("No Signed In User");
+    const user = await User.findOne({ _id: req.user._id }).select("-password");
     return res.status(200).json({
       token,
-      user: req.user,
-      message: `Welcome Back ${req.user.username}`
+      user,
+      message: `Welcome Back ${user.username}`
     });
   } catch (error) {
     return next(error);
@@ -49,19 +51,16 @@ exports.signin = async (req, res, next) => {
 
 exports.getUser = async (req, res, next) => {
   try {
-    if (req.user) {
-      const user = await User.findOne({ _id: req.user._id }).select(
-        "-password"
-      );
-      //  ====== Not working Approach =====
-      // console.log("current user", req.user);
-      // const sendUser = { ...req.user };
-      // delete sendUser.password;
+    if (!req.user) throw new Error("No Signed In User");
+    const user = await User.findOne({ _id: req.user._id }).select("-password");
+    //  ====== Not working Approach : Why??? shaurya see this later =====
+    //  ====== Why if we are copying req.user something else is happening =====
+    //  ====== try to see inside store the user if u send copied req.user instead of finding in db again =====
+    // console.log("current user", req.user);
+    // const sendUser = { ...req.user };
+    // delete sendUser.password;
 
-      return res.status(200).json(user);
-    } else {
-      throw new Error("No Signed in User");
-    }
+    return res.status(200).json(user);
   } catch (error) {
     return next(error);
   }

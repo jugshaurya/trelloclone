@@ -16,6 +16,7 @@ const createNewList = async (req, res, next) => {
   try {
     // TODO client side data validation
     const { name } = req.body;
+    console.log(name);
     const { boardId } = req.params;
     const newList = new List({
       name,
