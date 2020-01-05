@@ -9,6 +9,12 @@
 - will be taking the pointers about what to implement
 - and using his entity relationship Diagram to make my database.
 
+## UI/UX -DESIGN
+
+- linear-gradient(135deg, #0079bf, #5067c5)
+- background-color: #0079bf;
+- box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
 ## Progress
 
 - [x] Generate Server
@@ -110,3 +116,11 @@
 - [ ] Show all the available boards on a specific board so it is easy to swithv b/w boards
 - [ ] Add funtinality to boards to mark them favaorites
   - [ ] show all fav boards under fav sections
+
+### Thank you
+
+- https://blog.logrocket.com/how-to-use-bootstrap-with-react-a354715d1121/
+- https://fonts.google.com/?selection.family=PT+Sans
+- https://getbootstrap.com/docs/4.4/layout/overview/
+- https://vectr.com/new
+- https://digitalsynopsis.com/design/beautiful-color-ui-gradients-backgrounds/

@@ -1,7 +1,148 @@
 import React from "react";
+import { ReactComponent as MainImg } from "../../assets/mainimg.svg";
+import { ReactComponent as MainImg2 } from "../../assets/mainimg2.svg";
+import { ReactComponent as TeamImg } from "../../assets/team.svg";
+import "./homepage.styles.scss";
+const Homepage = props => {
+  return (
+    <>
+      <section id="main-section">
+        <div className="container pb-3 text-white">
+          <div className="row  text-center text-md-left">
+            <div className="col-lg-5">
+              <h1 className="title-from-trello">
+                Trello lets you work more collaboratively and get more done.
+              </h1>
+              <p className="title-from-trello-lead">
+                Trello’s boards, lists, and cards enable you to organize and
+                prioritize your projects in a fun, flexible, and rewarding way.
+              </p>
+              <button
+                type="button"
+                onClick={() => props.history.push("/boards")}
+                className="btn btn-success btn-lg px-3"
+              >
+                View All Your Boards
+              </button>
+            </div>
 
-const Homepage = () => {
-  return <h2>Homepage</h2>;
+            <div className="main-img col-lg-6 offset-lg-1 mt-sm-3 mt-md-1">
+              <MainImg2 />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="second-section">
+        <div className="container py-3">
+          <div className="row align-items-center text-center text-md-left">
+            <article className="article-left col-md-6 ">
+              <div class="text-center text-md-left">
+                <TeamImg />
+                <h3 className="mt-3">Work with any team</h3>
+                <p>
+                  Whether it’s for work, a side project or even the next family
+                  vacation, Trello helps your team stay organized.
+                </p>
+                <p>
+                  <a href="/signup" className="btn btn-secondary px-3">
+                    <span role="img" aria-labelledby="emoji">
+                      📌
+                    </span>
+                    Create Account
+                    <span role="img" aria-labelledby="emoji">
+                      🏁
+                    </span>
+                  </a>
+                </p>
+              </div>
+            </article>
+            <article className="article-right col-md-5 offset-1">
+              <div class="text-center text-md-left">
+                <MainImg />
+                <h3 className="mt-3">Information at a glance</h3>
+                <p>
+                  Dive into the details by adding descriptions, attachments,
+                  labels, and more directly to Trello cards. Collaborate on
+                  projects from beginning to end.
+                </p>
+                <p>
+                  <a href="/boards" className="btn btn-secondary px-3">
+                    <span role="img" aria-labelledby="emoji">
+                      📌
+                    </span>
+                    Start Working
+                    <span role="img" aria-labelledby="emoji">
+                      📑
+                    </span>
+                  </a>
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="third-section mt-3">
+        <div class="container mt-3">
+          <div class="px-3 pb-3 text-left">
+            <h3 className="mb-3 text-center">What is Trello ? </h3>
+            <p>
+              <span role="img" aria-labelledby="emoji">
+                💎
+              </span>
+              Trello is a web-based <em>Kanban-style</em> list-making
+              application
+            </p>
+            <p>
+              <span role="img" aria-labelledby="emoji">
+                💎
+              </span>
+              It is an easy way to clean out those cards gathering dust on your
+              board
+            </p>
+            <p>
+              <span role="img" aria-labelledby="emoji">
+                💎
+              </span>
+              Resolves that constant, nagging feeling of trying to fix and
+              manage your external environment!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="fourth-section" className="text-center">
+        <div className="row align-items-center text-center">
+          <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+            <h2>Welcome to Trello Clone </h2>
+            <p>
+              Sign up and see what <strong>shaurya</strong> has added in order
+              to clone the million people used Trello as one of the personal
+              project!.
+            </p>
+            <a href="/signin" class="btn btn-success px-3">
+              Have a Look!
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div className="container mt-3">
+          <div className="row text-center align-items-center">
+            <div className="col">
+              Made with
+              <span role="img" aria-labelledby="emoji">
+                💙
+              </span>
+              by Shaurya Singhal
+            </div>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
 };
 
 export default Homepage;

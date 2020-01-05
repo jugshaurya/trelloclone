@@ -1,14 +1,20 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+// Used for rendering markdowns
 import marked from "marked";
+import renderHTML from "react-render-html";
+
+// Style
+import Spinner from "react-bootstrap/Spinner";
+import ListGroup from "react-bootstrap/ListGroup";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ListGroup from "react-bootstrap/ListGroup";
-import { connect } from "react-redux";
-import { getAllActivitiesASYNC } from "../../redux/activities/activities.actions";
-import Spinner from "react-bootstrap/Spinner";
 
-import renderHTML from "react-render-html";
+// action Creators
+import { getAllActivitiesASYNC } from "../../redux/activities/activities.actions";
+
 class Activities extends Component {
   componentDidMount() {
     this.props.getAllActivitiesASYNC();
