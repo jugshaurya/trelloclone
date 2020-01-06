@@ -42,16 +42,16 @@ class Appbar extends Component {
             </>
           ) : (
             <>
-              <Link
-                to="/boards"
-                className="remove-padding btn btn-link text-white"
-              >
+              <Link to="/boards" className="btn bg-white font-weight-bold">
                 Boards
               </Link>
-              <Link to="/signin" className="btn btn-link text-white">
+              <Link
+                to="/signin"
+                className="remove-padding btn btn-link text-white"
+              >
                 Sign In
               </Link>
-              <Link to="/signup" className="btn bg-white font-weight-bold">
+              <Link to="/signup" className="btn btn-link text-white">
                 Sign Up
               </Link>
             </>

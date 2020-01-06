@@ -86,7 +86,7 @@
 
 - [ ] user can add description to card
 - [ ] user can add color-labels
-- [ ] Style refactor
+- [x] Style refactor
 - [] update list name and log it to activities
 
 ---

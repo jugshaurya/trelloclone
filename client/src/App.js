@@ -28,19 +28,34 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <header className="fixed-top">
-          <Appbar user={this.props.user} />
-        </header>
-        <section>
-          <Switch>
-            <Route path="/signup" component={SignUp} />
-            <Route path="/signin" component={SignIn} />
-            <Route path="/boards/:id" component={ProtectedSpecificBoard} />
-            <Route path="/boards" component={ProtectedBoards} />
-            <Route exact path="/" component={Homepage} />
-            <Route path="/" component={NotFound} />
-          </Switch>
-        </section>
+        <div className="content">
+          <header className="fixed-top">
+            <Appbar user={this.props.user} />
+          </header>
+          <main>
+            <Switch>
+              <Route path="/signup" component={SignUp} />
+              <Route path="/signin" component={SignIn} />
+              <Route path="/boards/:id" component={ProtectedSpecificBoard} />
+              <Route path="/boards" component={ProtectedBoards} />
+              <Route exact path="/" component={Homepage} />
+              <Route path="/" component={NotFound} />
+            </Switch>
+          </main>
+        </div>
+        <footer>
+          <div className="container mt-3">
+            <div className="row text-center align-items-center">
+              <div className="col">
+                Made with
+                <span role="img" aria-labelledby="emoji">
+                  💙
+                </span>
+                by Shaurya Singhal
+              </div>
+            </div>
+          </div>
+        </footer>
       </>
     );
   }

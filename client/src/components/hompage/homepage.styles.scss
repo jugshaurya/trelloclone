@@ -3,6 +3,13 @@
   padding-top: 10rem;
 }
 
+#main-section,
+#fourth-section {
+  .btn-success {
+    color: #007bff;
+  }
+}
+
 .main-img {
   width: 90vw;
   margin: 0 auto;
@@ -25,25 +32,18 @@ span[role="img"] {
   margin-right: 5px;
 }
 
-#second-section {
-  article {
-    height: 800px;
-  }
-}
+#fourth-section {
+  // background: linear-gradient(135deg, #bdc3c7, #2c3e50);
+  background: linear-gradient(135deg, #36d1dc, #5b86e5);
 
-#fourth-section,
-footer {
-  background: linear-gradient(135deg, #bdc3c7, #2c3e50);
   padding: 2rem;
   color: white;
 }
 
-footer {
-  padding: 1rem;
-}
-
-.btn-secondary {
-  background: linear-gradient(135deg, #36d1dc, #5b86e5);
+#second-section {
+  .btn-secondary {
+    background: linear-gradient(135deg, #36d1dc, #5b86e5);
+  }
 }
 
 @media (min-width: 1000px) {

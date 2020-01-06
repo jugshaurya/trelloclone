@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
+import { ReactComponent as SignUpSVG } from "../../assets/signup.svg";
 
 import { signUpUserASYNC } from "../../redux/user/user.actions";
-
+import "./signup.styles.scss";
 const SignUp = props => {
   const [usercredentials, setUserCredentials] = useState({
     username: "",
@@ -34,94 +29,115 @@ const SignUp = props => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    this.props.signUpUserASYNC(usercredentials, props.history);
+    props.signUpUserASYNC(usercredentials, props.history);
   };
 
   const { isSignUp, signUpError, signUpSuccessMessage } = props;
   return (
-    <>
-      {isSignUp ? (
-        <div className="mt-5">
-          <Spinner animation="border" variant="info" />
-        </div>
-      ) : (
-        <Container className="mt-5">
-          <h1 className="mb-5">SignUp</h1>
-          <Row>
-            <Col className="col-4 m-auto">
-              <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formBasicUsername">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control
-                    required
+    <div id="sign-up" className="container pt-3">
+      <div className="row text-center">
+        <div className="signup-left col-sm-12 col-md-6">
+          {isSignUp ? (
+            <Spinner animation="border" variant="info" />
+          ) : (
+            <>
+              <h3 className="pb-2 text-lg-middle">Ready to Sign Up</h3>
+              <div className="alert-box pt-2 pb-2 px-1 text-lg-middle">
+                {signUpError && (
+                  <alert className="alert alert-danger">{signUpError}</alert>
+                )}
+                {signUpSuccessMessage && (
+                  <alert className="alert alert-success">
+                    {signUpSuccessMessage}
+                  </alert>
+                )}
+              </div>
+
+              <form
+                className="py-2 px-5 text-md-middle"
+                onSubmit={handleSubmit}
+              >
+                <div className="form-group ml-md-3">
+                  <label for="username">Username</label>
+                  <input
+                    id="username"
+                    className="form-control"
                     type="text"
                     name="username"
                     placeholder="Enter Username"
                     onChange={handleChange}
                     value={username}
-                  />
-                </Form.Group>
-
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control
                     required
+                  />
+                </div>
+
+                <div className="form-group ml-md-3">
+                  <label for="email">Email Address</label>
+                  <input
+                    id="email"
+                    className="form-control"
                     type="email"
                     name="email"
-                    placeholder="Enter email"
+                    placeholder="Enter Email Address"
                     onChange={handleChange}
                     value={email}
-                  />
-                </Form.Group>
-
-                <Form.Group controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
                     required
+                  />
+                </div>
+
+                <div className="form-group ml-md-3">
+                  <label for="password">Password</label>
+                  <input
+                    id="password"
+                    className="form-control"
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    placeholder="Enter Password"
                     onChange={handleChange}
                     value={password}
-                  />
-                </Form.Group>
-
-                <Form.Group controlId="formBasicConfirmPassword">
-                  <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control
                     required
-                    name="confirmPassword"
+                  />
+                </div>
+                <div className="form-group ml-md-3">
+                  <label for="confirm-password">Confirm Password</label>
+                  <input
+                    id="confirm-password"
+                    className="form-control"
                     type="password"
-                    placeholder="Confirm Password"
+                    name="confirmPassword"
+                    placeholder="Enter Confirm Password"
                     onChange={handleChange}
                     value={confirmPassword}
-                  />
-                </Form.Group>
-
-                <Form.Group controlId="formBasicAvatar">
-                  <Form.Label>AvatarUrl</Form.Label>
-                  <Form.Control
                     required
+                  />
+                </div>
+
+                <div className="form-group ml-md-3">
+                  <label for="avatar-url">Avatar URL</label>
+                  <input
+                    id="avatar-url"
+                    className="form-control"
                     type="text"
                     name="avatarUrl"
-                    placeholder="Avatar Url"
+                    placeholder="Enter Avatar URL"
                     onChange={handleChange}
                     value={avatarUrl}
+                    required
                   />
-                </Form.Group>
-                {signUpError && <Alert variant="danger">{signUpError}</Alert>}
-                {signUpSuccessMessage && (
-                  <Alert variant="success">{signUpSuccessMessage}</Alert>
-                )}
-                <Button variant="primary" type="submit">
+                </div>
+
+                <button className="btn btn-primary px-3" type="submit">
                   Submit
-                </Button>
-              </Form>
-            </Col>
-          </Row>
-        </Container>
-      )}
-    </>
+                </button>
+              </form>
+            </>
+          )}
+        </div>
+        <div className="signup-right col-sm-12 col-md-6 pt-2">
+          <SignUpSVG />
+        </div>
+      </div>
+    </div>
   );
 };
 

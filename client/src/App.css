@@ -9,3 +9,21 @@
 header {
   background-color: #243b55;
 }
+
+footer {
+  background: linear-gradient(135deg, #36d1dc, #5b86e5);
+  padding: 0.5rem;
+  color: white;
+}
+
+footer .btn-success {
+  background: linear-gradient(135deg, #36d1dc, #5b86e5);
+}
+
+.content {
+  min-height: calc(100vh - 64.19px);
+}
+
+.footer {
+  height: 64.19px;
+}
