@@ -2,6 +2,22 @@
   font-size: 1.1rem;
 }
 
+body::-webkit-scrollbar {
+  width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  /* background-color: #36d1dc; */
+  background: linear-gradient(45deg, #36d1dc, #5b86e5);
+
+  outline: 20px solid #212529;
+  border-radius: 10%;
+}
+
 body {
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;

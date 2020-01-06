@@ -1,0 +1,27 @@
+#boards-page {
+  padding-top: 4rem;
+}
+
+.all-boards-list,
+.all-boards {
+  // border: 3px solid #5b86e5;
+  padding: 20px;
+}
+
+//   .btn-primary {
+//     background: linear-gradient(135deg, #36d1dc, #5b86e5);
+//   }
+
+@media (max-width: 768px) {
+  .invisible-on-small-screen {
+    display: none;
+  }
+}
+
+// div {
+//   display: inline-block;
+// }
+
+.i-dont-know {
+  margin-top: 0;
+}

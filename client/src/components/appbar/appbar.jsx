@@ -4,10 +4,6 @@ import { connect } from "react-redux";
 // Action Creator
 import { signOutUser } from "../../redux/user/user.actions";
 // Style Import
-import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
-import Nav from "react-bootstrap/Nav";
 import "./appbar.styles.scss";
 
 class Appbar extends Component {
@@ -26,19 +22,22 @@ class Appbar extends Component {
         <div className="navbar-right">
           {user ? (
             <>
-              {/* <Link to="/profile">
-                  <Image
-                    src={user.avatarUrl}
-                    roundedCircle
-                    className="mr-2"
-                    style={{ height: 30, width: 30 }}
-                  />
-                  {user.username}
-                </Link>
-              </Navbar.Text>
-              <Navbar.Text>
-                <Button onClick={this.handleSignOut}>Sign Out</Button>
-              </Navbar.Text> */}
+              <Link to="/boards" className="btn bg-white font-weight-bold">
+                Boards
+              </Link>
+              <Link
+                to="/"
+                className="profile remove-padding btn btn-link text-white "
+              >
+                <img src={user.avatarUrl} alt="avatar" className="p-1" />
+                {user.username}
+              </Link>
+              <button
+                onClick={this.handleSignOut}
+                className="btn btn-link text-white"
+              >
+                Sign Out
+              </button>
             </>
           ) : (
             <>

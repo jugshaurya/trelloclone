@@ -58,7 +58,7 @@ const SignUp = props => {
                 onSubmit={handleSubmit}
               >
                 <div className="form-group ml-md-3">
-                  <label for="username">Username</label>
+                  <label htmlFor="username">Username</label>
                   <input
                     id="username"
                     className="form-control"
@@ -72,7 +72,7 @@ const SignUp = props => {
                 </div>
 
                 <div className="form-group ml-md-3">
-                  <label for="email">Email Address</label>
+                  <label htmlFor="email">Email Address</label>
                   <input
                     id="email"
                     className="form-control"
@@ -86,7 +86,7 @@ const SignUp = props => {
                 </div>
 
                 <div className="form-group ml-md-3">
-                  <label for="password">Password</label>
+                  <label htmlFor="password">Password</label>
                   <input
                     id="password"
                     className="form-control"
@@ -99,7 +99,7 @@ const SignUp = props => {
                   />
                 </div>
                 <div className="form-group ml-md-3">
-                  <label for="confirm-password">Confirm Password</label>
+                  <label htmlFor="confirm-password">Confirm Password</label>
                   <input
                     id="confirm-password"
                     className="form-control"
@@ -113,7 +113,7 @@ const SignUp = props => {
                 </div>
 
                 <div className="form-group ml-md-3">
-                  <label for="avatar-url">Avatar URL</label>
+                  <label htmlFor="avatar-url">Avatar URL</label>
                   <input
                     id="avatar-url"
                     className="form-control"

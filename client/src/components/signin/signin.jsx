@@ -47,7 +47,7 @@ const SignIn = props => {
 
               <form className="p-2 px-5 text-md-middle" onSubmit={handleSubmit}>
                 <div className="form-group ml-md-3">
-                  <label for="username">Username</label>
+                  <label htmlFor="username">Username</label>
                   <input
                     id="username"
                     className="form-control"
@@ -60,7 +60,7 @@ const SignIn = props => {
                   />
                 </div>
                 <div className="form-group ml-md-3">
-                  <label for="password">Password</label>
+                  <label htmlFor="password">Password</label>
                   <input
                     id="password"
                     className="form-control"

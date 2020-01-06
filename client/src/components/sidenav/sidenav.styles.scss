@@ -1,0 +1,36 @@
+.sidenav {
+  height: 100%;
+  width: 10;
+  position: fixed;
+  z-index: 10;
+  top: 4rem;
+  left: 0;
+  background: linear-gradient(0deg, #43cea2, #0079bf);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  .span-top {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+    border-bottom: 2px solid #ccc;
+    &:hover {
+      color: #ddd;
+    }
+  }
+  .closebtn {
+    position: absolute;
+    top: 4px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: #fff;
+  }
+}
+
+#list-icons {
+  font-size: 1.5em;
+}
