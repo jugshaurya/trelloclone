@@ -36,7 +36,7 @@
 - [ ] TODO: Add client data validation on server
 - [ ] Add signin and signup to client
   - [x] Create Form for Both
-  - [ ] Add Client Side Validation of data, checking and showing errors: use joi
+  - [ ] Add Client Side Validation of data @server, checking and showing errors: use joi
   - [x] save token after signin inside localstorage
 - [x] Add boards service to server
 - [x] User can create/view boards on client

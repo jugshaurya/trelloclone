@@ -1,0 +1,177 @@
+[33mcommit f0ab19f89fe4cdcbd62ad33afe347465946891ed[m[33m ([m[1;36mHEAD -> [m[1;32mstyleRefactor[m[33m, [m[1;31morigin/styleRefactor[m[33m)[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Mon Jan 6 22:42:21 2020 +0530
+
+    style(boardPage) Styled board Page
+
+[33mcommit f763979f83e2093c39b82fa7ef1b8f25fab22106[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Mon Jan 6 14:33:29 2020 +0530
+
+    style(signup+signin page) style improved for auth pages
+
+[33mcommit c0b3e9009abf52615ace770a019711b200a634e5[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Sun Jan 5 23:51:47 2020 +0530
+
+    style(hompage) :Added styles to homepage and navbar
+
+[33mcommit 3c327bd3c3b058d42c164d566692aeccab6ab887[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: 7a11cc6 0516989
+Author: Shaurya Singhal <39825643+jugshaurya@users.noreply.github.com>
+Date:   Sun Jan 5 16:37:31 2020 +0530
+
+    Merge pull request #8 from jugshaurya/activities
+    
+    feat(add-activities): Added activity redux and functions to create and…
+
+[33mcommit 05169893bf3aaa6505f752aa1fe95647047109aa[m[33m ([m[1;31morigin/activities[m[33m, [m[1;32mactivities[m[33m)[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Sun Jan 5 12:16:59 2020 +0530
+
+    feat(add-activities) Added activity redux and functions to create and fetch all activities
+
+[33mcommit 7a11cc6764fc4389936a91f8034019627b4ade14[m
+Merge: 58b30c4 be1941e
+Author: Shaurya Singhal <39825643+jugshaurya@users.noreply.github.com>
+Date:   Sun Jan 5 00:14:43 2020 +0530
+
+    Merge pull request #7 from jugshaurya/refactor-add-redux
+    
+    Refactor add redux
+
+[33mcommit be1941e3d7452ad51a898e0fedf3bbed5719ee98[m[33m ([m[1;31morigin/refactor-add-redux[m[33m, [m[1;32mrefactor-add-redux[m[33m)[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Sat Jan 4 20:49:20 2020 +0530
+
+    refactor(add-redux-auth) implented redux signin signout
+
+[33mcommit 2de934d1e9a0c7aaf3273c00faf748ab6a78e1bf[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Sat Jan 4 14:30:24 2020 +0530
+
+    refactor(add-cardsReduer) implemented and used card reducer
+
+[33mcommit f282812649833e1f4679d96bff2d68015951358e[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Sat Jan 4 12:00:16 2020 +0530
+
+    refactor(add redux) : implements board, boards,user reducers and connected to its specific places
+
+[33mcommit 58b30c4df7d14dedb1094834808d7253c7f82ed1[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Fri Jan 3 21:10:26 2020 +0530
+
+    :sparkles: implemented Image Upload which can be used to update a new photo
+    
+    Finally after 6hrs of work it is working
+
+[33mcommit 5717920b69bcc2a99ceba415dcc729ee176c815c[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Fri Jan 3 12:09:33 2020 +0530
+
+    feat(edit cards title) added funtionality to update the card data
+
+[33mcommit f78724c50e70d9234a526e6e3547acb887b16f77[m
+Merge: aef1496 dd0b916
+Author: Shaurya Singhal <39825643+jugshaurya@users.noreply.github.com>
+Date:   Thu Jan 2 15:12:27 2020 +0530
+
+    Merge pull request #6 from jugshaurya/user-on-navbar
+    
+    feat(userObj-in-App) ,style(cards) : some minor style changes and user i…
+
+[33mcommit dd0b91643ce10d8950cc8b5780be2dc69b6afda3[m[33m ([m[1;31morigin/user-on-navbar[m[33m)[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Thu Jan 2 15:10:55 2020 +0530
+
+    feat(userObj-in-App) style(cards) some minor style changes and user is retrieved from server and showed on client navar
+
+[33mcommit aef1496270381d49b22d74f911e0eeadc924fd2d[m
+Merge: 60b9fa3 8bd48b6
+Author: Shaurya Singhal <39825643+jugshaurya@users.noreply.github.com>
+Date:   Wed Jan 1 19:58:30 2020 +0530
+
+    Merge pull request #5 from jugshaurya/drag-cards-around
+    
+    Drag cards around
+
+[33mcommit 8bd48b6e7ddc4dcb534f54774b18a65871ee63d0[m[33m ([m[1;31morigin/drag-cards-around[m[33m)[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Wed Jan 1 19:51:25 2020 +0530
+
+    feat(card-move-server) Server code written for updating cards listID as we move cards
+
+[33mcommit 01ac954ab21a8a9106f6828421853bc8834ad40e[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Wed Jan 1 18:28:04 2020 +0530
+
+    fix(minor-bugs)
+
+[33mcommit cba3f2ab85e5ab6aeb5fce17b6f9e1efcf1d8b9a[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Wed Jan 1 18:11:45 2020 +0530
+
+    feat(drag-cards-around-client) bit refactoringand dragging using mdn drag API
+
+[33mcommit 60b9fa31237542e6d61b4ed56964a47eadbf0fcd[m
+Merge: 130ff72 5d3df61
+Author: Shaurya Singhal <39825643+jugshaurya@users.noreply.github.com>
+Date:   Tue Dec 31 20:19:59 2019 +0530
+
+    Merge pull request #2 from jugshaurya/card-in-board-lists
+    
+    feat(cards-in-list) implemented list component and lists model to cre…
+
+[33mcommit 5d3df6133d568d775a4b717c4f49db24ff4f6524[m[33m ([m[1;31morigin/card-in-board-lists[m[33m)[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Tue Dec 31 20:18:20 2019 +0530
+
+    feat(cards-in-list) implemented list component and lists model to create/retrieve the cards
+
+[33mcommit 130ff72f7d01eec4cbca4b64d1b85a00856482c1[m
+Merge: 6fd2539 197ef81
+Author: Shaurya Singhal <39825643+jugshaurya@users.noreply.github.com>
+Date:   Mon Dec 30 18:34:29 2019 +0530
+
+    Merge pull request #1 from jugshaurya/list-in-board
+    
+    feat(list inside board):  implemented server /lists/boardId & board.jsx…
+
+[33mcommit 197ef8138dbde0b00ccda6c3aee04cac9f61819e[m[33m ([m[1;31morigin/list-in-board[m[33m)[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Mon Dec 30 18:32:02 2019 +0530
+
+    feat(list inside board) implemented server /lists/boardId & board.jsx and little changes in withAuth
+
+[33mcommit 6fd253908521437e8ced7fe401d43b47ce4e0730[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Mon Dec 30 00:41:41 2019 +0530
+
+    feat(board/:id) implemented both client and server version of the same
+
+[33mcommit bf5cbea04f55dd842cbd7c18c67fc8cd71243045[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Sun Dec 29 23:14:46 2019 +0530
+
+    feat(boards) implemented boards model with getAllBoards and CreateBoard functionality on both server and client side
+
+[33mcommit 5351020bb2a40d60823cc6604fb45b9044cfa356[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Sat Dec 28 19:57:10 2019 +0530
+
+    feat(core/auth) Added SignUp and SignIn with Protected routes checking using localstorage token
+    
+    Added withAuth HOC for implementing Protected Route
+
+[33mcommit 8e8eb1558a01aff5ba15d26850712f34cc261a76[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Fri Dec 27 19:26:23 2019 +0530
+
+    add(feature) Server side auth with passport + user model+ client setup
+
+[33mcommit f49b5d1956b3921039d24f1a1babd8090b6479d1[m
+Author: Shaurya Singhal(jugshaurya) <shauryasinghal84@gmail.com>
+Date:   Thu Dec 26 17:32:50 2019 +0530
+
+    initial Commit

@@ -45,7 +45,11 @@ const Homepage = props => {
                   vacation, Trello helps your team stay organized.
                 </p>
                 <p>
-                  <a href="/signup" className="btn btn-secondary px-3">
+                  <button
+                    type="button"
+                    onClick={() => props.history.push("/signup")}
+                    className="btn btn-secondary px-3"
+                  >
                     <span role="img" aria-labelledby="emoji">
                       📌
                     </span>
@@ -53,7 +57,7 @@ const Homepage = props => {
                     <span role="img" aria-labelledby="emoji">
                       🏁
                     </span>
-                  </a>
+                  </button>
                 </p>
               </div>
             </article>
@@ -67,7 +71,11 @@ const Homepage = props => {
                   projects from beginning to end.
                 </p>
                 <p>
-                  <a href="/boards" className="btn btn-secondary px-3">
+                  <button
+                    type="button"
+                    onClick={() => props.history.push("/boards")}
+                    className="btn btn-secondary px-3"
+                  >
                     <span role="img" aria-labelledby="emoji">
                       📌
                     </span>
@@ -75,7 +83,7 @@ const Homepage = props => {
                     <span role="img" aria-labelledby="emoji">
                       📑
                     </span>
-                  </a>
+                  </button>
                 </p>
               </div>
             </article>
@@ -86,7 +94,7 @@ const Homepage = props => {
       <section id="third-section">
         <div className="container">
           <div className="px-3 pb-3 text-left">
-            <h3 className="mb-5 text-center">What is Trello ? </h3>
+            <h3 className="mb-4 text-center">What is Trello ? </h3>
             <p>
               <span role="img" aria-labelledby="emoji">
                 💎

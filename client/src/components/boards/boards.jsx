@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   getAllBoardsASYNC,
   createBoardASYNC
@@ -49,13 +50,13 @@ class Boards extends React.Component {
               <div className="list-group mt-3">
                 {boards &&
                   boards.map(board => (
-                    <div
-                      className="list-group-item btn-link"
+                    <Link
+                      className="list-group-item"
                       key={board._id}
-                      onClick={e => history.push(`/boards/${board._id}`)}
+                      to={`/boards/${board._id}`}
                     >
-                      {board.name}
-                    </div>
+                      <i class="fa fa-home">{board.name}</i>
+                    </Link>
                   ))}
               </div>
             </div>
@@ -67,7 +68,7 @@ class Boards extends React.Component {
               </div>
             ) : (
               <>
-                <div className="d-flex col-sm-6 col-md-4 col-lg-3 my-3">
+                <div className="d-flex col-6 my-3">
                   {isCreatingBoard ? (
                     <Spinner
                       animation="border"
@@ -76,8 +77,8 @@ class Boards extends React.Component {
                     />
                   ) : (
                     <div
-                      style={{ width: "18rem" }}
-                      className="card text-white bg-dark mb-3"
+                      // style={{ width: "18rem" }}
+                      className="create-card card text-white bg-dark mb-3"
                     >
                       <div className="card-header">New Board</div>
                       <div className="card-body">
@@ -88,7 +89,7 @@ class Boards extends React.Component {
                           <div className="form-group ml-md-3 text-md-left">
                             <label htmlFor="username">Name</label>
                             <input
-                              id="name"
+                              id="username"
                               className="form-control"
                               type="text"
                               name="name"
