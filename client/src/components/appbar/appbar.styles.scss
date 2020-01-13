@@ -1,0 +1,26 @@
+.navbar-left {
+  letter-spacing: 0.2rem;
+  font-weight: 600;
+}
+
+.remove-padding {
+  padding-right: 0;
+}
+
+.profile {
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+}
+
+.show-above-md {
+  display: inline-block;
+}
+
+@media (max-width: 420px) {
+  .show-above-md {
+    display: none;
+  }
+}

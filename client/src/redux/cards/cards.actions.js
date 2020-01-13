@@ -80,14 +80,19 @@ export const createCardASYNC = (listId, title) => async (
 
     const card = await response.json();
     dispatch(createCardASYNCSuccess(card));
-    dispatch(createNewActivityASYNC(`created card **${card.title}**`));
+    dispatch(
+      createNewActivityASYNC({
+        text: `created card **${card.title.trim()}**`,
+        cardId: card._id
+      })
+    );
   } catch (err) {
     dispatch(createCardASYNCFailure());
   }
 };
 // ============= CREATE A CARD END =========================
 
-// ============= UPDATE A CARD : DROP/EDIT/UPLOADIMAGE =========================
+// ============= UPDATE A CARD : DROP/EDIT/UPLOADIMAGE/EDITDESC =========================
 const updateCardASYNCStart = EVENT => ({
   type: cardsActionTypes[`UPDATE_CARD_WHEN_${EVENT}_START`],
   payload: null
@@ -130,9 +135,10 @@ export const updateCardWhenDropASYNC = (card, update) => async (
     const fromList = lists.filter(list => list._id === card.listId)[0];
     const toList = lists.filter(list => list._id === updatedCard.listId)[0];
     dispatch(
-      createNewActivityASYNC(
-        `moved card **${card.title}** from **${fromList.name}** to **${toList.name}**`
-      )
+      createNewActivityASYNC({
+        text: `moved card **${card.title.trim()}** from **${fromList.name.trim()}** to **${toList.name.trim()}**`,
+        cardId: card._id
+      })
     );
   } catch (err) {
     dispatch(updateCardASYNCFailure("DROP"));
@@ -161,9 +167,10 @@ export const updateCardWhenEditASYNC = (card, update) => async (
     const updatedCard = await response.json();
     dispatch(updateCardASYNCSuccess("EDIT", updatedCard));
     dispatch(
-      createNewActivityASYNC(
-        `changed card title from **${card.title}** to **${updatedCard.title}**`
-      )
+      createNewActivityASYNC({
+        text: `changed card title from **${card.title.trim()}** to **${updatedCard.title.trim()}**`,
+        cardId: card._id
+      })
     );
   } catch (err) {
     dispatch(updateCardASYNCFailure("EDIT"));
@@ -197,14 +204,16 @@ export const updateCardWhenUploadImageASYNC = (
         }
       );
       const updatedCard = await response.data;
-      dispatch(updateCardASYNCSuccess("UPLOADIMAGE", updatedCard));
+      const index = updatedCard.cardImage.indexOf("-");
       dispatch(
-        createNewActivityASYNC(
-          `added **${updatedCard.cardImage.slice("-")[1]}** image to **${
-            card.title
-          }**`
-        )
+        createNewActivityASYNC({
+          text: `added **${updatedCard.cardImage
+            .trim()
+            .substring(index + 1)}** image to card **${card.title.trim()}**`,
+          cardId: card._id
+        })
       );
+      dispatch(updateCardASYNCSuccess("UPLOADIMAGE", updatedCard));
     } catch (error) {
       console.log(error);
       dispatch(updateCardASYNCFailure("UPLOADIMAGE"));
@@ -213,3 +222,36 @@ export const updateCardWhenUploadImageASYNC = (
 };
 
 // ============= UPDATE A CARD END : DROP/EDIT/UPLOADIMAGE =========================
+
+// EDIT
+// @ update is an object with properties required to be changed
+export const updateCardWhenEditDescriptionASYNC = (card, update) => async (
+  dispatch,
+  getState
+) => {
+  dispatch(updateCardASYNCStart("EDITDESC"));
+  const newCard = { ...card, ...update };
+  const boardId = getState().board.boardData.pageBoardId;
+  try {
+    const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify(newCard)
+    });
+
+    const updatedCard = await response.json();
+    console.log("updatedCard", updatedCard);
+    dispatch(updateCardASYNCSuccess("EDITDESC", updatedCard));
+    dispatch(
+      createNewActivityASYNC({
+        text: `changed card **${card.title.trim()}'s** description from **${card.description.trim()}** to **${updatedCard.description.trim()}**`,
+        cardId: card._id
+      })
+    );
+  } catch (err) {
+    dispatch(updateCardASYNCFailure("EDITDESC"));
+  }
+};

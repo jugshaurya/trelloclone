@@ -37,6 +37,7 @@ class ListCards extends Component {
 
   handleDrop = async (e, droppingListId) => {
     e.preventDefault();
+
     const originalCard = JSON.parse(e.dataTransfer.getData("text/plain"));
     // Update card only if card is moved to other list
     if (droppingListId !== originalCard.listId) {
@@ -44,79 +45,88 @@ class ListCards extends Component {
         listId: droppingListId
       });
     }
+
+    e.target.style.background = "#ebecf0";
   };
 
   handleDragOver = e => {
     e.preventDefault();
   };
 
+  handleDragEnter = e => {
+    console.log("entering");
+    e.target.style.background = "blue";
+  };
+
+  handleDragLeave = e => {
+    console.log("leaving");
+    e.target.style.background = "#ebecf0";
+  };
+
   render() {
     const { isFetchingCards, isCreatingCard, cards, list } = this.props;
-
     const { title } = this.state;
-    return isFetchingCards ? (
-      <Container className="col-12">
-        <Row>
-          <Spinner animation="border" variant="info" />
-        </Row>
-      </Container>
-    ) : (
-      <Container
-        className="col-12"
-        style={{ background: "red" }}
+
+    return (
+      <div
+        className="container-fluid"
+        style={{
+          backgroundColor: "#ebecf0",
+          paddingBottom: "20px"
+        }}
         onDrop={e => this.handleDrop(e, list._id)}
         onDragOver={this.handleDragOver}
+        onDragEnter={this.handleDragEnter}
+        onDragLeave={this.handleDragLeave}
       >
-        <Row>
-          {cards &&
-            cards
-              .filter(card => card.listId === list._id)
-              .map(card => (
-                <Col className="col-12" key={card._id}>
-                  <SingleCard card={card} />
-                </Col>
-              ))}
-          {isCreatingCard ? (
-            <Col className="col-12 mt-5">
+        <div className="row" style={{ overflowY: "scroll", maxHeight: "70vh" }}>
+          {isFetchingCards ? (
+            <div className="col">
               <Spinner animation="border" variant="info" />
-            </Col>
+            </div>
           ) : (
-            <Col
-              className="col-12 mt-3"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
-              <Card
-                bg="info"
-                text="white"
-                className="p-4"
-                style={{ width: "18rem", padding: "10px" }}
-              >
-                <Form onSubmit={e => this.handleSubmit(e, list._id)}>
-                  <Form.Group controlId="formBasicCardname">
-                    <Form.Label>Create Card</Form.Label>
-                    <Form.Control
-                      required
-                      type="text"
-                      name="title"
-                      placeholder="Enter Card Title"
-                      onChange={this.handleChange}
-                      value={title}
-                    />
-                  </Form.Group>
+            <>
+              {cards &&
+                cards
+                  .filter(card => card.listId === list._id)
+                  .map(card => <SingleCard key={card._id} card={card} />)}
+              {isCreatingCard ? (
+                <div className="col">
+                  <Spinner animation="border" variant="info" />
+                </div>
+              ) : (
+                <div className="col my-2">
+                  <div
+                    className="card bg-dark text-white"
+                    style={{ width: "100%", padding: "10px" }}
+                  >
+                    <Form onSubmit={e => this.handleSubmit(e, list._id)}>
+                      <Form.Group controlId="formBasicCardname">
+                        <Form.Control
+                          required
+                          type="text"
+                          name="title"
+                          placeholder="Enter Card Title"
+                          onChange={this.handleChange}
+                          value={title}
+                        />
+                      </Form.Group>
 
-                  <Button variant="primary" type="submit">
-                    Create Card
-                  </Button>
-                </Form>
-              </Card>
-            </Col>
+                      <Button
+                        className="col-12"
+                        variant="primary"
+                        type="submit"
+                      >
+                        Create Card
+                      </Button>
+                    </Form>
+                  </div>
+                </div>
+              )}
+            </>
           )}
-        </Row>
-      </Container>
+        </div>
+      </div>
     );
   }
 }

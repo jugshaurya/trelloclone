@@ -1,32 +1,23 @@
 import React from "react";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-
 const BoardLayout = props => {
   const { _id, background, name } = props.board;
   return (
-    <Container className="col-12">
-      <Row>
-        <Col>
-          <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={background} alt="background" />
-            <Card.Body>
-              <Card.Title>{name}</Card.Title>
-              <Button
-                type="button"
-                onClick={e => props.history.push(`/boards/${_id}`)}
-              >
-                Go
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <div className="d-inline-block col-sm-6 col-md-4 col-lg-3 my-3">
+      <div className="card">
+        <img src={background} className="card-img-top" alt="background" />
+        <div className="card-body text-center">
+          <div className="card-title ">{name}</div>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={e => props.history.push(`/boards/${_id}`)}
+          >
+            View
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

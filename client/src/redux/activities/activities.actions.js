@@ -51,11 +51,14 @@ const createNewActivityASYNCFailure = () => ({
   payload: null
 });
 
-export const createNewActivityASYNC = text => async (dispatch, getState) => {
+export const createNewActivityASYNC = ({ text, cardId }) => async (
+  dispatch,
+  getState
+) => {
   dispatch(createNewActivityASYNCStart());
   try {
     const boardId = getState().board.boardData.pageBoardId;
-    const newActivity = { text };
+    const newActivity = { text, cardId };
     const response = await fetch(
       `http://localhost:5000/activities/${boardId}`,
       {

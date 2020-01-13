@@ -9,6 +9,12 @@
 - will be taking the pointers about what to implement
 - and using his entity relationship Diagram to make my database.
 
+## UI/UX -DESIGN
+
+- linear-gradient(135deg, #0079bf, #5067c5)
+- background-color: #0079bf;
+- box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
 ## Progress
 
 - [x] Generate Server
@@ -30,7 +36,7 @@
 - [ ] TODO: Add client data validation on server
 - [ ] Add signin and signup to client
   - [x] Create Form for Both
-  - [ ] Add Client Side Validation of data, checking and showing errors: use joi
+  - [ ] Add Client Side Validation of data @server, checking and showing errors: use joi
   - [x] save token after signin inside localstorage
 - [x] Add boards service to server
 - [x] User can create/view boards on client
@@ -72,16 +78,14 @@
   - [x] dragging card activity
   - [x] creating card activity
   - [x] create list activity
-  - [] card Update Activity
-    - [] card title change
-    - [] card photo change
-    - [ ] card descritption change
-    - [ ] card label change
+  - [x] card Update Activity
+    - [x] card title change
+    - [x] card photo change
+    - [x] card descritption change
 
-- [ ] user can add description to card
-- [ ] user can add color-labels
-- [ ] Style refactor
-- [] update list name and log it to activities
+- [x] user can add description to card
+- [x] Style refactor
+- [] Delete Board
 
 ---
 
@@ -107,6 +111,14 @@
 ### Stretch
 
 - [] Add Socketio for real time board sharing
-- [ ] Show all the available boards on a specific board so it is easy to swithv b/w boards
-- [ ] Add funtinality to boards to mark them favaorites
+- [x] Show all the available boards on a specific board so it is easy to swithv b/w boards
+- [ ] Add funtionality to boards to mark them favorites
   - [ ] show all fav boards under fav sections
+
+### Thank you
+
+- https://blog.logrocket.com/how-to-use-bootstrap-with-react-a354715d1121/
+- https://fonts.google.com/?selection.family=PT+Sans
+- https://getbootstrap.com/docs/4.4/layout/overview/
+- https://vectr.com/new
+- https://digitalsynopsis.com/design/beautiful-color-ui-gradients-backgrounds/

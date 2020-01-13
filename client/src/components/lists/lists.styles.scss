@@ -1,0 +1,18 @@
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  .card {
+    vertical-align: top;
+    display: inline-block;
+    box-shadow: 1px 1px #ccc, 1px 1px #111;
+  }
+}
+
+#mymodal {
+  svg {
+    width: 20px;
+    margin-right: 10px;
+    height: auto;
+  }
+}

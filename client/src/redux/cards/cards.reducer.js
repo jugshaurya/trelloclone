@@ -6,7 +6,8 @@ const INITIAL_STATE = {
   isCreatingCard: false,
   isUpdatingCardWhileDropping: false,
   isUpdatingCardWhileEditing: false,
-  isUpdatingCardWhileUploading: false
+  isUpdatingCardWhileUploading: false,
+  isUpdatingCardWhileEditingDesc: false
 };
 
 const cardsReducer = (state = INITIAL_STATE, action) => {
@@ -66,6 +67,18 @@ const cardsReducer = (state = INITIAL_STATE, action) => {
         )
       };
 
+    case cardsActionTypes.UPDATE_CARD_WHEN_EDITDESC_START:
+      return { ...state, isUpdatingCardWhileEditingDesc: true };
+    case cardsActionTypes.UPDATE_CARD_WHEN_EDITDESC_FAILURE:
+      return { ...state, isUpdatingCardWhileEditingDesc: false };
+    case cardsActionTypes.UPDATE_CARD_WHEN_EDITDESC_SUCCESS:
+      return {
+        ...state,
+        isUpdatingCardWhileEditingDesc: false,
+        cards: state.cards.map(card =>
+          card._id === action.payload._id ? action.payload : card
+        )
+      };
     default:
       return { ...state };
   }

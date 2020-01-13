@@ -16,6 +16,10 @@ const activitiesSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "boards",
       required: true
+    },
+    cardId: {
+      type: Schema.Types.ObjectId,
+      ref: "cards"
     }
   },
   {

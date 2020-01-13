@@ -21,7 +21,7 @@ const boardsReducer = (state = INITIAL_STATE, action) => {
     case boardsActionTypes.CREATE_BOARD_SUCCESS:
       return {
         ...state,
-        isCreatingBoard: true,
+        isCreatingBoard: false,
         boards: [...state.boards, action.payload]
       };
 

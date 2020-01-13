@@ -70,7 +70,9 @@ export const createListASYNC = name => async (dispatch, getState) => {
 
     const list = await response.json();
     dispatch(createListASYNCSuccess(list));
-    dispatch(createNewActivityASYNC(`created list **${list.name}**`));
+    dispatch(
+      createNewActivityASYNC({ text: `created list **${list.name.trim()}**` })
+    );
   } catch (err) {
     dispatch(createListASYNCFailure());
   }
