@@ -5,6 +5,7 @@
 
 .single-card {
   cursor: pointer;
+  box-shadow: 3px 3px #ccc;
 }
 
 .edit-btn {
@@ -13,8 +14,8 @@
     height: 18px;
     width: auto;
     position: absolute;
-    right: 10px;
-    top: 15px;
+    right: 7px;
+    top: 10px;
     // cursor: pointer;
   }
 
@@ -31,6 +32,7 @@
   hyphens: auto;
   cursor: pointer;
   padding-bottom: 0.001em;
+  margin: 0.3em;
 }
 
 button.btn-secondary {

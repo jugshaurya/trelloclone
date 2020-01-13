@@ -7,14 +7,10 @@ import renderHTML from "react-render-html";
 
 // Style
 import Spinner from "react-bootstrap/Spinner";
-import ListGroup from "react-bootstrap/ListGroup";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 // action Creators
 import { getAllActivitiesASYNC } from "../../redux/activities/activities.actions";
-
+import "./activities.styles.scss";
 class Activities extends Component {
   componentDidMount() {
     this.props.getAllActivitiesASYNC();
@@ -23,34 +19,49 @@ class Activities extends Component {
   render() {
     const { activities, isFetchingActivities } = this.props;
     return (
-      <Container className="activiies-section">
-        <Row>
-          <h2>Activities</h2>
-        </Row>
-        <Row>
+      <div className="container " className="activities-section">
+        <div className="row">
+          <h2 className="ml-5">Activities</h2>
+        </div>
+        <div className="row p-2 pb-5">
           {isFetchingActivities ? (
-            <Col className="mt-5 col-12">
+            <div className="mt-5 col-12">
               <Spinner animation="border" variant="info" />
-            </Col>
+            </div>
           ) : (
-            <Col>
-              <ListGroup>
+            <div className="col-12">
+              <div className="list-group">
                 {activities &&
-                  activities.map(activity => (
-                    <ListGroup.Item key={activity._id}>
+                  activities.reverse().map(activity => (
+                    <div
+                      className="activtity-items list-group-item text-dark d-flex"
+                      key={activity._id}
+                    >
+                      <img
+                        src={
+                          activity.userId.avatarUrl
+                            ? activity.userId.avatarUrl
+                            : this.props.user.avatarUrl
+                        }
+                        alt="userPhoto"
+                        width="50"
+                        height="50"
+                        style={{ borderRadius: "50%", marginRight: "1em" }}
+                      />
                       {renderHTML(marked(activity.text))}
-                    </ListGroup.Item>
+                    </div>
                   ))}
-              </ListGroup>
-            </Col>
+              </div>
+            </div>
           )}
-        </Row>
-      </Container>
+        </div>
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
+  user: state.user.user,
   activities: state.board.activities.activities,
   isFetchingActivities: state.board.activities.isFetchingActivities
 });

@@ -45,7 +45,10 @@ class Lists extends Component {
           </div>
         ) : (
           <div className="row ">
-            <div className="col scrolling-wrapper" style={{ height: "80vh" }}>
+            <div
+              className="col scrolling-wrapper"
+              style={{ height: "84vh", paddingRight: "400px" }}
+            >
               {lists &&
                 lists.map(list => <ListLayout list={list} key={list._id} />)}
 

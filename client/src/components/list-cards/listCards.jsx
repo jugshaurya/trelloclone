@@ -79,7 +79,7 @@ class ListCards extends Component {
         onDragEnter={this.handleDragEnter}
         onDragLeave={this.handleDragLeave}
       >
-        <div className="row" style={{ overflowY: "scroll", maxHeight: "60vh" }}>
+        <div className="row" style={{ overflowY: "scroll", maxHeight: "70vh" }}>
           {isFetchingCards ? (
             <div className="col">
               <Spinner animation="border" variant="info" />
