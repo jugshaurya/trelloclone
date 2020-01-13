@@ -1,18 +1,38 @@
 .title-and-modal {
-  padding: 10px;
+  width: 100%;
+  border-top: 2px solid rgba(100, 100, 100, 0.2);
+}
+
+.single-card {
+  cursor: pointer;
 }
 
 .edit-btn {
   svg {
     visibility: hidden;
-    height: 30px;
+    height: 18px;
     width: auto;
     position: absolute;
     right: 10px;
-    top: 10px;
+    top: 15px;
+    // cursor: pointer;
   }
 
   &:hover svg {
     visibility: visible;
   }
+}
+
+.ow {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  hyphens: auto;
+  cursor: pointer;
+  padding-bottom: 0.001em;
+}
+
+button.btn-secondary {
+  background: linear-gradient(135deg, #36d1dc, #5b86e5);
 }

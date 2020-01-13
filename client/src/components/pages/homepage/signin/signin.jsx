@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
 import { ReactComponent as SignInSVG } from "../../assets/signin.svg";
 
-import { signInUserASYNC } from "../../redux/user/user.actions";
+import { signInUserASYNC } from "../../../redux/user/user.actions";
 import "./signin.styles.scss";
 
 const SignIn = props => {

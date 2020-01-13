@@ -2,20 +2,24 @@
   font-size: 1.1rem;
 }
 
-body::-webkit-scrollbar {
-  width: 1em;
+*::-webkit-scrollbar {
+  width: 0.2rem;
 }
 
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   /* background-color: #36d1dc; */
   background: linear-gradient(45deg, #36d1dc, #5b86e5);
 
-  outline: 20px solid #212529;
+  outline: 15px solid #212529;
   border-radius: 10%;
+}
+
+body::-webkit-scrollbar {
+  width: 1rem;
 }
 
 body {

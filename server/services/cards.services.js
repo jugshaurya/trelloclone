@@ -24,14 +24,12 @@ const createNewCard = async (req, res, next) => {
     const { boardId } = req.params;
     const newCard = new Card({
       title,
-      description: "notyet",
-      order: 0, // will change later
+      description: "Add Description",
       boardId,
       listId,
       archived: false,
       cardImage: "none",
-      memberIds: [],
-      labels: "none yet"
+      memberIds: []
     });
 
     res.json(await newCard.save());

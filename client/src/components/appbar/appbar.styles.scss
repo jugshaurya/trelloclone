@@ -14,3 +14,13 @@
     border-radius: 50%;
   }
 }
+
+.show-above-md {
+  display: inline-block;
+}
+
+@media (max-width: 420px) {
+  .show-above-md {
+    display: none;
+  }
+}

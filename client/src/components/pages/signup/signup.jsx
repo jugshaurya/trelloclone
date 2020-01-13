@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
-import { ReactComponent as SignUpSVG } from "../../assets/signup.svg";
+import { ReactComponent as SignUpSVG } from "../../../assets/signup.svg";
 
-import { signUpUserASYNC } from "../../redux/user/user.actions";
+import { signUpUserASYNC } from "../../../redux/user/user.actions";
 import "./signup.styles.scss";
 const SignUp = props => {
   const [usercredentials, setUserCredentials] = useState({
@@ -13,6 +13,13 @@ const SignUp = props => {
     confirmPassword: "",
     avatarUrl: ""
   });
+
+  // Mimicing ComponentDidMount
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      props.history.push("/");
+    }
+  }, [props.history]);
 
   const {
     username,

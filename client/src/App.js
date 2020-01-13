@@ -9,12 +9,12 @@ import { connect } from "react-redux";
 import { getUserViaTokenASYNC } from "./redux/user/user.actions";
 // Child Component
 import Appbar from "./components/appbar/appbar";
-import SignUp from "./components/signup/signup";
-import SignIn from "./components/signin/signin";
-import NotFound from "./components/not-found/notFound";
-import Boards from "./components/boards/boards";
-import SpecificBoard from "./components/specific-board/SpecificBoard";
-import Homepage from "./components/hompage/homepage";
+import SignUp from "./components/pages/signup/signup";
+import SignIn from "./components/pages/signin/signin";
+import NotFound from "./components/pages/not-found/notFound";
+import Boards from "./components/pages/boards/boards";
+import SpecificBoard from "./components/pages/specific-board/SpecificBoard";
+import Homepage from "./components/pages/homepage/homepage";
 // Style
 import "./App.css";
 // import "bootstrap/dist/css/bootstrap.min.css";

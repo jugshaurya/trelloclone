@@ -78,16 +78,14 @@
   - [x] dragging card activity
   - [x] creating card activity
   - [x] create list activity
-  - [] card Update Activity
-    - [] card title change
-    - [] card photo change
-    - [ ] card descritption change
-    - [ ] card label change
+  - [x] card Update Activity
+    - [x] card title change
+    - [x] card photo change
+    - [x] card descritption change
 
-- [ ] user can add description to card
-- [ ] user can add color-labels
+- [x] user can add description to card
 - [x] Style refactor
-- [] update list name and log it to activities
+- [] Delete Board
 
 ---
 
@@ -113,8 +111,8 @@
 ### Stretch
 
 - [] Add Socketio for real time board sharing
-- [ ] Show all the available boards on a specific board so it is easy to swithv b/w boards
-- [ ] Add funtinality to boards to mark them favaorites
+- [x] Show all the available boards on a specific board so it is easy to swithv b/w boards
+- [ ] Add funtionality to boards to mark them favorites
   - [ ] show all fav boards under fav sections
 
 ### Thank you

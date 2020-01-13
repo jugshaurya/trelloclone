@@ -19,10 +19,13 @@ class Appbar extends Component {
           <span>Trello</span>
           <span>Clone</span>
         </Link>
-        <div className="navbar-right">
+        <div className="navbar-right text-right">
           {user ? (
             <>
-              <Link to="/boards" className="btn bg-white font-weight-bold">
+              <Link
+                to="/boards"
+                className="btn bg-white show-above-md font-weight-bold"
+              >
                 Boards
               </Link>
               <Link
@@ -41,7 +44,10 @@ class Appbar extends Component {
             </>
           ) : (
             <>
-              <Link to="/boards" className="btn bg-white font-weight-bold">
+              <Link
+                to="/boards"
+                className="btn bg-white show-above-md font-weight-bold"
+              >
                 Boards
               </Link>
               <Link

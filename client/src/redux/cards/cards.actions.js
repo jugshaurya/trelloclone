@@ -87,7 +87,7 @@ export const createCardASYNC = (listId, title) => async (
 };
 // ============= CREATE A CARD END =========================
 
-// ============= UPDATE A CARD : DROP/EDIT/UPLOADIMAGE =========================
+// ============= UPDATE A CARD : DROP/EDIT/UPLOADIMAGE/EDITDESC =========================
 const updateCardASYNCStart = EVENT => ({
   type: cardsActionTypes[`UPDATE_CARD_WHEN_${EVENT}_START`],
   payload: null
@@ -213,3 +213,35 @@ export const updateCardWhenUploadImageASYNC = (
 };
 
 // ============= UPDATE A CARD END : DROP/EDIT/UPLOADIMAGE =========================
+
+// EDIT
+// @ update is an object with properties required to be changed
+export const updateCardWhenEditDescriptionASYNC = (card, update) => async (
+  dispatch,
+  getState
+) => {
+  dispatch(updateCardASYNCStart("EDITDESC"));
+  const newCard = { ...card, ...update };
+  const boardId = getState().board.boardData.pageBoardId;
+  try {
+    const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify(newCard)
+    });
+
+    const updatedCard = await response.json();
+    console.log("updatedCard", updatedCard);
+    dispatch(updateCardASYNCSuccess("EDITDESC", updatedCard));
+    dispatch(
+      createNewActivityASYNC(
+        `changed card description from **${card.description}** to **${updatedCard.description}**`
+      )
+    );
+  } catch (err) {
+    dispatch(updateCardASYNCFailure("EDITDESC"));
+  }
+};

@@ -11,15 +11,8 @@ const cardSchema = new Schema(
       type: String,
       required: true
     },
-    order: {
-      type: String,
-      default: 0,
-      required: true
-    },
+
     cardImage: {
-      type: String
-    },
-    labels: {
       type: String
     },
     memberIds: [

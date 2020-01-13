@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import {
   getAllBoardsASYNC,
   createBoardASYNC
-} from "../../redux/boards/boards.actions";
+} from "../../../redux/boards/boards.actions";
 
 import Spinner from "react-bootstrap/Spinner";
-import Sidenav from "../sidenav/sidenav";
+import Sidenav from "../../sidenav/sidenav";
 
 import "./boards.styles.scss";
-import BoardLayout from "../board-layout/boardLayout";
+import BoardLayout from "../../board-layout/boardLayout";
 
 class Boards extends React.Component {
   state = {

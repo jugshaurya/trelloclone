@@ -1,12 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import MyModal from "../my-modal/myModal";
 import Spinner from "react-bootstrap/Spinner";
 
@@ -51,70 +44,65 @@ class SingleCard extends Component {
     const { _id, title } = card;
 
     return (
-      <Container
-        className="col-12"
+      <div
+        className="col-12 my-1"
         draggable
         onDragStart={e => this.handleDragStart(e, card)}
       >
-        <Row>
-          <Col className="col-12" data-id={_id} key={_id}>
-            <Card bg="info">
-              {card.cardImage !== "none" ? (
-                <img
-                  src={card.cardImage}
-                  alt="coverImg"
-                  width="200"
-                  height="200"
-                />
-              ) : null}
-              {this.state.editMode ? (
-                isUpdatingCardWhileEditing ? (
-                  <Card.Title>
-                    <Spinner animation="border" variant="info" />
-                  </Card.Title>
-                ) : (
-                  <Card.Title>
-                    <Form onSubmit={this.handleSubmit} className="col-12 pa-5">
-                      <Form.Group
-                        controlId="formBasicCardEdit"
-                        className="col-8"
-                      >
-                        <Form.Control
-                          required
-                          type="text"
-                          name="newTitle"
-                          onChange={this.handleChange}
-                          value={this.state.newTitle}
-                        />
-                      </Form.Group>
-                      <Button variant="primary" type="submit" className="col-4">
-                        Save
-                      </Button>
-                    </Form>
-                  </Card.Title>
-                )
-              ) : (
-                <div className="edit-btn">
-                  <Card.Title
-                    className="title-and-modal"
-                    onClick={() => this.setModalShow(true)}
-                  >
-                    <ButtonToolbar>
-                      {title}
-                      <MyModal
-                        show={this.state.showModal}
-                        onHide={() => this.setModalShow(false)}
-                        card={card}
-                      />
-                    </ButtonToolbar>
-                  </Card.Title>
-                  <EditSVG onClick={this.handleCardEdit} />
+        <div className="single-card card" style={{ width: "100%" }}>
+          {this.state.editMode ? (
+            isUpdatingCardWhileEditing ? (
+              <div className="card-title">
+                <Spinner animation="border" variant="info" />
+              </div>
+            ) : (
+              <div className="card-title">
+                <form onSubmit={this.handleSubmit} className="col-12 p-2 pb-1">
+                  <div className="form-group" htmlFor="newTitle">
+                    <input
+                      className="form-control"
+                      required
+                      id="newTitle"
+                      type="text"
+                      name="newTitle"
+                      onChange={this.handleChange}
+                      value={this.state.newTitle}
+                    />
+                  </div>
+                  <button type="submit" className="col-12 btn btn-secondary">
+                    Save
+                  </button>
+                </form>
+              </div>
+            )
+          ) : (
+            <>
+              <div className="edit-btn">
+                <div
+                  className="card-title"
+                  className="title-and-modal"
+                  onClick={() => this.setModalShow(true)}
+                >
+                  {card.cardImage !== "none" ? (
+                    <img
+                      src={card.cardImage}
+                      alt="cover"
+                      style={{ width: "100%" }}
+                    />
+                  ) : null}
+                  <p className="ow px-3">{title}</p>
                 </div>
-              )}
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+                <MyModal
+                  show={this.state.showModal}
+                  onHide={() => this.setModalShow(false)}
+                  card={card}
+                />
+                <EditSVG onClick={this.handleCardEdit} />
+              </div>
+            </>
+          )}
+        </div>
+      </div>
     );
   }
 }

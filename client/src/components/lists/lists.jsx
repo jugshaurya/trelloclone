@@ -9,13 +9,9 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import Spinner from "react-bootstrap/Spinner";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
 
 import ListLayout from "../list-layout/listLayout";
-
+import "./lists.styles.scss";
 class Lists extends Component {
   state = {
     name: ""
@@ -40,31 +36,29 @@ class Lists extends Component {
     const { name } = this.state;
 
     return (
-      <Container className="mt-5 col-12">
+      <div className="col-12 p-3">
         {isFetchingLists ? (
-          <Row>
-            <Spinner animation="border" variant="info" />
-          </Row>
+          <div className="row">
+            <div className="col">
+              <Spinner animation="border" variant="info" />
+            </div>
+          </div>
         ) : (
-          <Row>
-            {lists &&
-              lists.map(list => (
-                <Col className="col-4" key={list._id}>
-                  <ListLayout list={list} />
-                </Col>
-              ))}
-            <Col className="col-4">
+          <div className="row ">
+            <div className="col scrolling-wrapper" style={{ height: "80vh" }}>
+              {lists &&
+                lists.map(list => <ListLayout list={list} key={list._id} />)}
+
               {isCreatingList ? (
                 <Spinner animation="border" variant="info" className="mt-5" />
               ) : (
-                <Card
-                  bg="dark"
-                  text="white"
-                  style={{ width: "18rem", padding: "10px" }}
+                <div
+                  className="card text-white bg-dark mb-3"
+                  style={{ width: "230px", padding: "10px" }}
                 >
                   <Form onSubmit={this.handleSubmit} className="col-12 pa-5">
+                    <Form.Label>Create List</Form.Label>
                     <Form.Group controlId="formBasicListname">
-                      <Form.Label>Create List</Form.Label>
                       <Form.Control
                         required
                         type="text"
@@ -74,16 +68,16 @@ class Lists extends Component {
                         value={name}
                       />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" className="col-12" type="submit">
                       Create List
                     </Button>
                   </Form>
-                </Card>
+                </div>
               )}
-            </Col>
-          </Row>
+            </div>
+          </div>
         )}
-      </Container>
+      </div>
     );
   }
 }
