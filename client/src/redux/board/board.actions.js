@@ -10,9 +10,9 @@ const getBoardASYNCSuccess = board => ({
   payload: board
 });
 
-const getBoardASYNCFailure = () => ({
-  type: boardActionTypes.GET_SPECIFIC_BOARD_START,
-  payload: null
+const getBoardASYNCFailure = errMessage => ({
+  type: boardActionTypes.GET_SPECIFIC_BOARD_FAILURE,
+  payload: errMessage
 });
 
 export const getBoardASYNC = () => async (dispatch, getState) => {
@@ -25,10 +25,15 @@ export const getBoardASYNC = () => async (dispatch, getState) => {
         authorization: `Bearer ${localStorage.getItem("token")}`
       }
     });
-    const board = await response.json();
-    dispatch(getBoardASYNCSuccess(board));
+
+    const boardOrError = await response.json();
+    if (response.status >= 400) {
+      console.log(boardOrError);
+      throw new Error(boardOrError.message);
+    }
+    dispatch(getBoardASYNCSuccess(boardOrError));
   } catch (err) {
-    dispatch(getBoardASYNCFailure());
+    dispatch(getBoardASYNCFailure(err.message));
   }
 };
 

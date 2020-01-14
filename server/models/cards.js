@@ -11,7 +11,6 @@ const cardSchema = new Schema(
       type: String,
       required: true
     },
-
     cardImage: {
       type: String
     },
@@ -26,7 +25,6 @@ const cardSchema = new Schema(
       ref: "boards",
       required: true
     },
-
     listId: {
       type: Schema.Types.ObjectId,
       ref: "lists",

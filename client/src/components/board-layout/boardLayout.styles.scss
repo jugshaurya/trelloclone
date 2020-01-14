@@ -1,0 +1,16 @@
+.delete-btn {
+  svg {
+    visibility: hidden;
+    height: 25px;
+    width: auto;
+    position: absolute;
+    right: 7px;
+    top: 10px;
+    cursor: pointer;
+    // cursor: pointer;
+  }
+
+  &:hover svg {
+    visibility: visible;
+  }
+}

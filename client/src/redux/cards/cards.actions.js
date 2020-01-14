@@ -247,7 +247,7 @@ export const updateCardWhenEditDescriptionASYNC = (card, update) => async (
     dispatch(updateCardASYNCSuccess("EDITDESC", updatedCard));
     dispatch(
       createNewActivityASYNC({
-        text: `changed card **${card.title.trim()}'s** description from **${card.description.trim()}** to **${updatedCard.description.trim()}**`,
+        text: `changed card **${card.title.trim()}**'s description from **${card.description.trim()}** to **${updatedCard.description.trim()}**`,
         cardId: card._id
       })
     );

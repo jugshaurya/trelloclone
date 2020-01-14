@@ -27,7 +27,8 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 mongoose.set("useCreateIndex", true);
 mongoose.connect("mongodb://localhost/trello-clone", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 });
 
 // routers
@@ -35,8 +36,7 @@ app.use("/", mainRouter);
 
 // error middleware
 app.use((err, req, res, next) => {
-  console.log("===============");
-  console.log(err);
+  console.error(err);
   res.status(500).json({ message: "Server Error!" });
 });
 

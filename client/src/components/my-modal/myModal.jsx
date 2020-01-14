@@ -82,7 +82,7 @@ class MyModal extends React.Component {
                   className="col-12"
                   src={card.cardImage}
                   alt="cover"
-                  height="100"
+                  height="200"
                 />
               ) : (
                 <img
@@ -157,7 +157,7 @@ class MyModal extends React.Component {
                         <div className="col-12 ">
                           <form onSubmit={this.handleCardDescription}>
                             <input
-                              className="col-9"
+                              className="col-8"
                               type="textarea"
                               name="description"
                               value={this.state.description}
@@ -165,7 +165,7 @@ class MyModal extends React.Component {
                               placeholder="Enter Description"
                             />
                             <button
-                              className="col-3 btn btn-secondary"
+                              className="offset-1 col-3 btn btn-secondary"
                               type="submit"
                             >
                               Edit

@@ -19,7 +19,7 @@ class Activities extends Component {
   render() {
     const { activities, isFetchingActivities } = this.props;
     return (
-      <div className="container " className="activities-section">
+      <div className="container activities-section">
         <div className="row">
           <h2 className="ml-5">Activities</h2>
         </div>
@@ -34,7 +34,7 @@ class Activities extends Component {
                 {activities &&
                   activities.reverse().map(activity => (
                     <div
-                      className="activtity-items list-group-item text-dark d-flex"
+                      className="activtity-items list-group-item text-white d-flex"
                       key={activity._id}
                     >
                       <img

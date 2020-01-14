@@ -55,7 +55,7 @@ class Boards extends React.Component {
                       key={board._id}
                       to={`/boards/${board._id}`}
                     >
-                      <i class="fa fa-home">{board.name}</i>
+                      {board.name}
                     </Link>
                   ))}
               </div>

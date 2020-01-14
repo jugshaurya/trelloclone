@@ -67,9 +67,6 @@ const uploadImage = async (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
   const _id = req.body._id;
   // console.log(url, _id);
-  console.log("**********************");
-  console.log("**********************");
-  console.log("**********************");
   const body = { ...req.body };
   console.log(body);
   try {

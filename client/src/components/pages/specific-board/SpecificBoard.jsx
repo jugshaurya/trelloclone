@@ -29,32 +29,45 @@ class SpecificBoard extends React.Component {
           </div>
         ) : (
           <>
-            {board && (
-              <div className="spec-board">
-                <div
-                  className="navbar row text-white"
-                  style={{ background: "#212529" }}
-                >
-                  {board.name}
-                  <div className="activity-nav" style={{ marginRight: "1em" }}>
-                    <ActivitySidenav match={match} />
-                  </div>
-                </div>
-                <div className="row">
-                  <div
-                    className="col-12"
-                    style={{
-                      width: "100vw",
-                      backgroundImage: `url(${board.background})`,
-                      backgroundPosition: "center",
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat"
-                    }}
-                  >
-                    <Lists match={match} />
+            {this.props.fetchingBoardError ? (
+              <div className="row">
+                <div className="col-12 mt-4">
+                  <div className="alert alert-danger">
+                    {this.props.fetchingBoardError}
                   </div>
                 </div>
               </div>
+            ) : (
+              board && (
+                <div className="spec-board">
+                  <div
+                    className="navbar row text-white"
+                    style={{ background: "#212529" }}
+                  >
+                    {board.name}
+                    <div
+                      className="activity-nav"
+                      style={{ marginRight: "1em" }}
+                    >
+                      <ActivitySidenav match={match} />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div
+                      className="col-12"
+                      style={{
+                        width: "100vw",
+                        backgroundImage: `url(${board.background})`,
+                        backgroundPosition: "center",
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat"
+                      }}
+                    >
+                      <Lists match={match} />
+                    </div>
+                  </div>
+                </div>
+              )
             )}
           </>
         )}
@@ -65,7 +78,8 @@ class SpecificBoard extends React.Component {
 
 const mapStateToProps = state => ({
   board: state.board.boardData.board,
-  isFetchingBoard: state.board.boardData.isFetchingBoard
+  isFetchingBoard: state.board.boardData.isFetchingBoard,
+  fetchingBoardError: state.board.boardData.fetchingBoardError
 });
 
 const mapDispatchToProps = dispatch => ({

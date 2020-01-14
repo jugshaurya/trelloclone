@@ -70,3 +70,45 @@ export const createBoardASYNC = (name, background) => async dispatch => {
 };
 
 // ============= CREATE A BOARD END =========================
+
+// ============= DELETE A BOARD =========================
+const deleteBoardASYNCStart = () => ({
+  type: boardsActionTypes.DELETE_BOARD_START,
+  payload: null
+});
+
+const deleteBoardASYNCSuccess = board => ({
+  type: boardsActionTypes.DELETE_BOARD_SUCCESS,
+  payload: board
+});
+
+const deleteBoardASYNCFailure = () => ({
+  type: boardsActionTypes.DELETE_BOARD_START,
+  payload: null
+});
+
+export const deleteBoardASYNC = board => async dispatch => {
+  dispatch(deleteBoardASYNCStart());
+  const boardObj = {
+    _id: board._id
+  };
+
+  try {
+    const response = await fetch("http://localhost:5000/boards", {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(boardObj)
+    });
+
+    const board = await response.json();
+    console.log(board);
+    dispatch(deleteBoardASYNCSuccess(board));
+  } catch (err) {
+    dispatch(deleteBoardASYNCFailure());
+  }
+};
+
+// ============= DELETE A BOARD END =========================

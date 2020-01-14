@@ -3,7 +3,8 @@ import boardsActionTypes from "./boards.types";
 const INITIAL_STATE = {
   boards: null,
   isFetchingBoards: false,
-  isCreatingBoard: false
+  isCreatingBoard: false,
+  isDeletingBoard: false
 };
 
 const boardsReducer = (state = INITIAL_STATE, action) => {
@@ -23,6 +24,17 @@ const boardsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isCreatingBoard: false,
         boards: [...state.boards, action.payload]
+      };
+
+    case boardsActionTypes.DELETE_BOARD_START:
+      return { ...state, isDeletingBoard: true };
+    case boardsActionTypes.DELETE_BOARD_FAILURE:
+      return { ...state, isDeletingBoard: false };
+    case boardsActionTypes.DELETE_BOARD_SUCCESS:
+      return {
+        ...state,
+        isDeletingBoard: false,
+        boards: state.boards.filter(board => board._id !== action.payload._id)
       };
 
     default:
