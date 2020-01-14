@@ -75,22 +75,26 @@
     - [x] card descritption change
 - [x] user can add description to card
 - [x] Style refactor
-- [ ] Delete Board
+- [x] Delete Board
+- [x] Delete List
+
+--- NEXT ---
+
 - [ ] Add funtionality to boards to mark them favorites
   - [ ] show all fav boards under fav sections
-        --- NEXT ---
-- [ ] Restrict only the board owner to
+
+* [ ] Restrict only the board owner to
   - [x] Access his/her boards only
   - [x] create a list or create a card
-- [ ] User can add other members to a board
-- [ ] Update restrict to board owner to include members
-- [ ] User can re-arrange lists
-- [ ] restrict to board members
-- [ ] User can assign a member to a card
-- [ ] restrict to board members
-- [ ] User can add comments to a card
-- [ ] restrict to board members
-- [ ] Add more Functionality
+* [ ] User can add other members to a board
+* [ ] Update restrict to board owner to include members
+* [ ] User can re-arrange lists
+* [ ] restrict to board members
+* [ ] User can assign a member to a card
+* [ ] restrict to board members
+* [ ] User can add comments to a card
+* [ ] restrict to board members
+* [ ] Add more Functionality
   - [ ] find a list or create a card
   - [ ] update a list or create a card
   - [ ] delete a list or create a card

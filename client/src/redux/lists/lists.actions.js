@@ -79,3 +79,47 @@ export const createListASYNC = name => async (dispatch, getState) => {
 };
 
 // ============= CREATE A LIST END =========================
+
+// ============= DELETE A LIST =========================
+const deleteListASYNCStart = () => ({
+  type: listsActionTypes.DELETE_LIST_START,
+  payload: null
+});
+
+const deleteListASYNCSuccess = list => ({
+  type: listsActionTypes.DELETE_LIST_SUCCESS,
+  payload: list
+});
+
+const deleteListASYNCFailure = () => ({
+  type: listsActionTypes.DELETE_LIST_START,
+  payload: null
+});
+
+export const deleteListASYNC = list => async (dispatch, getState) => {
+  dispatch(deleteListASYNCStart());
+  try {
+    const boardId = getState().board.boardData.pageBoardId;
+    console.log("sadl");
+    const listToBeDeleted = list;
+    const response = await fetch(`http://localhost:5000/lists/${boardId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify(listToBeDeleted)
+    });
+
+    const deletedList = await response.json();
+    console.log("sidf", deletedList);
+    dispatch(deleteListASYNCSuccess(deletedList));
+    dispatch(
+      createNewActivityASYNC({ text: `deleted list **${list.name.trim()}**` })
+    );
+  } catch (err) {
+    dispatch(deleteListASYNCFailure());
+  }
+};
+
+// ============= DELETE A LIST END =========================

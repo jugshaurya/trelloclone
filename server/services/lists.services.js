@@ -16,7 +16,6 @@ const createNewList = async (req, res, next) => {
   try {
     // TODO client side data validation
     const { name } = req.body;
-    console.log(name);
     const { boardId } = req.params;
     const newList = new List({
       name,
@@ -32,7 +31,25 @@ const createNewList = async (req, res, next) => {
   }
 };
 
+// Delete a new List
+const deleteList = async (req, res, next) => {
+  try {
+    // TODO client side data validation
+    const { _id } = req.body;
+    const { boardId } = req.params;
+    const deletedList = await List.findOneAndRemove({
+      _id: _id,
+      boardId: boardId
+    });
+    res.json(deletedList);
+  } catch (e) {
+    // will change later
+    next(e);
+  }
+};
+
 module.exports = {
   getAllListsInBoard,
-  createNewList
+  createNewList,
+  deleteList
 };

@@ -11,3 +11,15 @@
 .card {
   color: #212529;
 }
+.delete-list {
+  .delete-svg {
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    visibility: hidden;
+    cursor: pointer;
+  }
+  &:hover .delete-svg {
+    visibility: visible;
+  }
+}

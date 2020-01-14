@@ -3,7 +3,8 @@ import listsActionTypes from "./lists.types";
 const INITIAL_STATE = {
   lists: null,
   isFetchingLists: false,
-  isCreatingList: false
+  isCreatingList: false,
+  isDeletingList: false
 };
 
 const listsReducer = (state = INITIAL_STATE, action) => {
@@ -23,6 +24,17 @@ const listsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isCreatingList: false,
         lists: [...state.lists, action.payload]
+      };
+
+    case listsActionTypes.DELETE_LIST_START:
+      return { ...state, isDeletingList: true };
+    case listsActionTypes.DELETE_LIST_FAILURE:
+      return { ...state, isDeletingList: false };
+    case listsActionTypes.DELETE_LIST_SUCCESS:
+      return {
+        ...state,
+        isDeletingList: false,
+        lists: state.lists.filter(list => list._id !== action.payload._id)
       };
 
     default:
