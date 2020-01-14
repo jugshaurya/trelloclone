@@ -1,19 +1,23 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import { connect } from "react-redux";
+// Used for rendering markdowns
+import marked from "marked";
+import renderHTML from "react-render-html";
+
 import {
   updateCardWhenUploadImageASYNC,
   updateCardWhenEditDescriptionASYNC
 } from "../../redux/cards/cards.actions";
 
-// Used for rendering markdowns
-import marked from "marked";
-import renderHTML from "react-render-html";
+import Spinner from "react-bootstrap/Spinner";
 
 import { ReactComponent as TitleSVG } from "../../assets/modal/modala.svg";
 import { ReactComponent as DescriptionSVG } from "../../assets/modal/modalb.svg";
 import { ReactComponent as AttachmentSVG } from "../../assets/modal/modalc.svg";
 import { ReactComponent as ActivitiesSVG } from "../../assets/modal/modald.svg";
+import "./myModal.styles.scss";
+
 class MyModal extends React.Component {
   state = {
     multerImage: "",
@@ -29,42 +33,132 @@ class MyModal extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  showEdit() {
+    this.setState({ showEdit: true });
+  }
+
   handleImageUpload = e => {
+    const { card, updateCardWhenUploadImageASYNC } = this.props;
     e.preventDefault();
-    this.props.updateCardWhenUploadImageASYNC(
-      this.props.card,
-      this.state.multerImage
-    );
+    updateCardWhenUploadImageASYNC(card, this.state.multerImage);
   };
-  handleCardDescription = e => {
+
+  handleCardDescriptionUpdate = e => {
+    const { card, updateCardWhenEditDescriptionASYNC } = this.props;
     e.preventDefault();
-    this.props.updateCardWhenEditDescriptionASYNC(this.props.card, {
+    updateCardWhenEditDescriptionASYNC(card, {
       description: this.state.description
     });
     this.setState({ showEdit: false });
   };
 
   getListName = listId => {
-    const list = this.props.lists.filter(list => list._id === listId);
+    const { lists } = this.props;
+    const list = lists.filter(list => list._id === listId);
     return list[0].name;
   };
 
-  showEdit() {
-    this.setState({ showEdit: true });
-  }
-
   getCardActivities = card => {
-    if (!this.props.activities) {
+    const { activities } = this.props;
+    if (!activities) {
       return [];
     }
-    let cardActivities = this.props.activities.filter(
+    let cardActivities = activities.filter(
       activity => activity.cardId === card._id
     );
-    console.log(cardActivities);
     return cardActivities;
   };
+
+  showCardDescriptionEditForm = () => {
+    const { card } = this.props;
+    const { showEdit, description } = this.state;
+
+    return (
+      <div className="pl-5">
+        <div className="row">
+          <div className="col-9">
+            <em>{card.description}</em>
+          </div>
+          {showEdit ? (
+            <div className="col-12 ">
+              <form onSubmit={this.handleCardDescriptionUpdate}>
+                <input
+                  className="col-8"
+                  type="textarea"
+                  name="description"
+                  value={description}
+                  onChange={this.handleDescriptionChange}
+                  placeholder="Enter Description"
+                />
+                <button
+                  className="offset-1 col-3 btn btn-secondary"
+                  type="submit"
+                >
+                  Edit
+                </button>
+              </form>
+            </div>
+          ) : (
+            <div className="col-3 text-right">
+              <button
+                className="btn btn-secondary"
+                onClick={() => this.showEdit()}
+              >
+                EDIT
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  sortActivitiesByCreationDate = activities => {
+    const toBeSortedActivities = [...activities];
+    return toBeSortedActivities.sort((x, y) => {
+      if (x.createdAt < y.createdAt) {
+        return 1;
+      }
+      if (x.createdAt > y.createdAt) {
+        return -1;
+      }
+      return 0;
+    });
+  };
+
+  renderCardActivities = () => {
+    const { card, user } = this.props;
+    const cardActivities = this.getCardActivities(card);
+    const sortedCardActivities = this.sortActivitiesByCreationDate(
+      cardActivities
+    );
+    return sortedCardActivities.map(activity => (
+      <div key={activity._id} className="mt-2 mr-3 d-flex ">
+        <img
+          src={
+            activity.userId.avatarUrl
+              ? activity.userId.avatarUrl
+              : user.avatarUrl
+          }
+          alt="userPhoto"
+          width="50"
+          height="50"
+          style={{ borderRadius: "50%", marginRight: "1em" }}
+        />
+        {renderHTML(marked(activity.text))}
+      </div>
+    ));
+  };
+
   render() {
-    const { card, onHide, show, isUpdatingCardWhileUploading } = this.props;
+    const {
+      card,
+      onHide,
+      show,
+      isUpdatingCardWhileUploading,
+      isUpdatingCardWhileEditingDesc
+    } = this.props;
+
     return (
       <Modal
         id="mymodal"
@@ -98,12 +192,13 @@ class MyModal extends React.Component {
         <Modal.Body>
           <div className="container-fluid">
             <div className="row">
+              {/* Modal Image Upload Section */}
               <div className="col-12 mt-2">
                 <AttachmentSVG />
                 <strong>Attachment</strong>
                 <div className="col-12 pl-3 pr-0">
                   {isUpdatingCardWhileUploading ? (
-                    <div>Uploading...</div>
+                    <Spinner animation="border" variant="info" />
                   ) : (
                     <div>
                       <form onSubmit={this.handleImageUpload}>
@@ -127,7 +222,9 @@ class MyModal extends React.Component {
               <br />
               <br />
               <br />
-              <div className="col-12 mt-2">
+
+              {/* Modal Card Info */}
+              <div className="col-12 mt-3">
                 <TitleSVG />
                 <strong>{card.title}</strong>
                 <p className="pl-5">
@@ -142,72 +239,24 @@ class MyModal extends React.Component {
               <br />
               <br />
 
+              {/* Modal Card Description */}
               <div className="col-12 mt-2">
                 <DescriptionSVG />
                 <strong>Card Description</strong>
-                {this.props.isUpdatingCardWhileEditingDesc ? (
-                  <div>Updating...</div>
+                {isUpdatingCardWhileEditingDesc ? (
+                  <Spinner animation="border" variant="info" />
                 ) : (
-                  <div className="pl-5">
-                    <div className="row">
-                      <div className="col-9">
-                        <em>{card.description}</em>
-                      </div>
-                      {this.state.showEdit ? (
-                        <div className="col-12 ">
-                          <form onSubmit={this.handleCardDescription}>
-                            <input
-                              className="col-8"
-                              type="textarea"
-                              name="description"
-                              value={this.state.description}
-                              onChange={this.handleDescriptionChange}
-                              placeholder="Enter Description"
-                            />
-                            <button
-                              className="offset-1 col-3 btn btn-secondary"
-                              type="submit"
-                            >
-                              Edit
-                            </button>
-                          </form>
-                        </div>
-                      ) : (
-                        <div className="col-3 text-right">
-                          <button
-                            className="btn btn-secondary"
-                            onClick={() => this.showEdit()}
-                          >
-                            EDIT
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                  this.showCardDescriptionEditForm()
                 )}
               </div>
               <br />
 
+              {/* Modal Card Activities */}
               <div className="col-12">
                 <ActivitiesSVG />
                 <strong className="mb-4">Activities</strong>
                 <br />
-                {this.getCardActivities(card).map(activity => (
-                  <div key={activity._id} className="mt-2 mr-3 d-flex ">
-                    <img
-                      src={
-                        activity.userId.avatarUrl
-                          ? activity.userId.avatarUrl
-                          : this.props.user.avatarUrl
-                      }
-                      alt="userPhoto"
-                      width="50"
-                      height="50"
-                      style={{ borderRadius: "50%", marginRight: "1em" }}
-                    />
-                    {renderHTML(marked(activity.text))}
-                  </div>
-                ))}
+                {this.renderCardActivities()}
               </div>
               <br />
             </div>

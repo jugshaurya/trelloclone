@@ -1,18 +1,15 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-// Action Creator
+
 import { signOutUser } from "../../redux/user/user.actions";
-// Style Import
+
 import "./appbar.styles.scss";
 
 class Appbar extends Component {
-  handleSignOut = () => {
-    this.props.signOutUser(this.props.history);
-  };
-
   render() {
-    const { user } = this.props;
+    const { user, history, signOutUser } = this.props;
+
     return (
       <nav className="py-2 px-4 d-flex align-items-center justify-content-between">
         <Link to="/" className="navbar-left d-flex flex-column text-white">
@@ -33,10 +30,10 @@ class Appbar extends Component {
                 className="profile remove-padding btn btn-link text-white "
               >
                 <img src={user.avatarUrl} alt="avatar" className="p-1" />
-                {user.username}
+                {user.username.split(" ")[0]}
               </Link>
               <button
-                onClick={this.handleSignOut}
+                onClick={() => signOutUser(history)}
                 className="btn btn-link text-white"
               >
                 Sign Out

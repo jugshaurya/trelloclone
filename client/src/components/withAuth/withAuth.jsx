@@ -21,7 +21,6 @@ const withAuth = WrappedComponent => {
         this.props.history.push("/signin");
       } else {
         this.setState({ permissionGranted: true });
-        console.log("Hello Hello Hello");
       }
     };
 

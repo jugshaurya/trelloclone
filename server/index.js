@@ -3,9 +3,9 @@ const helmet = require("helmet");
 const cors = require("cors");
 const compress = require("compression");
 const morgan = require("morgan");
-const app = express();
 const path = require("path");
 
+const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
 const mainRouter = require("./routes/mainRouter");
@@ -21,6 +21,7 @@ app.use(compress());
 app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // db connection
@@ -32,7 +33,7 @@ mongoose.connect("mongodb://localhost/trello-clone", {
 });
 
 // routers
-app.use("/", mainRouter);
+app.use("/api/v1/", mainRouter);
 
 // error middleware
 app.use((err, req, res, next) => {

@@ -8,13 +8,12 @@ import {
 } from "../../redux/cards/cards.actions";
 
 import SingleCard from "../single-card/singleCard";
+
 import Spinner from "react-bootstrap/Spinner";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+
+import "./listCards.styles.scss";
 
 class ListCards extends Component {
   state = {
@@ -30,14 +29,13 @@ class ListCards extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = (e, listId) => {
+  handleCreateCard = (e, listId) => {
     e.preventDefault();
     this.props.createCardASYNC(listId, this.state.title);
   };
 
   handleDrop = async (e, droppingListId) => {
     e.preventDefault();
-
     const originalCard = JSON.parse(e.dataTransfer.getData("text/plain"));
     // Update card only if card is moved to other list
     if (droppingListId !== originalCard.listId) {
@@ -54,77 +52,71 @@ class ListCards extends Component {
   };
 
   handleDragEnter = e => {
-    console.log("entering");
-    e.target.style.background = "blue";
+    // e.target.style.background = "blue";
   };
 
   handleDragLeave = e => {
-    console.log("leaving");
-    e.target.style.background = "#ebecf0";
+    // e.target.style.background = "#ebecf0";
+  };
+
+  renderListCards = () => {
+    const { isFetchingCards, cards } = this.props;
+
+    return isFetchingCards ? (
+      <div className="col">
+        <Spinner animation="border" variant="info" />
+      </div>
+    ) : (
+      <>
+        {cards &&
+          cards
+            .filter(card => card.listId === this.props.list._id)
+            .map(card => <SingleCard key={card._id} card={card} />)}
+      </>
+    );
+  };
+
+  renderCreateCardForm = () => {
+    return this.props.isCreatingCard ? (
+      <div className="col">
+        <Spinner animation="border" variant="info" />
+      </div>
+    ) : (
+      <div className="col my-2">
+        <div className="card bg-dark text-white list-cards-form">
+          <Form onSubmit={e => this.handleCreateCard(e, this.props.list._id)}>
+            <Form.Group controlId="formBasicCardname">
+              <Form.Control
+                required
+                type="text"
+                name="title"
+                placeholder="Enter Card Title"
+                onChange={this.handleChange}
+                value={this.state.title}
+              />
+            </Form.Group>
+
+            <Button className="col-12" variant="primary" type="submit">
+              Create Card
+            </Button>
+          </Form>
+        </div>
+      </div>
+    );
   };
 
   render() {
-    const { isFetchingCards, isCreatingCard, cards, list } = this.props;
-    const { title } = this.state;
-
     return (
       <div
-        className="container-fluid"
-        style={{
-          backgroundColor: "#ebecf0",
-          paddingBottom: "20px"
-        }}
-        onDrop={e => this.handleDrop(e, list._id)}
+        className="container-fluid list-cards"
+        onDrop={e => this.handleDrop(e, this.props.list._id)}
         onDragOver={this.handleDragOver}
         onDragEnter={this.handleDragEnter}
         onDragLeave={this.handleDragLeave}
       >
-        <div className="row" style={{ overflowY: "scroll", maxHeight: "70vh" }}>
-          {isFetchingCards ? (
-            <div className="col">
-              <Spinner animation="border" variant="info" />
-            </div>
-          ) : (
-            <>
-              {cards &&
-                cards
-                  .filter(card => card.listId === list._id)
-                  .map(card => <SingleCard key={card._id} card={card} />)}
-              {isCreatingCard ? (
-                <div className="col">
-                  <Spinner animation="border" variant="info" />
-                </div>
-              ) : (
-                <div className="col my-2">
-                  <div
-                    className="card bg-dark text-white"
-                    style={{ width: "100%", padding: "10px" }}
-                  >
-                    <Form onSubmit={e => this.handleSubmit(e, list._id)}>
-                      <Form.Group controlId="formBasicCardname">
-                        <Form.Control
-                          required
-                          type="text"
-                          name="title"
-                          placeholder="Enter Card Title"
-                          onChange={this.handleChange}
-                          value={title}
-                        />
-                      </Form.Group>
-
-                      <Button
-                        className="col-12"
-                        variant="primary"
-                        type="submit"
-                      >
-                        Create Card
-                      </Button>
-                    </Form>
-                  </div>
-                </div>
-              )}
-            </>
-          )}
+        <div className="row overflow-y">
+          {this.renderListCards()}
+          {this.renderCreateCardForm()}
         </div>
       </div>
     );

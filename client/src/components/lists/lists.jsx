@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 import {
   getAllListsInBoardASYNC,
   createListASYNC
@@ -7,11 +8,11 @@ import {
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
 import Spinner from "react-bootstrap/Spinner";
-
 import ListLayout from "../list-layout/listLayout";
+
 import "./lists.styles.scss";
+
 class Lists extends Component {
   state = {
     name: ""
@@ -31,9 +32,33 @@ class Lists extends Component {
     this.props.createListASYNC(this.state.name);
   };
 
+  renderCreateListForm = () => {
+    return this.props.isCreatingList ? (
+      <Spinner animation="border" variant="info" className="mt-5" />
+    ) : (
+      <div className="card list-card text-white bg-dark mb-3">
+        <Form onSubmit={this.handleSubmit} className="col-12 pa-5">
+          <Form.Label>Create List</Form.Label>
+          <Form.Group controlId="formBasicListname">
+            <Form.Control
+              required
+              type="text"
+              name="name"
+              placeholder="Enter List name"
+              onChange={this.handleChange}
+              value={this.state.name}
+            />
+          </Form.Group>
+          <Button variant="primary" className="col-12" type="submit">
+            Create List
+          </Button>
+        </Form>
+      </div>
+    );
+  };
+
   render() {
-    const { isFetchingLists, isCreatingList, lists } = this.props;
-    const { name } = this.state;
+    const { isFetchingLists, lists } = this.props;
 
     return (
       <div className="col-12 p-3">
@@ -49,34 +74,10 @@ class Lists extends Component {
               className="col scrolling-wrapper"
               style={{ height: "84vh", paddingRight: "400px" }}
             >
+              {/* Render all the lists in board */}
               {lists &&
                 lists.map(list => <ListLayout list={list} key={list._id} />)}
-
-              {isCreatingList ? (
-                <Spinner animation="border" variant="info" className="mt-5" />
-              ) : (
-                <div
-                  className="card text-white bg-dark mb-3"
-                  style={{ width: "230px", padding: "10px" }}
-                >
-                  <Form onSubmit={this.handleSubmit} className="col-12 pa-5">
-                    <Form.Label>Create List</Form.Label>
-                    <Form.Group controlId="formBasicListname">
-                      <Form.Control
-                        required
-                        type="text"
-                        name="name"
-                        placeholder="Enter List name"
-                        onChange={this.handleChange}
-                        value={name}
-                      />
-                    </Form.Group>
-                    <Button variant="primary" className="col-12" type="submit">
-                      Create List
-                    </Button>
-                  </Form>
-                </div>
-              )}
+              {this.renderCreateListForm()}
             </div>
           </div>
         )}

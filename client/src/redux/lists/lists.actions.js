@@ -1,7 +1,11 @@
 import listsActionTypes from "./lists.types";
 
 import { createNewActivityASYNC } from "../activities/activities.actions";
-// ============= GET ALL LISTS =========================
+
+const API_BASE_URL = "http://localhost:5000/api/v1";
+
+// GET ALL LISTS
+
 const getAllListsInBoardASYNCStart = () => ({
   type: listsActionTypes.GET_ALL_LISTS_IN_BOARD_START,
   payload: null
@@ -21,7 +25,7 @@ export const getAllListsInBoardASYNC = () => async (dispatch, getState) => {
   dispatch(getAllListsInBoardASYNCStart());
   const boardId = getState().board.boardData.pageBoardId;
   try {
-    const response = await fetch(`http://localhost:5000/lists/${boardId}`, {
+    const response = await fetch(`${API_BASE_URL}/lists/${boardId}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`
@@ -35,8 +39,7 @@ export const getAllListsInBoardASYNC = () => async (dispatch, getState) => {
   }
 };
 
-// ============= GET ALL LISTS  END ====================
-// ============= CREATE A LIST =========================
+//  CREATE A LIST
 const createListASYNCStart = () => ({
   type: listsActionTypes.CREATE_LIST_START,
   payload: null
@@ -57,9 +60,8 @@ export const createListASYNC = name => async (dispatch, getState) => {
   const boardId = getState().board.boardData.pageBoardId;
 
   const newList = { name };
-  console.log(name);
   try {
-    const response = await fetch(`http://localhost:5000/lists/${boardId}`, {
+    const response = await fetch(`${API_BASE_URL}/lists/${boardId}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -78,9 +80,7 @@ export const createListASYNC = name => async (dispatch, getState) => {
   }
 };
 
-// ============= CREATE A LIST END =========================
-
-// ============= DELETE A LIST =========================
+//  DELETE A LIST
 const deleteListASYNCStart = () => ({
   type: listsActionTypes.DELETE_LIST_START,
   payload: null
@@ -100,9 +100,8 @@ export const deleteListASYNC = list => async (dispatch, getState) => {
   dispatch(deleteListASYNCStart());
   try {
     const boardId = getState().board.boardData.pageBoardId;
-    console.log("sadl");
     const listToBeDeleted = list;
-    const response = await fetch(`http://localhost:5000/lists/${boardId}`, {
+    const response = await fetch(`${API_BASE_URL}/lists/${boardId}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -112,7 +111,6 @@ export const deleteListASYNC = list => async (dispatch, getState) => {
     });
 
     const deletedList = await response.json();
-    console.log("sidf", deletedList);
     dispatch(deleteListASYNCSuccess(deletedList));
     dispatch(
       createNewActivityASYNC({ text: `deleted list **${list.name.trim()}**` })
@@ -121,5 +119,3 @@ export const deleteListASYNC = list => async (dispatch, getState) => {
     dispatch(deleteListASYNCFailure());
   }
 };
-
-// ============= DELETE A LIST END =========================

@@ -14,7 +14,4 @@ router.get("/:boardId", getAllCardsInBoard);
 router.post("/:boardId", createNewCard);
 router.put("/:boardId", updateCard);
 
-// router.use(() => {
-//   console.log("why");
-// });
 module.exports = router;

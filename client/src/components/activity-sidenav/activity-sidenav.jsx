@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
 import Activities from "../activities/activities";
 import "./activity-sidenav.styles.scss";
 

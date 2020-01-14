@@ -1,6 +1,7 @@
 import activitiesActionTypes from "./activities.types";
+const API_BASE_URL = "http://localhost:5000/api/v1";
 
-// GET all activities
+// Get all activities
 const getAllActivitiesASYNCStart = () => ({
   type: activitiesActionTypes.GET_ALL_ACTIVITIES_START,
   payload: null
@@ -20,21 +21,19 @@ export const getAllActivitiesASYNC = () => async (dispatch, getState) => {
   dispatch(getAllActivitiesASYNCStart());
   try {
     const boardId = getState().board.boardData.pageBoardId;
-    const response = await fetch(
-      `http://localhost:5000/activities/${boardId}`,
-      {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`
-        }
+    const response = await fetch(`${API_BASE_URL}/activities/${boardId}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`
       }
-    );
+    });
     const activities = await response.json();
     dispatch(getAllActivitiesASYNCSuccess(activities));
   } catch (err) {
     dispatch(getAllActivitiesASYNCFailure());
   }
 };
+
 // Create new Activity
 const createNewActivityASYNCStart = () => ({
   type: activitiesActionTypes.CREATE_NEW_ACTIVITY_START,
@@ -59,17 +58,14 @@ export const createNewActivityASYNC = ({ text, cardId }) => async (
   try {
     const boardId = getState().board.boardData.pageBoardId;
     const newActivity = { text, cardId };
-    const response = await fetch(
-      `http://localhost:5000/activities/${boardId}`,
-      {
-        method: "POST",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newActivity)
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/activities/${boardId}`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newActivity)
+    });
     const activity = await response.json();
     dispatch(createNewActivityASYNCSuccess(activity));
   } catch (err) {

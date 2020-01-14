@@ -19,3 +19,15 @@ footer .btn-success {
 .footer {
   height: 64.19px;
 }
+
+.btn-primary {
+  background: linear-gradient(135deg, #36d1dc, #5b86e5);
+}
+
+button.btn-secondary {
+  background: linear-gradient(135deg, #36d1dc, #5b86e5);
+}
+
+.btn-success {
+  color: #007bff;
+}

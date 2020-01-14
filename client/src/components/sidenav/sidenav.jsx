@@ -1,19 +1,36 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
 import "./sidenav.styles.scss";
 
 const Sidenav = props => {
   const [width, setWidth] = useState(0);
   const [padding, setPadding] = useState(0);
-  // padding-left: 80px;
-  // padding-right: 80px;
+
   const openNav = () => {
     setWidth(300);
     setPadding(40);
   };
+
   const closeNav = () => {
     setWidth(0);
     setPadding(0);
+  };
+
+  const showBoards = () => {
+    const { boards, history } = props;
+    return boards.map(board => (
+      <span
+        className="span-top"
+        key={board._id}
+        onClick={() => history.push(`/boards/${board._id}`)}
+      >
+        <span role="img" aria-labelledby="emoji">
+          💡
+        </span>
+        {board.name}
+      </span>
+    ));
   };
 
   return (
@@ -29,19 +46,8 @@ const Sidenav = props => {
         <Link to="#" className="closebtn" onClick={closeNav}>
           &times;
         </Link>
-        {props.boards &&
-          props.boards.map(board => (
-            <span
-              className="span-top"
-              key={board._id}
-              onClick={e => props.history.push(`/boards/${board._id}`)}
-            >
-              <span role="img" aria-labelledby="emoji">
-                💡
-              </span>
-              {board.name}
-            </span>
-          ))}
+
+        {props.boards && showBoards()}
       </div>
 
       <span id="list-icons" onClick={openNav}>

@@ -1,13 +1,13 @@
 #sign-up {
   overflow: hidden;
-}
 
-#sign-up .row {
-  height: calc(100vh- 65px);
-  padding: 20px;
-  svg {
-    padding-bottom: 2rem;
-    visibility: hidden;
+  .row {
+    height: calc(100vh- 65px);
+    padding: 20px;
+    svg {
+      padding-bottom: 2rem;
+      visibility: hidden;
+    }
   }
 }
 
@@ -26,18 +26,13 @@ svg {
   height: 100%;
 }
 
-// #sign-up {
-//   .btn-primary {
-//     background: linear-gradient(135deg, #36d1dc, #5b86e5);
-//   }
-// }
-
 @media (min-width: 726px) {
   #sign-up .row {
     svg {
       visibility: visible;
     }
   }
+
   .signup-left {
     padding-top: 5rem;
     height: 85vh;
@@ -47,15 +42,4 @@ svg {
     height: 85vh;
     width: 180vw;
   }
-}
-
-// #sign-up {
-//   flex: 1 0 auto;
-// }
-// .footer {
-//   flex-shrink: 0;
-// }
-
-footer {
-  height: 65px;
 }

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import Spinner from "react-bootstrap/Spinner";
-import { ReactComponent as SignUpSVG } from "../../../assets/signup.svg";
 
 import { signUpUserASYNC } from "../../../redux/user/user.actions";
+
+import Spinner from "react-bootstrap/Spinner";
+
+import { ReactComponent as SignUpSVG } from "../../../assets/signup.svg";
 import "./signup.styles.scss";
+
 const SignUp = props => {
   const [usercredentials, setUserCredentials] = useState({
     username: "",
@@ -14,13 +17,6 @@ const SignUp = props => {
     avatarUrl: ""
   });
 
-  // Mimicing ComponentDidMount
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      props.history.push("/");
-    }
-  }, [props.history]);
-
   const {
     username,
     email,
@@ -29,6 +25,21 @@ const SignUp = props => {
     avatarUrl
   } = usercredentials;
 
+  const {
+    isSignUp,
+    signUpError,
+    signUpSuccessMessage,
+    history,
+    signUpUserASYNC
+  } = props;
+
+  // Mimicing ComponentDidMount
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      history.push("/");
+    }
+  }, [history]);
+
   const handleChange = e => {
     const { name, value } = e.target;
     setUserCredentials({ ...usercredentials, [name]: value });
@@ -36,10 +47,9 @@ const SignUp = props => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    props.signUpUserASYNC(usercredentials, props.history);
+    signUpUserASYNC(usercredentials, history);
   };
 
-  const { isSignUp, signUpError, signUpSuccessMessage } = props;
   return (
     <div id="sign-up" className="container pt-3">
       <div className="row text-center">
@@ -51,12 +61,12 @@ const SignUp = props => {
               <h3 className="pb-2 text-lg-middle">Ready to Sign Up</h3>
               <div className="alert-box pt-2 pb-2 px-1 text-lg-middle">
                 {signUpError && (
-                  <alert className="alert alert-danger">{signUpError}</alert>
+                  <div className="alert alert-danger">{signUpError}</div>
                 )}
                 {signUpSuccessMessage && (
-                  <alert className="alert alert-success">
+                  <div className="alert alert-success">
                     {signUpSuccessMessage}
-                  </alert>
+                  </div>
                 )}
               </div>
 
@@ -102,6 +112,7 @@ const SignUp = props => {
                     placeholder="Enter Password"
                     onChange={handleChange}
                     value={password}
+                    autoComplete="password"
                     required
                   />
                 </div>
@@ -115,6 +126,7 @@ const SignUp = props => {
                     placeholder="Enter Confirm Password"
                     onChange={handleChange}
                     value={confirmPassword}
+                    autoComplete="confirm-password"
                     required
                   />
                 </div>

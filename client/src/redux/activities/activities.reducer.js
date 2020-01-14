@@ -1,7 +1,7 @@
 import activitiesActionTypes from "./activities.types";
 
 const INITIAL_STATE = {
-  activities: null,
+  activities: [],
   isFetchingActivities: false,
   isCreatingNewActivity: false
 };
@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 const activitiesReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case activitiesActionTypes.GET_ALL_ACTIVITIES_START:
-      return { ...state, isFetchingActivities: true, activities: null };
+      return { ...state, isFetchingActivities: true, activities: [] };
     case activitiesActionTypes.GET_ALL_ACTIVITIES_SUCCESS:
       return {
         ...state,
@@ -21,7 +21,7 @@ const activitiesReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetchingActivities: false,
-        activities: null
+        activities: []
       };
 
     case activitiesActionTypes.CREATE_NEW_ACTIVITY_START:
@@ -38,7 +38,7 @@ const activitiesReducer = (state = INITIAL_STATE, action) => {
         isCreatingNewActivity: false
       };
     default:
-      return { ...state };
+      return state;
   }
 };
 

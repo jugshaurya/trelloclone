@@ -2,6 +2,7 @@ import userActionTypes from "./user.types";
 
 const INITIAL_STATE = {
   user: null,
+
   isSignIn: false,
   signInError: null,
   signInSuccessMessage: null,
@@ -26,7 +27,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isSignIn: true,
         user: null,
-
         signInError: null,
         signInSuccessMessage: null
       };
@@ -41,6 +41,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case userActionTypes.SIGN_IN_USER_FAILURE:
       return {
         ...state,
+        user: null,
         isSignIn: false,
         signInError: action.payload,
         signInSuccessMessage: null
@@ -82,7 +83,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
       };
 
     default:
-      return { ...state };
+      return state;
   }
 };
 

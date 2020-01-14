@@ -1,6 +1,7 @@
 import boardsActionTypes from "./boards.types";
+const API_BASE_URL = "http://localhost:5000/api/v1";
 
-// ============= GET ALL BOARDS =========================
+// GET ALL BOARDS
 const getAllBoardsASYNCStart = () => ({
   type: boardsActionTypes.GET_ALL_BOARDS_START,
   payload: null
@@ -12,14 +13,14 @@ const getAllBoardsASYNCSuccess = boards => ({
 });
 
 const getAllBoardsASYNCFailure = () => ({
-  type: boardsActionTypes.GET_ALL_BOARDS_START,
-  payload: null
+  type: boardsActionTypes.GET_ALL_BOARDS_FAILURE,
+  payload: []
 });
 
 export const getAllBoardsASYNC = () => async dispatch => {
   dispatch(getAllBoardsASYNCStart());
   try {
-    const response = await fetch("http://localhost:5000/boards", {
+    const response = await fetch(`${API_BASE_URL}/boards`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`
@@ -32,8 +33,7 @@ export const getAllBoardsASYNC = () => async dispatch => {
   }
 };
 
-// ============= GET ALL BOARDS  END ====================
-// ============= CREATE A BOARD =========================
+// CREATE A BOARD
 const createBoardASYNCStart = () => ({
   type: boardsActionTypes.CREATE_BOARD_START,
   payload: null
@@ -45,7 +45,7 @@ const createBoardASYNCSuccess = board => ({
 });
 
 const createBoardASYNCFailure = () => ({
-  type: boardsActionTypes.CREATE_BOARD_START,
+  type: boardsActionTypes.CREATE_BOARD_FAILURE,
   payload: null
 });
 
@@ -53,7 +53,7 @@ export const createBoardASYNC = (name, background) => async dispatch => {
   dispatch(createBoardASYNCStart());
   try {
     const newBoard = { name, background };
-    const response = await fetch("http://localhost:5000/boards", {
+    const response = await fetch(`${API_BASE_URL}/boards`, {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -69,9 +69,7 @@ export const createBoardASYNC = (name, background) => async dispatch => {
   }
 };
 
-// ============= CREATE A BOARD END =========================
-
-// ============= DELETE A BOARD =========================
+// DELETE A BOARD
 const deleteBoardASYNCStart = () => ({
   type: boardsActionTypes.DELETE_BOARD_START,
   payload: null
@@ -83,7 +81,7 @@ const deleteBoardASYNCSuccess = board => ({
 });
 
 const deleteBoardASYNCFailure = () => ({
-  type: boardsActionTypes.DELETE_BOARD_START,
+  type: boardsActionTypes.DELETE_BOARD_FAILURE,
   payload: null
 });
 
@@ -94,7 +92,7 @@ export const deleteBoardASYNC = board => async dispatch => {
   };
 
   try {
-    const response = await fetch("http://localhost:5000/boards", {
+    const response = await fetch(`${API_BASE_URL}/boards`, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -104,11 +102,8 @@ export const deleteBoardASYNC = board => async dispatch => {
     });
 
     const board = await response.json();
-    console.log(board);
     dispatch(deleteBoardASYNCSuccess(board));
   } catch (err) {
     dispatch(deleteBoardASYNCFailure());
   }
 };
-
-// ============= DELETE A BOARD END =========================

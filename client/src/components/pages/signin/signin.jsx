@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import Spinner from "react-bootstrap/Spinner";
-import { ReactComponent as SignInSVG } from "../../../assets/signin.svg";
 
 import { signInUserASYNC } from "../../../redux/user/user.actions";
+
+import Spinner from "react-bootstrap/Spinner";
+
+import { ReactComponent as SignInSVG } from "../../../assets/signin.svg";
 import "./signin.styles.scss";
 
 const SignIn = props => {
@@ -12,12 +14,22 @@ const SignIn = props => {
     password: ""
   });
 
+  const { username, password } = state;
+
+  const {
+    isSignIn,
+    signInError,
+    signInSuccessMessage,
+    history,
+    signInUserASYNC
+  } = props;
+
   // Mimicing ComponentDidMount
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      props.history.push("/");
+      history.push("/");
     }
-  }, [props.history]);
+  }, [history]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -26,11 +38,8 @@ const SignIn = props => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    props.signInUserASYNC(state.username, state.password, props.history);
+    signInUserASYNC(state.username, state.password, history);
   };
-
-  const { username, password } = state;
-  const { isSignIn, signInError, signInSuccessMessage } = props;
 
   return (
     <div id="sign-in" className="container pt-3">
@@ -43,12 +52,12 @@ const SignIn = props => {
               <h3 className="pb-3 text-lg-middle">Ready to Sign In</h3>
               <div className="alert-box pt-3 pb-3 px-1 text-lg-middle">
                 {signInError && (
-                  <alert className="alert alert-danger">{signInError}</alert>
+                  <div className="alert alert-danger">{signInError}</div>
                 )}
                 {signInSuccessMessage && (
-                  <alert className="alert alert-success">
+                  <div className="alert alert-success">
                     {signInSuccessMessage}
-                  </alert>
+                  </div>
                 )}
               </div>
 
@@ -63,6 +72,7 @@ const SignIn = props => {
                     placeholder="Enter Username"
                     onChange={handleChange}
                     value={username}
+                    autoComplete="username"
                     required
                   />
                 </div>
@@ -76,6 +86,7 @@ const SignIn = props => {
                     placeholder="Enter Password"
                     onChange={handleChange}
                     value={password}
+                    autoComplete="current-password"
                     required
                   />
                 </div>

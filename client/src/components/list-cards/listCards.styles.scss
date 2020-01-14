@@ -1,0 +1,14 @@
+.list-cards {
+  background-color: #ebecf0;
+  padding-bottom: 20px;
+
+  .overflow-y {
+    overflow-y: scroll;
+    max-height: 70vh;
+  }
+
+  .list-cards-form {
+    width: 100%;
+    padding: 10px;
+  }
+}

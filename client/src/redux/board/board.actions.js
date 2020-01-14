@@ -1,4 +1,5 @@
 import boardActionTypes from "./board.types";
+const API_BASE_URL = "http://localhost:5000/api/v1";
 
 const getBoardASYNCStart = () => ({
   type: boardActionTypes.GET_SPECIFIC_BOARD_START,
@@ -19,7 +20,7 @@ export const getBoardASYNC = () => async (dispatch, getState) => {
   dispatch(getBoardASYNCStart());
   try {
     const boardId = getState().board.boardData.pageBoardId;
-    const response = await fetch(`http://localhost:5000/boards/${boardId}`, {
+    const response = await fetch(`${API_BASE_URL}/boards/${boardId}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`
@@ -28,7 +29,6 @@ export const getBoardASYNC = () => async (dispatch, getState) => {
 
     const boardOrError = await response.json();
     if (response.status >= 400) {
-      console.log(boardOrError);
       throw new Error(boardOrError.message);
     }
     dispatch(getBoardASYNCSuccess(boardOrError));

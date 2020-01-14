@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+
 import {
   getAllBoardsASYNC,
   createBoardASYNC
@@ -8,9 +9,9 @@ import {
 
 import Spinner from "react-bootstrap/Spinner";
 import Sidenav from "../../sidenav/sidenav";
+import BoardLayout from "../../board-layout/boardLayout";
 
 import "./boards.styles.scss";
-import BoardLayout from "../../board-layout/boardLayout";
 
 class Boards extends React.Component {
   state = {
@@ -28,13 +29,57 @@ class Boards extends React.Component {
   };
 
   handleSubmit = e => {
+    const { name, background } = this.state;
     e.preventDefault();
-    this.props.createBoardASYNC(this.state.name, this.state.background);
+    this.props.createBoardASYNC(name, background);
+  };
+
+  createBoardForm = () => {
+    const { background, name } = this.state;
+
+    return (
+      <div className="create-card card text-white bg-dark mb-3">
+        <div className="card-header">New Board</div>
+        <div className="card-body">
+          <form className="card-text text-center" onSubmit={this.handleSubmit}>
+            <div className="form-group ml-md-3 text-md-left">
+              <label htmlFor="username">Name</label>
+              <input
+                id="username"
+                className="form-control"
+                type="text"
+                name="name"
+                placeholder="Enter Name"
+                onChange={this.handleChange}
+                value={name}
+                required
+              />
+            </div>
+            <div className="form-group ml-md-3 text-md-left">
+              <label htmlFor="background">Background</label>
+              <input
+                id="background"
+                className="form-control"
+                type="text"
+                name="background"
+                placeholder="Enter Background"
+                onChange={this.handleChange}
+                value={background}
+                required
+              />
+            </div>
+
+            <button className="btn btn-primary px-2" type="submit">
+              Create Board
+            </button>
+          </form>
+        </div>
+      </div>
+    );
   };
 
   render() {
     const { isFetchingBoards, boards, isCreatingBoard, history } = this.props;
-    const { background, name } = this.state;
 
     return (
       <div id="boards-page" className="container-fluid">
@@ -48,16 +93,20 @@ class Boards extends React.Component {
           <div className="col-md-3">
             <div className="invisible-on-small-screen all-boards-list">
               <div className="list-group mt-3">
-                {boards &&
-                  boards.map(board => (
-                    <Link
-                      className="list-group-item"
-                      key={board._id}
-                      to={`/boards/${board._id}`}
-                    >
-                      {board.name}
-                    </Link>
-                  ))}
+                {boards.length === 0
+                  ? null
+                  : boards.map(board => (
+                      <Link
+                        className="list-group-item"
+                        key={board._id}
+                        to={`/boards/${board._id}`}
+                      >
+                        <span role="img" aria-labelledby="emoji">
+                          🌀
+                        </span>
+                        {board.name}
+                      </Link>
+                    ))}
               </div>
             </div>
           </div>
@@ -68,7 +117,7 @@ class Boards extends React.Component {
               </div>
             ) : (
               <>
-                <div className="d-flex col-6 my-3">
+                <div className="d-flex col-12 col-sm-6 col-md-6 col-lg-4 my-3">
                   {isCreatingBoard ? (
                     <Spinner
                       animation="border"
@@ -76,63 +125,19 @@ class Boards extends React.Component {
                       className="mt-5"
                     />
                   ) : (
-                    <div
-                      // style={{ width: "18rem" }}
-                      className="create-card card text-white bg-dark mb-3"
-                    >
-                      <div className="card-header">New Board</div>
-                      <div className="card-body">
-                        <form
-                          className="card-text text-center"
-                          onSubmit={this.handleSubmit}
-                        >
-                          <div className="form-group ml-md-3 text-md-left">
-                            <label htmlFor="username">Name</label>
-                            <input
-                              id="username"
-                              className="form-control"
-                              type="text"
-                              name="name"
-                              placeholder="Enter Name"
-                              onChange={this.handleChange}
-                              value={name}
-                              required
-                            />
-                          </div>
-                          <div className="form-group ml-md-3 text-md-left">
-                            <label htmlFor="background">Background</label>
-                            <input
-                              id="background"
-                              className="form-control"
-                              type="text"
-                              name="background"
-                              placeholder="Enter Background"
-                              onChange={this.handleChange}
-                              value={background}
-                              required
-                            />
-                          </div>
-
-                          <button
-                            className="btn btn-primary px-2"
-                            type="submit"
-                          >
-                            Create Board
-                          </button>
-                        </form>
-                      </div>
-                    </div>
+                    this.createBoardForm()
                   )}
                 </div>
 
-                {boards &&
-                  boards.map(board => (
-                    <BoardLayout
-                      key={board._id}
-                      board={board}
-                      history={history}
-                    />
-                  ))}
+                {boards.length === 0
+                  ? null
+                  : boards.map(board => (
+                      <BoardLayout
+                        key={board._id}
+                        board={board}
+                        history={history}
+                      />
+                    ))}
               </>
             )}
           </div>

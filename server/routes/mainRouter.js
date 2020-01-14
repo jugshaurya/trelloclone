@@ -14,8 +14,4 @@ router.use("/lists", isUserAuthenticated, listsRouter);
 router.use("/cards", isUserAuthenticated, cardsRouter);
 router.use("/activities", isUserAuthenticated, activitiesRouter);
 
-// router.use("/", (req, res, next) => {
-//   res.json(`Hello Hello from server`);
-// });
-
 module.exports = router;

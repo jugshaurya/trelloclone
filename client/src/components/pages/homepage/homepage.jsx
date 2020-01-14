@@ -1,8 +1,10 @@
 import React from "react";
+
 import { ReactComponent as MainImg } from "../../../assets/mainimg.svg";
 import { ReactComponent as MainImg2 } from "../../../assets/mainimg2.svg";
 import { ReactComponent as TeamImg } from "../../../assets/team.svg";
 import "./homepage.styles.scss";
+
 const Homepage = props => {
   return (
     <>

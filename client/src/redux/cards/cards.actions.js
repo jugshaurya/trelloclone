@@ -2,7 +2,9 @@ import cardsActionTypes from "./cards.types";
 import axios from "axios";
 
 import { createNewActivityASYNC } from "../activities/activities.actions";
-// ============= GET ALL CARDS =========================
+const API_BASE_URL = "http://localhost:5000/api/v1";
+
+// GET ALL CARDS
 const getAllCardsInBoardASYNCStart = () => ({
   type: cardsActionTypes.GET_ALL_CARDS_IN_BOARD_START,
   payload: null
@@ -23,7 +25,7 @@ export const getAllCardsInBoardASYNC = () => async (dispatch, getState) => {
   const boardId = getState().board.boardData.pageBoardId;
 
   try {
-    const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
+    const response = await fetch(`${API_BASE_URL}/cards/${boardId}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`
@@ -37,9 +39,7 @@ export const getAllCardsInBoardASYNC = () => async (dispatch, getState) => {
   }
 };
 
-// ============= GET ALL CARDS  END ====================
-// ============= CREATE A CARD =========================
-
+// CREATE A CARD
 const createCardASYNCStart = () => ({
   type: cardsActionTypes.CREATE_CARD_START,
   payload: null
@@ -63,13 +63,11 @@ export const createCardASYNC = (listId, title) => async (
   const boardId = getState().board.boardData.pageBoardId;
   const newCard = {
     listId,
-    title,
-    description: "later", // will change later
-    cardImage: "",
-    labels: []
+    title
   };
+
   try {
-    const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
+    const response = await fetch(`${API_BASE_URL}/cards/${boardId}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -90,9 +88,9 @@ export const createCardASYNC = (listId, title) => async (
     dispatch(createCardASYNCFailure());
   }
 };
-// ============= CREATE A CARD END =========================
 
-// ============= UPDATE A CARD : DROP/EDIT/UPLOADIMAGE/EDITDESC =========================
+// UPDATE A CARD : DROP/EDIT/UPLOADIMAGE/EDITDESC
+
 const updateCardASYNCStart = EVENT => ({
   type: cardsActionTypes[`UPDATE_CARD_WHEN_${EVENT}_START`],
   payload: null
@@ -107,8 +105,6 @@ const updateCardASYNCFailure = EVENT => ({
   type: cardsActionTypes[`UPDATE_CARD_WHEN_${EVENT}_FAILURE`]
 });
 
-// NOte: DROP AND EDIT ARE ALMOST SAME just EVENT is different: believe me it was required!! :)
-// DROP
 // @ update is an object with properties required to be changed
 export const updateCardWhenDropASYNC = (card, update) => async (
   dispatch,
@@ -119,7 +115,7 @@ export const updateCardWhenDropASYNC = (card, update) => async (
   const boardId = getState().board.boardData.pageBoardId;
 
   try {
-    const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
+    const response = await fetch(`${API_BASE_URL}/cards/${boardId}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -155,7 +151,7 @@ export const updateCardWhenEditASYNC = (card, update) => async (
   const newCard = { ...card, ...update };
   const boardId = getState().board.boardData.pageBoardId;
   try {
-    const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
+    const response = await fetch(`${API_BASE_URL}/cards/${boardId}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -195,7 +191,7 @@ export const updateCardWhenUploadImageASYNC = (
     dispatch(updateCardASYNCStart("UPLOADIMAGE"));
     try {
       const response = await axios.post(
-        `http://localhost:5000/cards/uploadmulter`,
+        `${API_BASE_URL}/cards/uploadmulter`,
         data,
         {
           headers: {
@@ -215,15 +211,12 @@ export const updateCardWhenUploadImageASYNC = (
       );
       dispatch(updateCardASYNCSuccess("UPLOADIMAGE", updatedCard));
     } catch (error) {
-      console.log(error);
       dispatch(updateCardASYNCFailure("UPLOADIMAGE"));
     }
   }
 };
 
-// ============= UPDATE A CARD END : DROP/EDIT/UPLOADIMAGE =========================
-
-// EDIT
+// EDITDESC
 // @ update is an object with properties required to be changed
 export const updateCardWhenEditDescriptionASYNC = (card, update) => async (
   dispatch,
@@ -233,7 +226,7 @@ export const updateCardWhenEditDescriptionASYNC = (card, update) => async (
   const newCard = { ...card, ...update };
   const boardId = getState().board.boardData.pageBoardId;
   try {
-    const response = await fetch(`http://localhost:5000/cards/${boardId}`, {
+    const response = await fetch(`${API_BASE_URL}/cards/${boardId}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -243,7 +236,6 @@ export const updateCardWhenEditDescriptionASYNC = (card, update) => async (
     });
 
     const updatedCard = await response.json();
-    console.log("updatedCard", updatedCard);
     dispatch(updateCardASYNCSuccess("EDITDESC", updatedCard));
     dispatch(
       createNewActivityASYNC({

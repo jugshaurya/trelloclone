@@ -1,27 +1,27 @@
 #boards-page {
   padding-top: 4rem;
+
+  .list-group {
+    border-top: 0.61px solid linear-gradient(135deg, #36d1dc, #5b86e5);
+    min-height: 6vh;
+    background: rgba($color: #000, $alpha: 0.1);
+  }
+
+  .list-group-item {
+    background: linear-gradient(135deg, #36d1dc, #5b86e5);
+    border-top: 2px solid white;
+    color: white;
+    font-weight: bold;
+  }
 }
 
 .all-boards-list,
 .all-boards {
-  // border: 3px solid #5b86e5;
   padding: 20px;
 }
-
-//   .btn-primary {
-//     background: linear-gradient(135deg, #36d1dc, #5b86e5);
-//   }
 
 @media (max-width: 768px) {
   .invisible-on-small-screen {
     display: none;
   }
-}
-
-// div {
-//   display: inline-block;
-// }
-
-.i-dont-know {
-  margin-top: 0;
 }

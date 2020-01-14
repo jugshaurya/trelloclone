@@ -1,7 +1,7 @@
 import boardsActionTypes from "./boards.types";
 
 const INITIAL_STATE = {
-  boards: null,
+  boards: [],
   isFetchingBoards: false,
   isCreatingBoard: false,
   isDeletingBoard: false
@@ -10,7 +10,7 @@ const INITIAL_STATE = {
 const boardsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case boardsActionTypes.GET_ALL_BOARDS_START:
-      return { ...state, isFetchingBoards: true, boards: null };
+      return { ...state, isFetchingBoards: true, boards: [] };
     case boardsActionTypes.GET_ALL_BOARDS_SUCCESS:
     case boardsActionTypes.GET_ALL_BOARDS_FAILURE:
       return { ...state, isFetchingBoards: false, boards: action.payload };
@@ -38,7 +38,7 @@ const boardsReducer = (state = INITIAL_STATE, action) => {
       };
 
     default:
-      return { ...state };
+      return state;
   }
 };
 

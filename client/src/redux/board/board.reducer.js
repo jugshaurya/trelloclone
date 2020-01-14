@@ -34,7 +34,7 @@ const boardReducer = (state = INITIAL_STATE, action) => {
     case boardActionTypes.GET_PAGE_BOARD_ID:
       return { ...state, pageBoardId: action.payload };
     default:
-      return { ...state };
+      return state;
   }
 };
 

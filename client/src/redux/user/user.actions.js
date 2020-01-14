@@ -1,5 +1,8 @@
 import userActionTypes from "./user.types";
 
+const API_BASE_URL = "http://localhost:5000/api/v1";
+
+// Fetching User
 const getUserViaTokenASYNCStart = () => ({
   type: userActionTypes.GET_USER_VIA_TOKEN_START,
   payload: null
@@ -20,8 +23,7 @@ export const getUserViaTokenASYNC = () => async dispatch => {
   const token = localStorage.getItem("token");
   try {
     if (!token) throw new Error("No Token Available");
-
-    const response = await fetch("http://localhost:5000/user", {
+    const response = await fetch(`${API_BASE_URL}/user`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${token}`
@@ -35,7 +37,7 @@ export const getUserViaTokenASYNC = () => async dispatch => {
   }
 };
 
-//  SIGN IN USER
+// SIGN-IN USER
 const signInUserASYNCStart = () => ({
   type: userActionTypes.SIGN_IN_USER_START,
   payload: null
@@ -58,7 +60,7 @@ export const signInUserASYNC = (
 ) => async dispatch => {
   dispatch(signInUserASYNCStart());
   try {
-    const response = await fetch("http://localhost:5000/user/signin", {
+    const response = await fetch(`${API_BASE_URL}/user/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -82,7 +84,7 @@ export const signInUserASYNC = (
   }
 };
 
-//  SIGN UP USER
+//  SIGN-UP USER
 const signUpUserASYNCStart = () => ({
   type: userActionTypes.SIGN_UP_USER_START,
   payload: null
@@ -114,7 +116,7 @@ export const signUpUserASYNC = (userCredentials, history) => async dispatch => {
       throw new Error("Passwords don't Match");
     }
 
-    const response = await fetch("http://localhost:5000/user/signup", {
+    const response = await fetch(`${API_BASE_URL}/user/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -139,6 +141,7 @@ export const signUpUserASYNC = (userCredentials, history) => async dispatch => {
   }
 };
 
+// SIGN-OUT User
 export const signOutUser = history => {
   localStorage.removeItem("token");
   history.push("/");

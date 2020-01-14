@@ -8,6 +8,9 @@
   box-shadow: 3px 3px #ccc;
 }
 
+.card {
+  width: 100%;
+}
 .edit-btn {
   svg {
     visibility: hidden;
@@ -16,7 +19,6 @@
     position: absolute;
     right: 7px;
     top: 10px;
-    // cursor: pointer;
   }
 
   &:hover svg {
@@ -33,8 +35,4 @@
   cursor: pointer;
   padding-bottom: 0.001em;
   margin: 0.3em;
-}
-
-button.btn-secondary {
-  background: linear-gradient(135deg, #36d1dc, #5b86e5);
 }

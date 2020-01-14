@@ -1,14 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
+
 import {
   getBoardASYNC,
   getPageBoardId
 } from "../../../redux/board/board.actions";
 
-import Lists from "../../lists/lists";
-import Spinner from "react-bootstrap/Spinner";
-import "./SpecificBoard.styles.scss";
 import ActivitySidenav from "../../activity-sidenav/activity-sidenav";
+import Spinner from "react-bootstrap/Spinner";
+import Lists from "../../lists/lists";
+
+import "./SpecificBoard.styles.scss";
+
 class SpecificBoard extends React.Component {
   componentDidMount() {
     const boardId = this.props.match.params.id;
@@ -17,7 +20,7 @@ class SpecificBoard extends React.Component {
   }
 
   render() {
-    const { board, isFetchingBoard, match } = this.props;
+    const { board, isFetchingBoard, match, fetchingBoardError } = this.props;
 
     return (
       <div id="specific-board" className="container-fluid">
@@ -29,19 +32,17 @@ class SpecificBoard extends React.Component {
           </div>
         ) : (
           <>
-            {this.props.fetchingBoardError ? (
+            {fetchingBoardError ? (
               <div className="row">
                 <div className="col-12 mt-4">
-                  <div className="alert alert-danger">
-                    {this.props.fetchingBoardError}
-                  </div>
+                  <div className="alert alert-danger">{fetchingBoardError}</div>
                 </div>
               </div>
             ) : (
               board && (
                 <div className="spec-board">
                   <div
-                    className="navbar row text-white"
+                    className="navbar row text-white px-5"
                     style={{ background: "#212529" }}
                   >
                     {board.name}

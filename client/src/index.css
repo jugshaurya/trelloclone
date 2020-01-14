@@ -11,15 +11,13 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  /* background-color: #36d1dc; */
   background: linear-gradient(45deg, #36d1dc, #5b86e5);
-
   outline: 15px solid #212529;
   border-radius: 10%;
 }
 
 body::-webkit-scrollbar {
-  width: 1rem;
+  width: 0.7rem;
 }
 
 body {
