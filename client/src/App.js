@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import $ from "jquery";
-import Popper from "popper.js";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+// import $ from "jquery";
+// import Popper from "popper.js";
+// import "bootstrap/dist/js/bootstrap.bundle.min";
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
@@ -17,7 +17,6 @@ import SpecificBoard from "./components/pages/specific-board/SpecificBoard";
 import Homepage from "./components/pages/homepage/homepage";
 // Style
 import "./App.css";
-// import "bootstrap/dist/css/bootstrap.min.css";
 
 // HOC
 import withAuth from "./components/withAuth/withAuth";

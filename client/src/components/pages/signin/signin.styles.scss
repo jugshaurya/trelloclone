@@ -1,10 +1,16 @@
 #sign-in {
   overflow: hidden;
+  background: ghostwhite;
+  min-height: 93.3vh;
   .row {
     height: 90vh;
     padding: 20px;
     svg {
       padding-bottom: 2rem;
+    }
+
+    input {
+      border: 2px double #5b86e5;
     }
   }
 }

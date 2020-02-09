@@ -1,13 +1,26 @@
 # Trello clone
 
-#### Thanks to Coding Gardan Cj for the project idea
+#### Thanks to Coding Gardan CJ for the project idea
 
-- he used Featherjs and Vue to made the same
+- he used Featherjs and Vue to made the same.
 
-#### I am going to make it in React and backend from scratch
+#### I am going to make it in React and backend from scratch!
 
-- will be taking the pointers about what to implement
-- and using his entity relationship Diagram to make my database.
+```
+will be taking the pointers about what to implement and using his entity relationship Diagram to make my database.
+```
+
+### Run server
+
+```
+npm run dev
+```
+
+### Run client
+
+```
+yarn start
+```
 
 #### UI/UX -DESIGN
 

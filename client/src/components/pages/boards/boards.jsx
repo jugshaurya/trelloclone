@@ -32,6 +32,11 @@ class Boards extends React.Component {
     const { name, background } = this.state;
     e.preventDefault();
     this.props.createBoardASYNC(name, background);
+    this.setState({ name: "", background: "" });
+  };
+
+  setRandomBackground = () => {
+    this.setState({ background: "https://source.unsplash.com/random/800x600" });
   };
 
   createBoardForm = () => {
@@ -67,6 +72,12 @@ class Boards extends React.Component {
                 value={background}
                 required
               />
+              <small
+                className="ml-auto text-right random-pic"
+                onClick={this.setRandomBackground}
+              >
+                Get Random Image
+              </small>
             </div>
 
             <button className="btn btn-primary px-2" type="submit">

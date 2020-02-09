@@ -13,7 +13,8 @@ const Homepage = props => {
           <div className="row  text-center text-md-left">
             <div className="col-lg-5">
               <h1 className="title-from-trello">
-                Trello lets you work more collaboratively and get more done.
+                Trello is an easy way to clean out those cards gathering dust on
+                your board.
               </h1>
               <p className="title-from-trello-lead">
                 Trello’s boards, lists, and cards enable you to organize and
@@ -108,8 +109,7 @@ const Homepage = props => {
               <span role="img" aria-labelledby="emoji">
                 💎
               </span>
-              It is an easy way to clean out those cards gathering dust on your
-              board.
+              Trello lets you work more collaboratively and get more done.
             </p>
             <p>
               <span role="img" aria-labelledby="emoji">
@@ -128,7 +128,7 @@ const Homepage = props => {
             <h2>Welcome to Trello Clone </h2>
             <p>
               Sign up and see what <strong>shaurya</strong> has added in order
-              to clone the million people used Trello as one of the personal
+              to clone the million people used Trello app as one of his personal
               project!.
             </p>
             <a href="/signin" className="btn btn-success bg-white px-3">

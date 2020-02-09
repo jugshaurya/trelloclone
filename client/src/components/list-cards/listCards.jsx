@@ -32,6 +32,7 @@ class ListCards extends Component {
   handleCreateCard = (e, listId) => {
     e.preventDefault();
     this.props.createCardASYNC(listId, this.state.title);
+    this.setState({ title: "" });
   };
 
   handleDrop = async (e, droppingListId) => {

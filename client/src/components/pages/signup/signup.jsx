@@ -33,6 +33,12 @@ const SignUp = props => {
     signUpUserASYNC
   } = props;
 
+  const setRandomUrl = () => {
+    setUserCredentials({
+      ...usercredentials,
+      avatarUrl: "https://source.unsplash.com/random/800x600"
+    });
+  };
   // Mimicing ComponentDidMount
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -143,6 +149,9 @@ const SignUp = props => {
                     value={avatarUrl}
                     required
                   />
+                  <small className="random-pic" onClick={setRandomUrl}>
+                    Get UnSplash Random Image
+                  </small>
                 </div>
 
                 <button className="btn btn-primary px-3" type="submit">

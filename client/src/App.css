@@ -31,3 +31,7 @@ button.btn-secondary {
 .btn-success {
   color: #007bff;
 }
+
+.btn:hover {
+  color: #212529 !important;
+}

@@ -1,5 +1,7 @@
 #sign-up {
   overflow: hidden;
+  background: ghostwhite;
+  min-height: 93.3vh;
 
   .row {
     height: calc(100vh- 65px);
@@ -14,6 +16,18 @@
 .signup-left {
   padding-top: 4rem;
   height: 52vh;
+
+  input {
+    border: 2px double #5b86e5;
+  }
+
+  small.random-pic {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+      color: #5b86e5;
+    }
+  }
 }
 
 .signup-right {

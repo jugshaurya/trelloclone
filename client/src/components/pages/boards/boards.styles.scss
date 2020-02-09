@@ -13,6 +13,14 @@
     color: white;
     font-weight: bold;
   }
+
+  .card-body small {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+      color: #5b86e5;
+    }
+  }
 }
 
 .all-boards-list,

@@ -30,6 +30,7 @@ class Lists extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.createListASYNC(this.state.name);
+    this.setState({ name: "" });
   };
 
   renderCreateListForm = () => {
