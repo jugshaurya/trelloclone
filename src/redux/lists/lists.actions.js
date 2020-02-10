@@ -2,7 +2,7 @@ import listsActionTypes from "./lists.types";
 
 import { createNewActivityASYNC } from "../activities/activities.actions";
 
-const API_BASE_URL = "http://localhost:5000/api/v1";
+const API_BASE_URL = "/api/v1";
 
 // GET ALL LISTS
 

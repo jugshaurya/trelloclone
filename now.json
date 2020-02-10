@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "name": "trello-clone",
+  "public": false,
+  "builds": [
+    { "src": "package.json", "use": "@now/static-build" },
+    { "src": "server/index.js", "use": "@now/node-server" }
+  ],
+  "routes": [
+    { "src": "/api/v1/.*", "dest": "server/index.js" },
+    { "src": "^/static/(.*)", "dest": "/static/$1" },
+    { "src": ".*", "dest": "/index.html" }
+  ],
+  "env": {
+    "MONGODB_URI": "@trello_mongo_uri"
+  }
+}

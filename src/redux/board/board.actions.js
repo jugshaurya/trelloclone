@@ -1,5 +1,5 @@
 import boardActionTypes from "./board.types";
-const API_BASE_URL = "http://localhost:5000/api/v1";
+const API_BASE_URL = "/api/v1";
 
 const getBoardASYNCStart = () => ({
   type: boardActionTypes.GET_SPECIFIC_BOARD_START,

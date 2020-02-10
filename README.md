@@ -22,6 +22,12 @@ npm run dev
 yarn start
 ```
 
+### Deployment on now
+
+- server and client
+  https://blog.bitsrc.io/react-production-deployment-part-2-now-c81657c700b7
+- https://zeit.co/guides/deploying-a-mongodb-powered-api-with-node-and-now
+
 #### UI/UX -DESIGN
 
 - linear-gradient(135deg, #0079bf, #5067c5)

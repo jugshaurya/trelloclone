@@ -26,11 +26,14 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // db connection
 mongoose.set("useCreateIndex", true);
-mongoose.connect("mongodb://localhost/trello-clone", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false
-});
+mongoose.connect(
+  process.env.TRELLO_MONGODB_URI || "mongodb://localhost/trello-clone",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  }
+);
 
 // routers
 app.use("/api/v1/", mainRouter);
