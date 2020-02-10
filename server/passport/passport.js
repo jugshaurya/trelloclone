@@ -1,14 +1,16 @@
 const passport = require("passport");
 const UserModel = require("../models/users");
-const config = require("../config");
 const mongoose = require("mongoose");
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const LocalStrategy = require("passport-local").Strategy;
+
+const JWTSECRETKEY = process.env.TRELLO_JWTSECRETKEY;
+
 const opts = {
   // header should have `Authorization: BEARER token`
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: config.JWTSECRETKEY
+  secretOrKey: JWTSECRETKEY
 };
 
 passport.use(

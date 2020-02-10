@@ -12,6 +12,7 @@
     { "src": ".*", "dest": "/index.html" }
   ],
   "env": {
-    "MONGODB_URI": "@trello_mongo_uri"
+    "TRELLO_MONGODB_URI": "@trello_mongo_uri",
+    "TRELLO_JWTSECRETKEY": "@trello_jwtsecretkey"
   }
 }

@@ -4,6 +4,7 @@ const cors = require("cors");
 const compress = require("compression");
 const morgan = require("morgan");
 const path = require("path");
+require("dotenv").config();
 
 const app = express();
 const mongoose = require("mongoose");
@@ -11,7 +12,7 @@ const passport = require("passport");
 const mainRouter = require("./routes/mainRouter");
 
 // basic Configuration Middlewares
-if (require("./config").NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development") {
   app.use(morgan("tiny"));
 }
 
@@ -26,14 +27,11 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // db connection
 mongoose.set("useCreateIndex", true);
-mongoose.connect(
-  process.env.TRELLO_MONGODB_URI || "mongodb://localhost/trello-clone",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-  }
-);
+mongoose.connect(process.env.TRELLO_MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false
+});
 
 // routers
 app.use("/api/v1/", mainRouter);

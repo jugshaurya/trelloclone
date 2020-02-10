@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config");
+const JWTSECRETKEY = process.env.TRELLO_JWTSECRETKEY;
 
 const createToken = async createdUser => {
   const payload = {
     _id: createdUser._id
   };
-  const token = await jwt.sign(payload, config.JWTSECRETKEY);
+  const token = await jwt.sign(payload, JWTSECRETKEY);
   return token;
 };
 
