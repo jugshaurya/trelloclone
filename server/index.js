@@ -27,11 +27,14 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // db connection
 mongoose.set("useCreateIndex", true);
-mongoose.connect(process.env.TRELLO_MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false
-});
+mongoose
+  .connect(process.env.TRELLO_MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    dbName: "trello"
+  })
+  .catch(err => console.log(err, process.env.TRELLO_MONGODB_URI));
 
 // routers
 app.use("/api/v1/", mainRouter);
