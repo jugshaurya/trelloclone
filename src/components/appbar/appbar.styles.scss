@@ -15,6 +15,21 @@
   }
 }
 
+.navbar-right {
+  a,
+  button {
+    &:hover {
+      color: #fff !important;
+      font-weight: 600;
+    }
+  }
+  a.boards-link {
+    &:hover {
+      color: #212529 !important;
+    }
+  }
+}
+
 .show-above-md {
   display: inline-block;
 }

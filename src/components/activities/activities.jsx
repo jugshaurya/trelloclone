@@ -32,7 +32,7 @@ class Activities extends Component {
     const sortedActivities = this.sortActivitiesByCreationDate(activities);
     return sortedActivities.map(activity => (
       <div
-        className="activtity-items list-group-item text-white d-flex"
+        className="activtity-items list-group-item text-dark d-flex"
         key={activity._id}
       >
         <img
@@ -56,7 +56,7 @@ class Activities extends Component {
     return (
       <div className="container activities-section">
         <div className="row">
-          <h2 className="ml-5">Activities</h2>
+          <h2 className="ml-2">Activities</h2>
         </div>
         <div className="row p-2 pb-5">
           {isFetchingActivities ? (

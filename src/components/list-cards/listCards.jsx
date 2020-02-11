@@ -64,7 +64,7 @@ class ListCards extends Component {
     const { isFetchingCards, cards } = this.props;
 
     return isFetchingCards ? (
-      <div className="col">
+      <div className="col-12 text-center mt-3 mb-2">
         <Spinner animation="border" variant="info" />
       </div>
     ) : (
@@ -79,14 +79,14 @@ class ListCards extends Component {
 
   renderCreateCardForm = () => {
     return this.props.isCreatingCard ? (
-      <div className="col">
+      <div className="col-12 text-center mt-3">
         <Spinner animation="border" variant="info" />
       </div>
     ) : (
       <div className="col my-2">
         <div className="card bg-dark text-white list-cards-form">
           <Form onSubmit={e => this.handleCreateCard(e, this.props.list._id)}>
-            <Form.Group controlId="formBasicCardname">
+            <Form.Group controlId={`formBasicCardname${this.props.list._id}`}>
               <Form.Control
                 required
                 type="text"

@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const attachActivitiesHooks = require("../hooks/activities.hooks");
 const activitiesSchema = new Schema(
   {
     text: {
@@ -27,7 +26,6 @@ const activitiesSchema = new Schema(
   }
 );
 
-attachActivitiesHooks(activitiesSchema);
 
 const Activities = mongoose.model("activities", activitiesSchema);
 

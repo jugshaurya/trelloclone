@@ -1,4 +1,5 @@
 const List = require("../models/lists");
+const Card = require("../models/cards");
 
 // Get all Board Lists
 const getAllListsInBoard = async (req, res, next) => {
@@ -41,6 +42,9 @@ const deleteList = async (req, res, next) => {
       _id: _id,
       boardId: boardId
     });
+    // Delete all the cards in that list as well
+    await Card.deleteMany({ listId: _id });
+
     res.json(deletedList);
   } catch (e) {
     // will change later

@@ -1,4 +1,7 @@
 const Board = require("../models/boards");
+const List = require("../models/lists");
+const Card = require("../models/cards");
+const Activity = require("../models/activities");
 
 // Get all Boards
 const getAllBoards = async (req, res, next) => {
@@ -53,6 +56,10 @@ const deleteBoard = async (req, res, next) => {
     // TODO client side data validation
     const boardId = req.body._id;
     const deletedBoard = await Board.findOneAndRemove({ _id: boardId });
+    // also delete all the list,cards and activities of that board as well
+    await List.deleteMany({ boardId });
+    await Card.deleteMany({ boardId });
+    await Activity.deleteMany({ boardId });
     res.json(deletedBoard);
   } catch (e) {
     next(e);

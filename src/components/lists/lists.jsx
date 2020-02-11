@@ -35,7 +35,7 @@ class Lists extends Component {
 
   renderCreateListForm = () => {
     return this.props.isCreatingList ? (
-      <Spinner animation="border" variant="info" className="mt-5" />
+      <Spinner animation="border" variant="info" className="mt-5 ml-5" />
     ) : (
       <div className="card list-card text-white bg-dark mb-3">
         <Form onSubmit={this.handleSubmit} className="col-12 pa-5">
@@ -65,7 +65,7 @@ class Lists extends Component {
       <div className="col-12 p-3">
         {isFetchingLists ? (
           <div className="row">
-            <div className="col">
+            <div className="col-12 text-center">
               <Spinner animation="border" variant="info" />
             </div>
           </div>

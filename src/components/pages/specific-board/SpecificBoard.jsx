@@ -26,7 +26,7 @@ class SpecificBoard extends React.Component {
       <div id="specific-board" className="container-fluid">
         {isFetchingBoard ? (
           <div className="row">
-            <div className="col">
+            <div className="col-12 text-center">
               <Spinner animation="border" variant="info" className="mt-5" />
             </div>
           </div>

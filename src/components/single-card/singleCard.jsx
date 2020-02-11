@@ -48,7 +48,7 @@ class SingleCard extends Component {
     const { newTitle } = this.state;
 
     return isUpdatingCardWhileEditing ? (
-      <div className="card-title">
+      <div className="card-title col-12 text-center mt-2">
         <Spinner animation="border" variant="info" />
       </div>
     ) : (
