@@ -4,11 +4,12 @@
   top: 4rem;
   right: 0;
   z-index: 11;
-  background: linear-gradient(10deg, #43cea2, #0079bf);
+  background: lightgrey;
   overflow-x: hidden;
   transition: 0.1s;
   padding-top: 40px;
   padding-bottom: 40px;
+  color: #212529;
 
   .activity-closebtn {
     position: absolute;
@@ -16,7 +17,7 @@
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
-    color: #fff;
+    text-decoration: none;
   }
 }
 

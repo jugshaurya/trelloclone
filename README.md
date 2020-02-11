@@ -1,19 +1,23 @@
-# Trello clone
+# Trello clone ([Visit Now](https://clone-trello.now.sh))
 
-#### Thanks to Coding Gardan CJ for the project idea
-
-- he used Featherjs and Vue to made the same.
-
-#### I am going to make it in React and backend from scratch!
+<img src="https://img.shields.io/badge/made%20with-react-cyan.svg" alt="made with react"> <img src="https://img.shields.io/badge/made%20with-scss-pink.svg" alt="made with scss"> <img src="https://img.shields.io/badge/made%20with-redux-purple.svg" alt="made with redux"> <img src="https://img.shields.io/badge/made%20with-multer-red.svg" alt="made with multer"><img src="https://img.shields.io/badge/made%20with-moongose-green.svg" alt="made with moongose"> <img src="https://img.shields.io/badge/made%20with-bcrypt-yellow.svg" alt="made with bcrypt"> <img src="https://img.shields.io/badge/made%20with-express-grey.svg" alt="made with express"> <img src="https://img.shields.io/badge/made%20with-passport-blue.svg" alt="made with passport"> <img src="https://img.shields.io/github/last-commit/jugshaurya/trello-clone" alt="last-commit"> <img src="https://img.shields.io/github/languages/code-size/jugshaurya/trello-clone" alt="code-size">
 
 ```
-will be taking the pointers about what to implement and using his entity relationship Diagram to make my database.
+
+
+💎 Trello is a web-based Kanban-style list-making application and this projects clones it down , adding most of the features which can give a user to add some kanban to their projects idea.
 ```
+
+### Peek a Boo!
+
+### ER Diagram
+
+![ER DIAGRAM](./erdiagram.png)
 
 ### Run server
 
 ```
-npm run dev
+cd server && npm run dev
 ```
 
 ### Run client
@@ -22,11 +26,27 @@ npm run dev
 yarn start
 ```
 
-### Deployment on now
+### Wanna Clone it ?
 
-- server and client
-  https://blog.bitsrc.io/react-production-deployment-part-2-now-c81657c700b7
-- https://zeit.co/guides/deploying-a-mongodb-powered-api-with-node-and-now
+- git clone {this repo}
+- create a mongodb Atlas Cluster and get connection uri
+- make sure you have two now secrets
+
+  - mongo_uri = "connection uri with user and password"
+  - jwtsecretkey="random string"
+
+- add a .env file and add same two secrets like .env.sample file so work in development mode.
+- deploy / Redeploy
+
+### Redeploy
+
+- make changes
+- make sure you have two now secrets
+
+  - mongo_uri
+  - jwtsecretkey
+
+- now
 
 #### UI/UX -DESIGN
 
@@ -96,8 +116,10 @@ yarn start
 - [x] Style refactor
 - [x] Delete Board
 - [x] Delete List
+- [x] Show all the available boards on a specific board so it is easy to switch b/w boards
+- [x] Deploy front end and backend
 
---- NEXT ---
+#### Stretch
 
 - [ ] Add funtionality to boards to mark them favorites
   - [ ] show all fav boards under fav sections
@@ -114,14 +136,9 @@ yarn start
 * [ ] User can add comments to a card
 * [ ] restrict to board members
 
-- [ ] Deploy front end and backend
-
-#### Stretch
-
 - [ ] Add Socket-io for real time board sharing
-- [x] Show all the available boards on a specific board so it is easy to swithv b/w boards
-- [ ] Arrange Lists and card ad change order
-- [ ] Archieved Cards and Lists
+- [ ] Arrange Lists and card and change order
+- [ ] Archieve Cards and Lists
 
 #### Thank you Links
 
@@ -130,3 +147,11 @@ yarn start
 - https://getbootstrap.com/docs/4.4/layout/overview/
 - https://vectr.com/new
 - https://digitalsynopsis.com/design/beautiful-color-ui-gradients-backgrounds/
+- https://blog.bitsrc.io/react-production-deployment-part-2-now-c81657c700b7
+- https://zeit.co/guides/deploying-a-mongodb-powered-api-with-node-and-now
+
+#### Special Thanks to Coding Gardan CJ for the project idea
+
+```
+he used Featherjs and Vue to made the same but I am going to make it in React and backend from scratch,will be taking the pointers about what to implement and using his entity relationship Diagram to make my database.
+```

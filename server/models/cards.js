@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const attachCardsHooks = require("../hooks/cards.hooks");
 const cardSchema = new Schema(
   {
     title: {
@@ -40,8 +39,6 @@ const cardSchema = new Schema(
     timestamps: true
   }
 );
-
-attachCardsHooks(cardSchema);
 
 const Card = mongoose.model("cards", cardSchema);
 

@@ -21,7 +21,7 @@ class Appbar extends Component {
             <>
               <Link
                 to="/boards"
-                className="btn bg-white show-above-md font-weight-bold"
+                className="btn bg-white show-above-md font-weight-bold boards-link"
               >
                 Boards
               </Link>
@@ -43,7 +43,7 @@ class Appbar extends Component {
             <>
               <Link
                 to="/boards"
-                className="btn bg-white show-above-md font-weight-bold"
+                className="btn bg-white show-above-md font-weight-bold boards-link"
               >
                 Boards
               </Link>

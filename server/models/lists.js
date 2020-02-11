@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const attachListsHooks = require("../hooks/lists.hooks");
 const listSchema = new Schema(
   {
     name: {
@@ -28,7 +27,6 @@ const listSchema = new Schema(
   }
 );
 
-attachListsHooks(listSchema);
 
 const List = mongoose.model("lists", listSchema);
 

@@ -36,7 +36,10 @@ class Boards extends React.Component {
   };
 
   setRandomBackground = () => {
-    this.setState({ background: "https://source.unsplash.com/random/800x600" });
+    const randomNumber = Math.floor(1 + Math.random() * 999);
+    this.setState({
+      background: `https://i.picsum.photos/id/${randomNumber}/1000/1000.jpg`
+    });
   };
 
   createBoardForm = () => {
@@ -123,7 +126,7 @@ class Boards extends React.Component {
           </div>
           <div className="col-md-9">
             {isFetchingBoards ? (
-              <div className="all-boards">
+              <div className="all-boards mt-2 ml-4">
                 <Spinner animation="border" variant="info" />
               </div>
             ) : (

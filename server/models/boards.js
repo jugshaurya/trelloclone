@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const attachBoardsHooks = require("../hooks/boards.hooks");
 const boardSchema = new Schema(
   {
     name: {
@@ -26,8 +25,6 @@ const boardSchema = new Schema(
     timestamps: true
   }
 );
-
-attachBoardsHooks(boardSchema);
 
 const Board = mongoose.model("boards", boardSchema);
 

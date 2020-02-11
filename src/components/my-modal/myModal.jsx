@@ -198,7 +198,11 @@ class MyModal extends React.Component {
                 <strong>Attachment</strong>
                 <div className="col-12 pl-3 pr-0">
                   {isUpdatingCardWhileUploading ? (
-                    <Spinner animation="border" variant="info" />
+                    <Spinner
+                      animation="border"
+                      variant="info"
+                      className="ml-5 mt-2"
+                    />
                   ) : (
                     <div>
                       <form onSubmit={this.handleImageUpload}>
@@ -244,7 +248,11 @@ class MyModal extends React.Component {
                 <DescriptionSVG />
                 <strong>Card Description</strong>
                 {isUpdatingCardWhileEditingDesc ? (
-                  <Spinner animation="border" variant="info" />
+                  <Spinner
+                    animation="border"
+                    variant="info"
+                    className="ml-4 mt-5"
+                  />
                 ) : (
                   this.showCardDescriptionEditForm()
                 )}

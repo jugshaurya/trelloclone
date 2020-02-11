@@ -34,9 +34,10 @@ const SignUp = props => {
   } = props;
 
   const setRandomUrl = () => {
+    const randomNumber = Math.floor(1 + Math.random() * 999);
     setUserCredentials({
       ...usercredentials,
-      avatarUrl: "https://source.unsplash.com/random/800x600"
+      avatarUrl: `https://i.picsum.photos/id/${randomNumber}/1000/1000.jpg`
     });
   };
   // Mimicing ComponentDidMount
@@ -60,106 +61,109 @@ const SignUp = props => {
     <div id="sign-up" className="container pt-3">
       <div className="row text-center">
         <div className="signup-left col-sm-12 col-md-6">
-          {isSignUp ? (
-            <Spinner animation="border" variant="info" />
-          ) : (
-            <>
-              <h3 className="pb-2 text-lg-middle">Ready to Sign Up</h3>
-              <div className="alert-box pt-2 pb-2 px-1 text-lg-middle">
-                {signUpError && (
-                  <div className="alert alert-danger">{signUpError}</div>
-                )}
-                {signUpSuccessMessage && (
-                  <div className="alert alert-success">
-                    {signUpSuccessMessage}
-                  </div>
-                )}
+          <>
+            <h3 className="pb-2 text-lg-middle">Ready to Sign Up</h3>
+            <div className="alert-box pt-2 pb-2 px-1 text-lg-middle">
+              {signUpError && (
+                <div className="alert alert-danger">{signUpError}</div>
+              )}
+              {signUpSuccessMessage && (
+                <div className="alert alert-success">
+                  {signUpSuccessMessage}
+                </div>
+              )}
+            </div>
+
+            <form className="py-2 px-5 text-md-middle" onSubmit={handleSubmit}>
+              <div className="form-group ml-md-3">
+                <label htmlFor="username">Username</label>
+                <input
+                  id="username"
+                  className="form-control"
+                  type="text"
+                  name="username"
+                  placeholder="Enter Username"
+                  onChange={handleChange}
+                  value={username}
+                  required
+                />
               </div>
 
-              <form
-                className="py-2 px-5 text-md-middle"
-                onSubmit={handleSubmit}
-              >
-                <div className="form-group ml-md-3">
-                  <label htmlFor="username">Username</label>
-                  <input
-                    id="username"
-                    className="form-control"
-                    type="text"
-                    name="username"
-                    placeholder="Enter Username"
-                    onChange={handleChange}
-                    value={username}
-                    required
-                  />
-                </div>
+              <div className="form-group ml-md-3">
+                <label htmlFor="email">Email Address</label>
+                <input
+                  id="email"
+                  className="form-control"
+                  type="email"
+                  name="email"
+                  placeholder="Enter Email Address"
+                  onChange={handleChange}
+                  value={email}
+                  required
+                />
+              </div>
 
-                <div className="form-group ml-md-3">
-                  <label htmlFor="email">Email Address</label>
-                  <input
-                    id="email"
-                    className="form-control"
-                    type="email"
-                    name="email"
-                    placeholder="Enter Email Address"
-                    onChange={handleChange}
-                    value={email}
-                    required
-                  />
-                </div>
+              <div className="form-group ml-md-3">
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  className="form-control"
+                  type="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  onChange={handleChange}
+                  value={password}
+                  autoComplete="password"
+                  required
+                />
+              </div>
+              <div className="form-group ml-md-3">
+                <label htmlFor="confirm-password">Confirm Password</label>
+                <input
+                  id="confirm-password"
+                  className="form-control"
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Enter Confirm Password"
+                  onChange={handleChange}
+                  value={confirmPassword}
+                  autoComplete="confirm-password"
+                  required
+                />
+              </div>
 
-                <div className="form-group ml-md-3">
-                  <label htmlFor="password">Password</label>
-                  <input
-                    id="password"
-                    className="form-control"
-                    type="password"
-                    name="password"
-                    placeholder="Enter Password"
-                    onChange={handleChange}
-                    value={password}
-                    autoComplete="password"
-                    required
-                  />
-                </div>
-                <div className="form-group ml-md-3">
-                  <label htmlFor="confirm-password">Confirm Password</label>
-                  <input
-                    id="confirm-password"
-                    className="form-control"
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Enter Confirm Password"
-                    onChange={handleChange}
-                    value={confirmPassword}
-                    autoComplete="confirm-password"
-                    required
-                  />
-                </div>
+              <div className="form-group ml-md-3">
+                <label htmlFor="avatar-url">Avatar URL</label>
+                <input
+                  id="avatar-url"
+                  className="form-control"
+                  type="text"
+                  name="avatarUrl"
+                  placeholder="Enter Avatar URL"
+                  onChange={handleChange}
+                  value={avatarUrl}
+                  required
+                />
+                <small className="random-pic" onClick={setRandomUrl}>
+                  Get Random Image
+                </small>
+              </div>
 
-                <div className="form-group ml-md-3">
-                  <label htmlFor="avatar-url">Avatar URL</label>
-                  <input
-                    id="avatar-url"
-                    className="form-control"
-                    type="text"
-                    name="avatarUrl"
-                    placeholder="Enter Avatar URL"
-                    onChange={handleChange}
-                    value={avatarUrl}
-                    required
-                  />
-                  <small className="random-pic" onClick={setRandomUrl}>
-                    Get UnSplash Random Image
-                  </small>
-                </div>
-
+              {isSignUp ? (
+                <button
+                  className="btn btn-primary px-5 py-1"
+                  type="button"
+                  disabled
+                >
+                  <Spinner animation="border" variant="dark" />
+                </button>
+              ) : (
                 <button className="btn btn-primary px-3" type="submit">
                   Submit
                 </button>
-              </form>
-            </>
-          )}
+              )}
+            </form>
+          </>
         </div>
         <div className="signup-right col-sm-12 col-md-6 pt-2">
           <SignUpSVG />
