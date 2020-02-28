@@ -40,9 +40,22 @@ mongoose
 app.use("/api/v1/", mainRouter);
 
 // error middleware
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).json({ message: "Server Error!" });
+// app.use((err, req, res, next) => {
+//   console.error(err);
+//   res.status(500).json({ message: "Server Error!" });
+// });
+
+// error middleware
+app.use((error, req, res, next) => {
+  console.error(error.stack);
+  const status = error.status || 500;
+  res.status(status);
+  res.send({
+    error: {
+      status: status,
+      message: error.message || "Internal Server Error"
+    }
+  });
 });
 
 const PORT = process.env.PORT || 5050;

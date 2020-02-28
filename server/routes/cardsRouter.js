@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { upload } = require("../multer/multer");
-const Card = require("../models/cards");
 const {
   getAllCardsInBoard,
   createNewCard,

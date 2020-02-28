@@ -4,11 +4,13 @@
 
 ```
 
-
-💎 Trello is a web-based Kanban-style list-making application and this projects clones it down , adding most of the features which can give a user to add some kanban to their projects idea.
+💎 Trello is a web-based Kanban-style list-making application and this projects clones it down,
+adding most of the features which can give a user to add some kanban to their projects idea.
 ```
 
 ### Peek a Boo!
+
+![Peek](./app.gif)
 
 ### ER Diagram
 
@@ -47,6 +49,7 @@ yarn start
   - jwtsecretkey
 
 - now
+- now alias https://trello-clone.jugshaurya.now.sh clone-trello.now.sh
 
 #### UI/UX -DESIGN
 
@@ -153,5 +156,7 @@ yarn start
 #### Special Thanks to Coding Gardan CJ for the project idea
 
 ```
-he used Featherjs and Vue to made the same but I am going to make it in React and backend from scratch,will be taking the pointers about what to implement and using his entity relationship Diagram to make my database.
+he used Featherjs and Vue to made the same but I am going to make it in React and backend from scratch, will be
+
+taking the pointers about what to implement and using his entity relationship Diagram to make my database structure.
 ```
